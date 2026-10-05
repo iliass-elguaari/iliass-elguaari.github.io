@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maison Levain · Boulangerie (projet concept)</title>
+  <meta name="description" content="Site concept pour une boulangerie de quartier fictive, réalisé par Iliass El Guaari.">
+  <style>
+    :root {
+      --bg: #fbf7f0;
+      --text: #2b1d12;
+      --muted: #6b5544;
+      --line: #eadfce;
+      --card: #ffffff;
+      --accent: #b45309;
+      --accent-dark: #92400e;
+      --open: #15803d;
+      --closed: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); }
+
+    .concept {
+      background: var(--text);
+      color: var(--bg);
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+    }
+    .concept a { color: #fcd34d; }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+    header.top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { font-size: 1.4rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .top nav { display: flex; gap: 18px; flex-wrap: wrap; }
+    .top nav a { color: var(--muted); text-decoration: none; font-family: -apple-system, sans-serif; }
+    .top nav a:hover { color: var(--accent); }
+
+    .hero {
+      padding: 56px 0 64px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .hero h1 { font-size: 2.8rem; line-height: 1.15; margin: 0 0 16px; }
+    .hero p { font-size: 1.15rem; color: var(--muted); margin: 0 0 24px; }
+    .hero-art {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #f6d7a7, #d9a066 55%, #a8662f);
+      display: grid;
+      place-items: center;
+      font-size: 7rem;
+      box-shadow: 0 20px 40px rgba(120, 70, 20, 0.2);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+    .status.open .dot { background: var(--open); }
+    .status.closed .dot { background: var(--closed); }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: -apple-system, sans-serif;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn:hover { background: var(--accent-dark); }
+
+    section { padding: 48px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 2rem; margin: 0 0 8px; }
+    .lead { color: var(--muted); margin: 0 0 24px; }
+
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .tab {
+      font-family: -apple-system, sans-serif;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
+    }
+    .product {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .product .emoji { font-size: 2.2rem; }
+    .product h3 { margin: 8px 0 4px; font-size: 1.15rem; }
+    .product p { margin: 0 0 10px; color: var(--muted); font-size: 0.95rem; }
+    .price { font-family: -apple-system, sans-serif; font-weight: 700; color: var(--accent); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    table.hours { border-collapse: collapse; width: 100%; font-family: -apple-system, sans-serif; }
+    .hours td { padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .hours td:last-child { text-align: right; color: var(--muted); }
+    .hours tr.today td { font-weight: 700; color: var(--text); }
+
+    form { display: grid; gap: 12px; font-family: -apple-system, sans-serif; }
+    label { display: grid; gap: 4px; font-size: 0.9rem; color: var(--muted); }
+    input, select, textarea {
+      font: inherit;
+      color: var(--text);
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card);
+    }
+    .error { color: var(--closed); font-size: 0.9rem; min-height: 1.2em; margin: 0; }
+    .success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-family: -apple-system, sans-serif;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; padding: 32px 0 40px; }
+      .hero h1 { font-size: 2.1rem; }
+      .hero-art { max-width: 220px; font-size: 5rem; margin: 0 auto; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="concept">
+    Projet concept : Maison Levain est une boulangerie fictive. Site réalisé par
+    <a href="../">Iliass El Guaari</a>.
+  </div>
+
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="#">🥖 Maison Levain</a>
+      <nav>
+        <a href="#produits">Nos produits</a>
+        <a href="#horaires">Horaires</a>
+        <a href="#commander">Commander</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div>
+        <div id="status" class="status"><span class="dot"></span><span id="status-text">Horaires</span></div>
+        <h1>Du pain au levain, cuit chaque matin dans le quartier.</h1>
+        <p>Baguettes, viennoiseries et pâtisseries faites sur place. Commandez la veille, retirez le lendemain matin.</p>
+        <a class="btn" href="#commander">Commander pour demain</a>
+      </div>
+      <div class="hero-art" aria-hidden="true">🍞</div>
+    </div>
+
+    <section id="produits">
+      <h2>Nos produits</h2>
+      <p class="lead">Tout est préparé dans notre fournil, à partir de farines françaises.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-category="tous">Tous</button>
+        <button class="tab" data-category="pains">Les pains</button>
+        <button class="tab" data-category="viennoiseries">Viennoiseries</button>
+        <button class="tab" data-category="patisseries">Pâtisseries</button>
+      </div>
+
+      <div id="products" class="grid"></div>
+    </section>
+
+    <section id="horaires">
+      <div class="two-col">
+        <div>
+          <h2>Horaires</h2>
+          <p class="lead">La ligne en gras, c'est aujourd'hui.</p>
+          <table class="hours" id="hours"></table>
+        </div>
+        <div>
+          <h2>Nous trouver</h2>
+          <p class="lead">12 rue des Lilas (adresse fictive)</p>
+          <p>Paiement par carte dès 1 €. Pain du jour réservé jusqu'à 11 h pour les commandes en ligne.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="commander">
+      <h2>Commander pour demain</h2>
+      <p class="lead">Démo : la commande n'est envoyée nulle part.</p>
+
+      <div class="two-col">
+        <form id="order-form" novalidate>
+          <label>Nom
+            <input id="name" type="text" autocomplete="name">
+          </label>
+          <label>Produit
+            <select id="product"></select>
+          </label>
+          <label>Quantité
+            <input id="quantity" type="number" min="1" max="20" value="1">
+          </label>
+          <label>Heure de retrait
+            <select id="pickup">
+              <option>7 h – 8 h</option>
+              <option>8 h – 9 h</option>
+              <option>9 h – 10 h</option>
+              <option>10 h – 11 h</option>
+            </select>
+          </label>
+          <p class="error" id="form-error"></p>
+          <button class="btn" type="submit">Réserver</button>
+        </form>
+        <div id="order-result"></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Maison Levain (fictive)</span>
+      <span>Site concept par <a href="../">Iliass El Guaari</a></span>
+    </footer>
+  </div>
+
+  <script>
+    // ----- Products: one list drives the cards, the tabs and the order form -----
+    const products = [
+      { name: "Baguette tradition", category: "pains", price: 1.30, emoji: "🥖", text: "Levain naturel, croûte croustillante." },
+      { name: "Pain de campagne", category: "pains", price: 3.80, emoji: "🍞", text: "Farine de seigle et blé, 800 g." },
+      { name: "Pain aux céréales", category: "pains", price: 4.20, emoji: "🌾", text: "Lin, tournesol et sésame." },
+      { name: "Croissant au beurre", category: "viennoiseries", price: 1.20, emoji: "🥐", text: "Beurre AOP, feuilletage maison." },
+      { name: "Pain au chocolat", category: "viennoiseries", price: 1.40, emoji: "🍫", text: "Deux barres de chocolat noir." },
+      { name: "Chausson aux pommes", category: "viennoiseries", price: 1.90, emoji: "🍎", text: "Compote de pommes maison." },
+      { name: "Éclair au café", category: "patisseries", price: 3.20, emoji: "☕", text: "Pâte à choux, crème au café." },
+      { name: "Tarte aux fraises", category: "patisseries", price: 3.90, emoji: "🍓", text: "Fraises de saison, crème pâtissière." },
+      { name: "Flan pâtissier", category: "patisseries", price: 2.80, emoji: "🍮", text: "Vanille, pâte brisée." }
+    ];
+
+    const euros = (amount) => amount.toFixed(2).replace(".", ",") + " €";
+
+    function showProducts(category) {
+      const grid = document.getElementById("products");
+      const list = category === "tous" ? products : products.filter(p => p.category === category);
+
+      grid.innerHTML = list.map(p => `
+        <div class="product">
+          <div class="emoji">${p.emoji}</div>
+          <h3>${p.name}</h3>
+          <p>${p.text}</p>
+          <span class="price">${euros(p.price)}</span>
+        </div>`).join("");
+    }
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        showProducts(tab.dataset.category);
+      });
+    });
+
+    showProducts("tous");
+
+    // ----- Opening hours and the "open now" badge (bakery time = Paris) -----
+    // Index 0 is Sunday, like JavaScript's getDay(). null means closed.
+    const days = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const hours = [
+      { open: 7, close: 13 },
+      null,
+      { open: 7, close: 19.5 },
+      { open: 7, close: 19.5 },
+      { open: 7, close: 19.5 },
+      { open: 7, close: 19.5 },
+      { open: 7, close: 19.5 }
+    ];
+
+    const formatHour = (h) => Math.floor(h) + " h" + (h % 1 ? String(Math.round((h % 1) * 60)).padStart(2, "0") : "");
+
+    function parisNow() {
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Paris", weekday: "short", hour: "numeric", minute: "numeric", hour12: false
+      }).formatToParts(new Date());
+      const get = (type) => parts.find(p => p.type === type).value;
+      const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
+      return { day, time: Number(get("hour")) + Number(get("minute")) / 60 };
+    }
+
+    function showHours() {
+      const now = parisNow();
+      const table = document.getElementById("hours");
+
+      // List Monday first, the way French shops do.
+      const order = [1, 2, 3, 4, 5, 6, 0];
+      table.innerHTML = order.map(d => {
+        const h = hours[d];
+        const text = h ? `${formatHour(h.open)} – ${formatHour(h.close)}` : "Fermé";
+        return `<tr class="${d === now.day ? "today" : ""}"><td>${days[d]}</td><td>${text}</td></tr>`;
+      }).join("");
+
+      const today = hours[now.day];
+      const isOpen = today !== null && now.time >= today.open && now.time < today.close;
+      const status = document.getElementById("status");
+      status.className = "status " + (isOpen ? "open" : "closed");
+      document.getElementById("status-text").textContent = isOpen
+        ? `Ouvert maintenant, jusqu'à ${formatHour(today.close)}`
+        : "Fermé pour le moment";
+    }
+
+    showHours();
+
+    // ----- Order form with validation -----
+    const select = document.getElementById("product");
+    select.innerHTML = products.map((p, i) => `<option value="${i}">${p.name} (${euros(p.price)})</option>`).join("");
+
+    document.getElementById("order-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const quantity = Number(document.getElementById("quantity").value);
+      const error = document.getElementById("form-error");
+
+      if (name === "") {
+        error.textContent = "Indiquez votre nom.";
+        return;
+      }
+      if (!Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
+        error.textContent = "La quantité doit être entre 1 et 20.";
+        return;
+      }
+      error.textContent = "";
+
+      const product = products[Number(select.value)];
+      const pickup = document.getElementById("pickup").value;
+      const result = document.getElementById("order-result");
+      result.innerHTML = `
+        <div class="success">
+          <strong>Merci ${name.replace(/[<>&"]/g, "")} !</strong><br>
+          ${quantity} × ${product.name}, total ${euros(quantity * product.price)}.<br>
+          À retirer demain, créneau ${pickup}.
+        </div>`;
+    });
+  </script>
+</body>
+</html>
