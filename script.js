@@ -10,11 +10,11 @@ const EMAIL = "ielgu032@uottawa.ca";
 const PAGE_TEXT = {
   en: {
     title: "Iliass El Guaari · Software Engineering co-op student",
-    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, open to a Winter 2027 software co-op. Java and Python projects with demo videos. English and French."
+    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, open to a Summer 2027 software co-op. Java and Python projects with demo videos. English and French."
   },
   fr: {
     title: "Iliass El Guaari · Étudiant en génie logiciel (coop)",
-    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, disponible pour un stage coop en logiciel à l'hiver 2027. Projets Java et Python avec vidéos de démo. Français et anglais."
+    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, disponible pour un stage coop en logiciel à l'été 2027. Projets Java et Python avec vidéos de démo. Français et anglais."
   }
 };
 
