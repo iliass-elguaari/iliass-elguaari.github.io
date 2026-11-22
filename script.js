@@ -9,14 +9,43 @@ const EMAIL = "ielgu032@uottawa.ca";
 
 const PAGE_TEXT = {
   en: {
-    title: "Iliass El Guaari · Software Engineering co-op student",
-    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, open to a Summer 2027 software co-op. Java and Python projects with demo videos. English and French."
+    title: "Iliass El Guaari · Software Engineer",
+    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, starting at Statistics Canada as a Software Engineer (Open Source Statistical Programmer). Java and Python projects with demo videos. English and French."
   },
   fr: {
-    title: "Iliass El Guaari · Étudiant en génie logiciel (coop)",
-    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, disponible pour un stage coop en logiciel à l'été 2027. Projets Java et Python avec vidéos de démo. Français et anglais."
+    title: "Iliass El Guaari · Ingénieur logiciel",
+    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, bientôt ingénieur logiciel chez Statistique Canada (programmeur statistique, code source ouvert). Projets Java et Python avec vidéos de démo. Français et anglais."
   }
 };
+
+// The 8 chapters. Each one unlocks a short fact the first time it scrolls into view.
+// Every fact comes from the page itself.
+const CHAPTERS = [
+  { id: "next",       en: "Next move",  fr: "Prochaine étape",
+    factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
+    factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
+  { id: "demos",      en: "Demos",      fr: "Démos",
+    factEn: "Both demos are real projects, with the code on GitHub.",
+    factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
+  { id: "proof",      en: "Proof",      fr: "Preuves",
+    factEn: "Every claim on this page links to its proof.",
+    factFr: "Chaque affirmation de cette page renvoie à sa preuve." },
+  { id: "projects",   en: "Projects",   fr: "Projets",
+    factEn: "ScoutIQ never picks the same player twice: a HashSet makes sure of it.",
+    factFr: "ScoutIQ ne choisit jamais deux fois le même joueur : un HashSet s'en assure." },
+  { id: "pitch",      en: "Soccer",     fr: "Soccer",
+    factEn: "Ottawa and Grenoble sit at almost the same latitude.",
+    factFr: "Ottawa et Grenoble sont presque à la même latitude." },
+  { id: "experience", en: "Experience", fr: "Parcours",
+    factEn: "I served electors in English and French in the 2025 federal election.",
+    factFr: "J'ai servi les électeurs en français et en anglais à l'élection fédérale de 2025." },
+  { id: "skills",     en: "Skills",     fr: "Compétences",
+    factEn: "Currently learning: React and Docker.",
+    factFr: "En apprentissage : React et Docker." },
+  { id: "contact",    en: "Contact",    fr: "Contact",
+    factEn: "Interview in English or French, your call.",
+    factFr: "Entrevue en français ou en anglais, à vous de choisir." }
+];
 
 // Same spots, same order as ScoutIQ's Formation.java (create433, create442, create4231).
 // x and y are percentages on the pitch (attack goes up); they are only for drawing.
@@ -86,7 +115,6 @@ const LINES = {
 };
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 // Updated by the IntersectionObservers in initActionBar().
 let reportVisible = true;
@@ -144,6 +172,10 @@ function setLanguage(lang) {
   document.querySelector('meta[property="og:title"]').setAttribute("content", PAGE_TEXT[lang].title);
   document.querySelector('meta[property="og:description"]').setAttribute("content", PAGE_TEXT[lang].description);
 
+  // The API console writes a few words in code comments: redraw it in the new language.
+  const pressedRoute = document.querySelector(".api [data-route][aria-pressed='true']");
+  if (pressedRoute && pressedRoute.dataset.route !== "0") renderApi(Number(pressedRoute.dataset.route));
+
   try {
     localStorage.setItem("lang", lang);
   } catch (e) {}
@@ -179,7 +211,7 @@ function switchLanguage(lang) {
 // Shows the right icon and pressed state on the theme button.
 function initTheme() {
   const button = document.querySelector(".theme-btn");
-  const current = document.documentElement.dataset.theme || (systemDark.matches ? "dark" : "light");
+  const current = document.documentElement.dataset.theme || "dark";
   button.dataset.current = current;
   button.setAttribute("aria-pressed", String(current === "dark"));
 }
@@ -187,7 +219,7 @@ function initTheme() {
 // Switches between light and dark and remembers the choice.
 function toggleTheme() {
   const root = document.documentElement;
-  const current = root.dataset.theme || (systemDark.matches ? "dark" : "light");
+  const current = root.dataset.theme || "dark";
   const next = current === "dark" ? "light" : "dark";
 
   root.dataset.theme = next;
@@ -408,6 +440,55 @@ function copyEmail() {
     });
 }
 
+// ---------- 8b. Listings API console ----------
+
+// Sample answers that follow the API's behaviour. The listings are the fixtures from ListingControllerTest.
+const LISTING_1 = '{ "id": 1, "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 }';
+const LISTING_2 = '{ "id": 2, "address": "200 Rideau St", "monthlyRent": 1400, "bedrooms": 2 }';
+const API_ROUTES = [
+  { status: "200 OK", ok: true, body: "[\n  " + LISTING_1 + ",\n  " + LISTING_2 + "\n]", test: "getReturnsAllListingsWithoutFilter()" },
+  { status: "200 OK", ok: true, body: "[\n  " + LISTING_1 + "\n]", test: "getFiltersByMaxRent()" },
+  { status: "200 OK", ok: true, body: LISTING_1, test: "getByIdReturnsListing()" },
+  { status: "404 Not Found", ok: false, body: null, test: "getByIdReturns404WhenMissing()" },
+  { status: "200 OK", ok: true, request: '{ "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 }', body: LISTING_1, test: "postSavesListing()" },
+  { status: "400 Bad Request", ok: false, request: '{ "address": "Nowhere", "monthlyRent": -5, "bedrooms": 1 }', body: null, test: "postRejectsNegativeRent()" },
+  { status: "204 No Content", ok: true, body: null, test: "deleteRemovesListing()" }
+];
+
+function initApi() {
+  const api = document.querySelector(".api");
+  if (!api) return;
+  const buttons = api.querySelectorAll("[data-route]");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      renderApi(Number(button.dataset.route));
+    });
+  });
+}
+
+function renderApi(index) {
+  const route = API_ROUTES[index];
+  const out = document.querySelector(".api-out");
+  const status = out.querySelector(".api-status");
+  const code = document.createElement("span");
+  code.className = "status-code " + (route.ok ? "status-code--ok" : "status-code--err");
+  code.textContent = route.status;
+  status.replaceChildren(code);
+
+  const body = out.querySelector(".api-body code");
+  let text = "";
+  if (route.request) text += "// " + (currentLang() === "fr" ? "corps de la requête" : "request body") + "\n" + route.request + "\n\n";
+  if (route.body) text += (route.request ? "// " + (currentLang() === "fr" ? "réponse" : "response") + "\n" : "") + route.body;
+  else text += currentLang() === "fr" ? "// pas de corps de réponse" : "// no response body";
+  body.textContent = text;
+
+  out.querySelector(".api-test code").textContent = route.test;
+  out.classList.remove("is-fresh");
+  void out.offsetWidth;
+  out.classList.add("is-fresh");
+}
+
 // ---------- 9. Top bar and phone action bar ----------
 
 // Shows a border under the top bar as soon as the page scrolls.
@@ -457,7 +538,228 @@ function markNewTabLinks() {
   });
 }
 
-// ---------- 11. Start ----------
+
+// ---------- 11. Story: scroll progress, chapters, unlocks, reveals ----------
+
+const unlocked = new Set();
+let toastTimer = 0;
+
+// Thin bar under the top bar: how far down the page the visitor is.
+function initProgress() {
+  const bar = document.querySelector(".progress-bar");
+  const timeline = document.querySelector(".timeline");
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const ratio = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    bar.style.transform = "scaleX(" + ratio + ")";
+
+    // The experience timeline "draws" itself as it scrolls past the middle of the screen.
+    if (timeline) {
+      const box = timeline.getBoundingClientRect();
+      const t = (innerHeight * 0.6 - box.top) / box.height;
+      timeline.style.setProperty("--tl", Math.min(1, Math.max(0, t)).toFixed(3));
+    }
+  }
+
+  addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+
+// Builds the chapter rail, then watches each chapter to light it up and unlock its fact.
+function initChapters() {
+  const list = document.querySelector(".rail-list");
+  CHAPTERS.forEach((chapter, i) => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "#" + chapter.id;
+    link.tabIndex = -1;
+    link.dataset.chapter = chapter.id;
+    const num = document.createElement("span");
+    num.className = "rail-num";
+    num.textContent = String(i + 1).padStart(2, "0");
+    const label = document.createElement("span");
+    label.className = "rail-label";
+    label.append(both(chapter.en, chapter.fr));
+    link.append(num, label);
+    item.append(link);
+    list.append(item);
+  });
+
+  // "Reading" = the chapter that crosses the middle of the screen.
+  const reading = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      document.querySelectorAll(".rail a, .jump a").forEach((a) => {
+        a.classList.toggle("is-current", a.getAttribute("href") === "#" + id);
+      });
+      unlock(id);
+    });
+  }, { rootMargin: "-45% 0px -45% 0px" });
+
+  CHAPTERS.forEach((chapter) => {
+    const section = document.getElementById(chapter.id);
+    if (section) reading.observe(section);
+  });
+
+  // The contact chapter is short and sits at the very bottom: unlock it once it is mostly on screen.
+  new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) unlock("contact");
+  }, { threshold: 0.5 }).observe(document.getElementById("contact"));
+}
+
+function unlock(id) {
+  if (unlocked.has(id)) return;
+  unlocked.add(id);
+  const index = CHAPTERS.findIndex((c) => c.id === id);
+  const chapter = CHAPTERS[index];
+
+  document.querySelectorAll('.rail a[data-chapter="' + id + '"], .jump a[href="#' + id + '"]').forEach((a) => {
+    a.classList.add("is-unlocked");
+  });
+  document.querySelector(".rail-n").textContent = unlocked.size;
+  document.querySelector(".rail").classList.toggle("is-complete", unlocked.size === CHAPTERS.length);
+  if (unlocked.size === CHAPTERS.length) document.querySelector(".dossier-done").hidden = false;
+
+  showToast(index, chapter);
+}
+
+// A small card that says which chapter was just unlocked and what it adds.
+function showToast(index, chapter) {
+  const toast = document.querySelector(".unlock");
+  const label = toast.querySelector(".unlock-label");
+  const text = toast.querySelector(".unlock-text");
+  const n = unlocked.size;
+  label.replaceChildren(both(
+    "Unlocked " + n + "/" + CHAPTERS.length + " · " + chapter.en,
+    "Débloqué " + n + "/" + CHAPTERS.length + " · " + chapter.fr
+  ));
+  text.replaceChildren(both(chapter.factEn, chapter.factFr));
+  toast.classList.toggle("is-final", n === CHAPTERS.length);
+  toast.classList.remove("is-visible");
+  void toast.offsetWidth; // restart the entrance animation
+  toast.classList.add("is-visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 4200);
+}
+
+// Fades blocks in as they arrive. Without JavaScript, or with reduced motion, everything is simply there.
+function initReveals() {
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) return;
+  const selector = [
+    ".section-head", ".signing-card", ".fit", ".demo", ".proof-item", ".case-head", ".case-grid",
+    ".pipeline", ".levain-grid", ".band-top", ".band-card", ".tl-item", ".edu-card",
+    ".tool-row", ".contact-panel"
+  ].join(",");
+  const targets = document.querySelectorAll(selector);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-in");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+  targets.forEach((el) => {
+    // Stagger siblings of the same kind a little.
+    const siblings = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.matches(selector)) : [];
+    el.style.setProperty("--d", Math.min(siblings.indexOf(el), 5) * 80 + "ms");
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
+  document.documentElement.classList.add("has-reveal");
+}
+
+// Counts the ScoutIQ numbers up when they first appear.
+function initCounters() {
+  if (reducedMotion.matches) return;
+  const nums = document.querySelectorAll(".stat-num");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      const el = entry.target;
+      const end = parseInt(el.dataset.value, 10);
+      const start = performance.now();
+      const duration = 900;
+      function step(now) {
+        const t = Math.min(1, (now - start) / duration);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - t, 3)));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach((el) => {
+    el.dataset.value = el.textContent.trim();
+    el.textContent = "0";
+    observer.observe(el);
+  });
+}
+
+// Cycles the "I build ..." line in the hero.
+function initRotator() {
+  const words = document.querySelectorAll(".rotator-word");
+  if (!words.length || reducedMotion.matches) return;
+  let i = 0;
+  const total = words[0].dataset.words.split("|").length;
+  setInterval(() => {
+    if (document.hidden) return;
+    i = (i + 1) % total;
+    words.forEach((word) => {
+      word.classList.add("is-out");
+      setTimeout(() => {
+        word.textContent = word.dataset.words.split("|")[i];
+        word.classList.remove("is-out");
+      }, 320);
+    });
+  }, 2800);
+}
+
+// A soft light follows the pointer across cards, and the report card tilts a little.
+function initPointerEffects() {
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  if (!finePointer.matches || reducedMotion.matches) return;
+
+  document.querySelectorAll(".spot").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const box = card.getBoundingClientRect();
+      card.style.setProperty("--mx", event.clientX - box.left + "px");
+      card.style.setProperty("--my", event.clientY - box.top + "px");
+    });
+  });
+
+  const wrap = document.querySelector(".report-wrap");
+  wrap.addEventListener("pointermove", (event) => {
+    const box = wrap.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width - 0.5;
+    const y = (event.clientY - box.top) / box.height - 0.5;
+    wrap.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
+    wrap.style.setProperty("--rx", (y * -8).toFixed(2) + "deg");
+  });
+  wrap.addEventListener("pointerleave", () => {
+    wrap.style.removeProperty("--rx");
+    wrap.style.removeProperty("--ry");
+  });
+}
+
+// Marks the cards that get the pointer light.
+function markSpotCards() {
+  document.querySelectorAll(
+    ".demo, .proof-item, .case, .edu-card, .band-card, .signing-card, .fit, .tool-row, .contact-panel, .bug-card"
+  ).forEach((el) => el.classList.add("spot"));
+}
+
+// ---------- 12. Start ----------
 
 function init() {
   setLanguage(document.documentElement.lang); // no flip on load, just sync labels
@@ -467,8 +769,16 @@ function init() {
   initDemoLinks();
   initBoard();
   initPipelineToggle();
+  initApi();
   initTopbar();
   initActionBar();
+  markSpotCards();
+  initProgress();
+  initChapters();
+  initReveals();
+  initCounters();
+  initRotator();
+  initPointerEffects();
 
   document.querySelectorAll("[data-set-lang]").forEach((button) => {
     button.addEventListener("click", () => switchLanguage(button.dataset.setLang));
@@ -478,9 +788,6 @@ function init() {
   });
   document.querySelector(".theme-btn").addEventListener("click", toggleTheme);
   document.getElementById("copy-email").addEventListener("click", copyEmail);
-
-  // If the visitor never picked a theme, follow the system when it changes.
-  systemDark.addEventListener("change", initTheme);
 }
 
 init();
