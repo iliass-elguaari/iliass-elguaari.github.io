@@ -1191,63 +1191,6 @@ a.chip:hover { border-color: var(--brand); }
   .pipe-node:not(:last-child)::after { bottom: -18px; }
 }
 
-/* ---------- Maison Levain ---------- */
-.levain-grid { display: grid; gap: 28px; align-items: start; }
-@media (min-width: 960px) {
-  .levain-grid { grid-template-columns: 1fr 1.4fr; gap: 40px; }
-}
-.browser {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #F3E6D3;
-  box-shadow: var(--shadow);
-}
-.browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface-2);
-}
-.browser-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
-.browser-url {
-  margin-left: 10px;
-  padding: 1px 12px;
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: .75rem;
-}
-.browser-body { padding: 22px; background: #F3E6D3; color: #5B3A1E; }
-.browser-body p { margin: 0; }
-.levain-name { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 1.8rem; line-height: 1.1; }
-.levain-line { margin: 8px 0 14px !important; font-family: Georgia, "Times New Roman", serif; font-size: 1rem; line-height: 1.35; }
-.levain-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
-.levain-tabs span {
-  padding: 2px 10px;
-  border: 1px solid rgba(91, 58, 30, .35);
-  border-radius: 999px;
-  font-size: .8rem;
-}
-.levain-tabs .is-active { background: #5B3A1E; border-color: #5B3A1E; color: #F3E6D3; }
-.levain-open {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px !important;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .55);
-  font-size: .8rem;
-}
-.levain-dot { width: 7px; height: 7px; border-radius: 50%; background: #2E7D32; }
-@media (max-width: 640px) {
-  .browser { max-height: 220px; }
-}
-
 /* ---------- The other pitch (full-bleed soccer band) ---------- */
 .band {
   position: relative;
@@ -2315,7 +2258,6 @@ a.chip:hover { border-color: var(--brand); background: color-mix(in srgb, var(--
 .level-art--scoutiq { background: repeating-linear-gradient(90deg, transparent 0 22px, rgba(255, 255, 255, .05) 22px 44px), linear-gradient(150deg, #0E4D32, #157048); }
 .level-art--listings { background: linear-gradient(150deg, #1A2B23, #0D1A14); }
 .level-art--trippilot { background: linear-gradient(150deg, #12324F, #1E5A7A); }
-.level-art--levain { background: linear-gradient(150deg, #8A5A2B, #C08A4E); }
 .level-art--studyhub { background: radial-gradient(80% 120% at 20% 0%, #3E5C96, #111A33 70%); }
 .level-art--logic { background: linear-gradient(150deg, #3A1A12, #6B2A18); }
 .level-num {
@@ -2944,7 +2886,7 @@ button.bit[aria-pressed="true"], .bit--out.is-on { background: #FF8A4C; border-c
   .report-wrap { transform: none !important; max-width: none; }
   .report, .band, .contact-panel, .edu-card, .bug-card { border: 1px solid #999 !important; }
   .section, .band { padding-block: 18pt; }
-  .hero-grid, .case-grid, .exp-grid, .levain-grid, .band-top { display: block; }
+  .hero-grid, .case-grid, .exp-grid, .band-top { display: block; }
   .report-photo { width: 72px; height: 72px; }
   #contact a[href^="http"]::after { content: " (" attr(href) ")"; font-weight: 400; }
   .case, .proof-item, .tl-item, .band-card { break-inside: avoid; }
