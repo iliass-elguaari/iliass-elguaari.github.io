@@ -21,27 +21,27 @@ const PAGE_TEXT = {
 // The 8 chapters. Each one unlocks a short fact the first time it scrolls into view.
 // Every fact comes from the page itself.
 const CHAPTERS = [
-  { id: "next",       en: "Next move",  fr: "Prochaine étape",
-    factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
-    factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
-  { id: "demos",      en: "Demos",      fr: "Démos",
-    factEn: "Both demos are real projects, with the code on GitHub.",
-    factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
-  { id: "proof",      en: "Proof",      fr: "Preuves",
-    factEn: "Every claim on this page links to its proof.",
-    factFr: "Chaque affirmation de cette page renvoie à sa preuve." },
   { id: "projects",   en: "Projects",   fr: "Projets",
     factEn: "Six projects in two groups: four of my own and two from my courses. Each one is a level.",
     factFr: "Six projets en deux groupes : quatre personnels et deux de mes cours. Chacun est un niveau." },
-  { id: "pitch",      en: "Soccer",     fr: "Soccer",
-    factEn: "Ottawa and Grenoble sit at almost the same latitude.",
-    factFr: "Ottawa et Grenoble sont presque à la même latitude." },
+  { id: "demos",      en: "Demos",      fr: "Démos",
+    factEn: "Both demos are real projects, with the code on GitHub.",
+    factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
+  { id: "next",       en: "Next move",  fr: "Prochaine étape",
+    factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
+    factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
   { id: "experience", en: "Experience", fr: "Parcours",
     factEn: "I served electors in English and French in the 2025 federal election.",
     factFr: "J'ai servi les électeurs en français et en anglais à l'élection fédérale de 2025." },
   { id: "skills",     en: "Skills",     fr: "Compétences",
     factEn: "Currently learning: React and Docker.",
     factFr: "En apprentissage : React et Docker." },
+  { id: "proof",      en: "Proof",      fr: "Preuves",
+    factEn: "Every claim on this page links to its proof.",
+    factFr: "Chaque affirmation de cette page renvoie à sa preuve." },
+  { id: "pitch",      en: "Soccer",     fr: "Soccer",
+    factEn: "Ottawa and Grenoble sit at almost the same latitude.",
+    factFr: "Ottawa et Grenoble sont presque à la même latitude." },
   { id: "contact",    en: "Contact",    fr: "Contact",
     factEn: "Interview in English or French, your call.",
     factFr: "Entrevue en français ou en anglais, à vous de choisir." }
@@ -762,7 +762,7 @@ function markSpotCards() {
 
 // ---------- 13. Level select: one project case file at a time ----------
 
-const LEVEL_ORDER = ["scoutiq", "listings", "trippilot", "levain", "studyhub", "logic"];
+const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "levain", "studyhub", "logic"];
 const LEVEL_NAMES = {
   scoutiq: { en: "ScoutIQ", fr: "ScoutIQ" },
   listings: { en: "Listings API", fr: "Listings API" },
