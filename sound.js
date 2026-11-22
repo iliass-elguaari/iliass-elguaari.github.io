@@ -458,6 +458,64 @@
     });
 
     reflect();
+    initGate();
+  }
+
+
+  // ---------- A game-style start screen ----------
+  // Its "press any key" is the gesture browsers need before they allow sound,
+  // so the music starts the moment the visitor enters. Shown once per visit.
+  function initGate() {
+    if (!prefs.music && !prefs.sfx) return;
+    try { if (sessionStorage.getItem("gate-seen")) return; } catch (e) {}
+    if (location.hash && location.hash.length > 1) return; // deep links go straight in
+    const touch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const gate = document.createElement("div");
+    gate.className = "gate";
+    gate.setAttribute("role", "dialog");
+    gate.setAttribute("aria-modal", "true");
+    gate.setAttribute("aria-label", "Start");
+    gate.innerHTML =
+      '<div class="gate-inner">' +
+        '<p class="gate-kicker"><span lang="en">Portfolio · Level 1</span><span lang="fr">Portfolio · Niveau 1</span></p>' +
+        '<p class="gate-name">Iliass <span>El Guaari</span></p>' +
+        '<p class="gate-role"><span lang="en">Software Engineering · uOttawa · Joining Statistics Canada</span><span lang="fr">Génie logiciel · uOttawa · Bientôt à Statistique Canada</span></p>' +
+        '<button type="button" class="gate-start">' +
+          (touch
+            ? '<span lang="en">Tap to start</span><span lang="fr">Touchez pour commencer</span>'
+            : '<span lang="en">Press any key to start</span><span lang="fr">Appuyez sur une touche pour commencer</span>') +
+        '</button>' +
+        '<p class="gate-hint"><span aria-hidden="true">🎧</span> <span lang="en">Best with sound.</span><span lang="fr">Mieux avec le son.</span> ' +
+          '<button type="button" class="gate-muted"><span lang="en">Enter without sound</span><span lang="fr">Entrer sans le son</span></button></p>' +
+      '</div>';
+    document.body.append(gate);
+    document.documentElement.classList.add("gate-open");
+    requestAnimationFrame(() => gate.classList.add("is-in"));
+    gate.querySelector(".gate-start").focus({ preventScroll: true });
+
+    let closed = false;
+    const close = (withSound) => {
+      if (closed) return;
+      closed = true;
+      try { sessionStorage.setItem("gate-seen", "1"); } catch (e) {}
+      if (!withSound) { set("music", false); set("sfx", false); }
+      else setTimeout(() => play("select"), 60);
+      gate.classList.add("is-out");
+      document.documentElement.classList.remove("gate-open");
+      removeEventListener("keydown", onKey, true);
+      removeEventListener("wheel", onScroll, true);
+      setTimeout(() => gate.remove(), 700);
+    };
+    const onKey = (e) => {
+      if (e.key === "Tab" || e.key === "Shift") return;
+      if (document.activeElement && document.activeElement.classList.contains("gate-muted") && (e.key === "Enter" || e.key === " ")) return;
+      e.preventDefault();
+      close(true);
+    };
+    const onScroll = () => close(true); // a scroll can't unlock audio; the next click will
+    gate.addEventListener("click", (e) => close(!e.target.closest(".gate-muted")));
+    addEventListener("keydown", onKey, true);
+    addEventListener("wheel", onScroll, { capture: true, passive: true });
   }
 
   window.Sound = { play, isMusicOn: () => playing, prefs };
