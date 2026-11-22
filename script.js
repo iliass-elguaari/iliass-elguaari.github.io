@@ -31,8 +31,8 @@ const CHAPTERS = [
     factEn: "Every claim on this page links to its proof.",
     factFr: "Chaque affirmation de cette page renvoie à sa preuve." },
   { id: "projects",   en: "Projects",   fr: "Projets",
-    factEn: "ScoutIQ never picks the same player twice: a HashSet makes sure of it.",
-    factFr: "ScoutIQ ne choisit jamais deux fois le même joueur : un HashSet s'en assure." },
+    factEn: "Six projects in two groups: four of my own and two from my courses. Each one is a level.",
+    factFr: "Six projets en deux groupes : quatre personnels et deux de mes cours. Chacun est un niveau." },
   { id: "pitch",      en: "Soccer",     fr: "Soccer",
     factEn: "Ottawa and Grenoble sit at almost the same latitude.",
     factFr: "Ottawa et Grenoble sont presque à la même latitude." },
@@ -171,6 +171,11 @@ function setLanguage(lang) {
   document.querySelector('meta[name="description"]').setAttribute("content", PAGE_TEXT[lang].description);
   document.querySelector('meta[property="og:title"]').setAttribute("content", PAGE_TEXT[lang].title);
   document.querySelector('meta[property="og:description"]').setAttribute("content", PAGE_TEXT[lang].description);
+
+  document.querySelectorAll("[data-en-ph]").forEach((input) => {
+    input.placeholder = input.dataset[lang === "fr" ? "frPh" : "enPh"];
+  });
+  if (document.querySelector(".sh-tasks li button")) renderStudyTasks();
 
   // The API console writes a few words in code comments: redraw it in the new language.
   const pressedRoute = document.querySelector(".api [data-route][aria-pressed='true']");
@@ -631,25 +636,21 @@ function unlock(id) {
   if (unlocked.size === CHAPTERS.length) document.querySelector(".dossier-done").hidden = false;
 
   showToast(index, chapter);
+  if (unlocked.size === 1) award("kickoff");
+  if (unlocked.size === CHAPTERS.length) award("fulltime");
 }
 
 // A small card that says which chapter was just unlocked and what it adds.
 function showToast(index, chapter) {
-  const toast = document.querySelector(".unlock");
-  const label = toast.querySelector(".unlock-label");
-  const text = toast.querySelector(".unlock-text");
   const n = unlocked.size;
-  label.replaceChildren(both(
-    "Unlocked " + n + "/" + CHAPTERS.length + " · " + chapter.en,
-    "Débloqué " + n + "/" + CHAPTERS.length + " · " + chapter.fr
-  ));
-  text.replaceChildren(both(chapter.factEn, chapter.factFr));
-  toast.classList.toggle("is-final", n === CHAPTERS.length);
-  toast.classList.remove("is-visible");
-  void toast.offsetWidth; // restart the entrance animation
-  toast.classList.add("is-visible");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 4200);
+  queueToast({
+    kind: "chapter",
+    final: n === CHAPTERS.length,
+    labelEn: "Unlocked " + n + "/" + CHAPTERS.length + " · " + chapter.en,
+    labelFr: "Débloqué " + n + "/" + CHAPTERS.length + " · " + chapter.fr,
+    textEn: chapter.factEn,
+    textFr: chapter.factFr
+  });
 }
 
 // Fades blocks in as they arrive. Without JavaScript, or with reduced motion, everything is simply there.
@@ -755,11 +756,580 @@ function initPointerEffects() {
 // Marks the cards that get the pointer light.
 function markSpotCards() {
   document.querySelectorAll(
-    ".demo, .proof-item, .case, .edu-card, .band-card, .signing-card, .fit, .tool-row, .contact-panel, .bug-card"
+    ".demo, .proof-item, .case, .edu-card, .band-card, .signing-card, .fit, .tool-row, .contact-panel, .bug-card, .level"
   ).forEach((el) => el.classList.add("spot"));
 }
 
-// ---------- 12. Start ----------
+// ---------- 13. Level select: one project case file at a time ----------
+
+const LEVEL_ORDER = ["scoutiq", "listings", "trippilot", "levain", "studyhub", "logic"];
+const LEVEL_NAMES = {
+  scoutiq: { en: "ScoutIQ", fr: "ScoutIQ" },
+  listings: { en: "Listings API", fr: "Listings API" },
+  trippilot: { en: "TripPilot AI", fr: "TripPilot AI" },
+  levain: { en: "Maison Levain", fr: "Maison Levain" },
+  studyhub: { en: "StudyHub", fr: "StudyHub" },
+  logic: { en: "4-Bit Logic System", fr: "Système logique 4 bits" }
+};
+const played = new Set();
+let currentLevel = null;
+
+function initLevels() {
+  const stage = document.querySelector("[data-case-stage]");
+  if (!stage) return;
+  document.documentElement.classList.add("has-levels");
+
+  // Header and footer that frame the open case file.
+  const head = document.createElement("div");
+  head.className = "stage-head";
+  head.setAttribute("aria-hidden", "true");
+  stage.prepend(head);
+
+  const nav = document.createElement("nav");
+  nav.className = "stage-nav";
+  nav.setAttribute("aria-label", "Levels");
+  nav.dataset.enLabel = "Other projects";
+  nav.dataset.frLabel = "Autres projets";
+  nav.innerHTML = '<button type="button" class="stage-prev"></button><span class="stage-count"></span><button type="button" class="stage-next"></button>';
+  stage.append(nav);
+  nav.querySelector(".stage-prev").addEventListener("click", () => stepLevel(-1));
+  nav.querySelector(".stage-next").addEventListener("click", () => stepLevel(1));
+
+  document.querySelectorAll("[data-level]").forEach((card) => {
+    card.addEventListener("click", (event) => {
+      event.preventDefault();
+      selectLevel(card.dataset.level, true);
+      history.replaceState(null, "", "#" + card.dataset.level);
+    });
+  });
+
+  // Any in-page link that points into a closed case file opens that case first.
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || link.hasAttribute("data-level")) return;
+    openCaseFor(link.getAttribute("href").slice(1));
+  }, true);
+  addEventListener("hashchange", () => openCaseFor(location.hash.slice(1)));
+
+  if (!openCaseFor(location.hash.slice(1))) selectLevel(LEVEL_ORDER[0], false, true);
+}
+
+// If the id is inside a case file, shows that case. Returns true when it did.
+function openCaseFor(id) {
+  if (!id) return false;
+  const target = document.getElementById(id);
+  const article = target ? target.closest(".case-stage .case") : null;
+  if (!article) return false;
+  if (article.id !== currentLevel) selectLevel(article.id, false);
+  return true;
+}
+
+function stepLevel(delta) {
+  const i = LEVEL_ORDER.indexOf(currentLevel);
+  const next = LEVEL_ORDER[(i + delta + LEVEL_ORDER.length) % LEVEL_ORDER.length];
+  selectLevel(next, true);
+  history.replaceState(null, "", "#" + next);
+}
+
+function selectLevel(id, scroll, quiet) {
+  currentLevel = id;
+  const index = LEVEL_ORDER.indexOf(id);
+  document.querySelectorAll(".case-stage .case").forEach((article) => {
+    article.hidden = article.id !== id;
+  });
+  document.querySelectorAll("[data-level]").forEach((card) => {
+    if (card.dataset.level === id) card.setAttribute("aria-current", "true");
+    else card.removeAttribute("aria-current");
+  });
+
+  const stage = document.querySelector("[data-case-stage]");
+  const name = LEVEL_NAMES[id];
+  stage.querySelector(".stage-head").replaceChildren(both(
+    "Level " + String(index + 1).padStart(2, "0") + " · " + name.en,
+    "Niveau " + String(index + 1).padStart(2, "0") + " · " + name.fr
+  ));
+  const prev = LEVEL_NAMES[LEVEL_ORDER[(index + LEVEL_ORDER.length - 1) % LEVEL_ORDER.length]];
+  const next = LEVEL_NAMES[LEVEL_ORDER[(index + 1) % LEVEL_ORDER.length]];
+  stage.querySelector(".stage-prev").replaceChildren(both("← " + prev.en, "← " + prev.fr));
+  stage.querySelector(".stage-next").replaceChildren(both(next.en + " →", next.fr + " →"));
+  stage.querySelector(".stage-count").textContent = (index + 1) + " / " + LEVEL_ORDER.length;
+
+  // Restart the entrance animation of the case file.
+  const article = document.getElementById(id);
+  article.classList.remove("is-entering");
+  void article.offsetWidth;
+  if (!quiet) article.classList.add("is-entering");
+
+  if (!quiet) markPlayed(id);
+  if (scroll) stage.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+}
+
+function markPlayed(id) {
+  if (played.has(id)) return;
+  played.add(id);
+  const card = document.querySelector('[data-level="' + id + '"]');
+  if (card) card.classList.add("is-played");
+  document.querySelector(".lv-played").textContent = played.size;
+  if (played.size === LEVEL_ORDER.length) award("explorer");
+}
+
+// ---------- 14. Code reader: file tabs, line numbers, light syntax colours ----------
+
+const KEYWORDS = {
+  java: "public private protected static final class interface extends implements new return if else for while do switch case break continue throw throws try catch finally void int long double boolean char byte short float null true false this super import package",
+  python: "def return if elif else for while in not and or is None True False import from as try except finally raise with class pass break continue lambda yield global",
+  js: "const let var function return if else for while do switch case break continue new typeof instanceof null undefined true false this class import export default try catch finally throw of in"
+};
+
+function highlightLine(line, lang) {
+  const text = line.textContent;
+  const keywords = new Set(KEYWORDS[lang].split(" "));
+  const comment = lang === "python" ? "#.*" : "\\/\\/.*|^\\s*\\/?\\*.*";
+  const pattern = new RegExp(
+    "(" + comment + ")" +                                       // 1 comment
+    "|([fFrRbB]?\"(?:\\\\.|[^\"\\\\])*\"|[fFrRbB]?'(?:\\\\.|[^'\\\\])*'|`(?:\\\\.|[^`\\\\])*`)" + // 2 string
+    "|(@[A-Za-z_]\\w*)" +                                        // 3 annotation / decorator
+    "|(\\b\\d+(?:\\.\\d+)?\\b)" +                                // 4 number
+    "|(\\b[A-Za-z_]\\w*\\b)",                                    // 5 word
+    "g"
+  );
+  const fragment = document.createDocumentFragment();
+  let last = 0;
+  let match;
+  while ((match = pattern.exec(text))) {
+    let cls = null;
+    if (match[1]) cls = "tk-com";
+    else if (match[2]) cls = "tk-str";
+    else if (match[3]) cls = "tk-ann";
+    else if (match[4]) cls = "tk-num";
+    else if (match[5]) {
+      if (keywords.has(match[5])) cls = "tk-kw";
+      else if (/^[A-Z]/.test(match[5])) cls = "tk-type";
+      else if (text[pattern.lastIndex] === "(") cls = "tk-fn";
+    }
+    if (!cls) continue;
+    if (match.index > last) fragment.append(text.slice(last, match.index));
+    const span = document.createElement("span");
+    span.className = cls;
+    span.textContent = match[0];
+    fragment.append(span);
+    last = pattern.lastIndex;
+  }
+  if (last < text.length) fragment.append(text.slice(last));
+  line.replaceChildren(fragment);
+}
+
+function initCodeReaders() {
+  document.querySelectorAll(".cr-code").forEach((pre) => {
+    const lang = pre.dataset.lang;
+    pre.querySelectorAll(".cl:not(.cl--gap)").forEach((line) => highlightLine(line, lang));
+  });
+
+  document.querySelectorAll("[data-code-reader]").forEach((reader) => {
+    const tabs = Array.from(reader.querySelectorAll('[role="tab"]'));
+    reader.querySelectorAll("[data-cr-hidden]").forEach((panel) => { panel.hidden = true; });
+
+    function select(tab, focus) {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => { select(tab); award("reader"); });
+      tab.addEventListener("keydown", (event) => {
+        let j = null;
+        if (event.key === "ArrowRight") j = (i + 1) % tabs.length;
+        if (event.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+        if (event.key === "Home") j = 0;
+        if (event.key === "End") j = tabs.length - 1;
+        if (j === null) return;
+        event.preventDefault();
+        select(tabs[j], true);
+      });
+    });
+    // Reading the code by scrolling or selecting it also counts.
+    reader.addEventListener("focusin", (event) => { if (event.target.matches(".cr-code")) award("reader"); });
+  });
+}
+
+// ---------- 15. StudyHub mock-up ----------
+
+const studyTasks = [
+  { name: "UML class diagram", course: "SEG 2105", date: "2026-11-14", done: true },
+  { name: "ALU lab report", course: "CEG 2136", date: "2026-11-21", done: false },
+  { name: "Practice proofs", course: "MAT 1348", date: "2026-11-25", done: false }
+];
+let editingTask = -1;
+
+function initStudyHub() {
+  const phone = document.querySelector(".phone");
+  if (!phone) return;
+  const form = phone.querySelector(".sh-form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = form.querySelector("#sh-name");
+    const date = form.querySelector("#sh-date");
+    const error = form.querySelector(".sh-error");
+    const problem = !name.value.trim()
+      ? both("Give the task a name.", "Donnez un nom à la tâche.")
+      : !validDate(date.value.trim())
+        ? both("Use a real date, like 2026-12-01.", "Entrez une vraie date, par exemple 2026-12-01.")
+        : null;
+    if (problem) {
+      error.replaceChildren(problem);
+      (name.value.trim() ? date : name).setAttribute("aria-invalid", "true");
+      (name.value.trim() ? date : name).focus();
+      award("validator");
+      return;
+    }
+    name.removeAttribute("aria-invalid");
+    date.removeAttribute("aria-invalid");
+    error.replaceChildren();
+    studyTasks.push({ name: name.value.trim(), course: form.querySelector("#sh-course").value, date: date.value.trim(), done: false });
+    name.value = "";
+    date.value = "";
+    renderStudyTasks();
+    award("organizer");
+  });
+
+  phone.querySelectorAll("[data-sh-tab]").forEach((button) => {
+    button.addEventListener("click", () => {
+      phone.querySelectorAll("[data-sh-tab]").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      phone.querySelectorAll("[data-sh-view]").forEach((view) => { view.hidden = view.dataset.shView !== button.dataset.shTab; });
+      if (button.dataset.shTab === "courses") renderStudyCourses();
+    });
+  });
+  renderStudyTasks();
+}
+
+function validDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [y, m, d] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  return date.getUTCFullYear() === y && date.getUTCMonth() === m - 1 && date.getUTCDate() === d;
+}
+
+function renderStudyTasks() {
+  const list = document.querySelector(".sh-tasks");
+  list.replaceChildren();
+  studyTasks.forEach((task, i) => {
+    const item = document.createElement("li");
+    item.className = "sh-task" + (task.done ? " is-done" : "");
+
+    const check = document.createElement("button");
+    check.type = "button";
+    check.className = "sh-check";
+    check.setAttribute("aria-pressed", String(task.done));
+    check.setAttribute("aria-label", (currentLang() === "fr" ? "Terminée : " : "Done: ") + task.name);
+    check.textContent = task.done ? "✓" : "";
+    check.addEventListener("click", () => { task.done = !task.done; renderStudyTasks(); });
+
+    const text = document.createElement("span");
+    text.className = "sh-text";
+    if (editingTask === i) {
+      const input = document.createElement("input");
+      input.className = "sh-edit";
+      input.value = task.name;
+      input.maxLength = 40;
+      input.setAttribute("aria-label", currentLang() === "fr" ? "Modifier le nom de la tâche" : "Edit the task name");
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") { event.preventDefault(); saveEdit(i, input.value); }
+        if (event.key === "Escape") { editingTask = -1; renderStudyTasks(); }
+      });
+      input.addEventListener("blur", () => { if (editingTask === i) saveEdit(i, input.value); });
+      text.append(input);
+      setTimeout(() => input.focus(), 0);
+    } else {
+      const name = document.createElement("span");
+      name.className = "sh-name";
+      name.textContent = task.name;
+      text.append(name);
+    }
+    const meta = document.createElement("span");
+    meta.className = "sh-meta";
+    meta.textContent = task.course + " · " + task.date;
+    text.append(meta);
+
+    const edit = document.createElement("button");
+    edit.type = "button";
+    edit.className = "sh-icon";
+    edit.textContent = "✎";
+    edit.setAttribute("aria-label", (currentLang() === "fr" ? "Modifier : " : "Edit: ") + task.name);
+    edit.addEventListener("mousedown", (event) => event.preventDefault());
+    edit.addEventListener("click", () => { editingTask = editingTask === i ? -1 : i; renderStudyTasks(); });
+
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "sh-icon sh-icon--del";
+    del.textContent = "🗑";
+    del.setAttribute("aria-label", (currentLang() === "fr" ? "Supprimer : " : "Delete: ") + task.name);
+    del.addEventListener("click", () => {
+      studyTasks.splice(i, 1);
+      editingTask = -1;
+      renderStudyTasks();
+      document.querySelector("#sh-name").focus();
+    });
+
+    item.append(check, text, edit, del);
+    list.append(item);
+  });
+  if (!studyTasks.length) {
+    const empty = document.createElement("li");
+    empty.className = "sh-empty";
+    empty.append(both("No tasks left. Add one below.", "Plus aucune tâche. Ajoutez-en une ci-dessous."));
+    list.append(empty);
+  }
+}
+
+function saveEdit(i, value) {
+  if (value.trim()) studyTasks[i].name = value.trim();
+  editingTask = -1;
+  renderStudyTasks();
+}
+
+function renderStudyCourses() {
+  const list = document.querySelector(".sh-courses");
+  list.replaceChildren();
+  ["SEG 2105", "CEG 2136", "MAT 1348"].forEach((course) => {
+    const tasks = studyTasks.filter((t) => t.course === course);
+    const left = tasks.filter((t) => !t.done).length;
+    const item = document.createElement("li");
+    const name = document.createElement("span");
+    name.className = "sh-name";
+    name.textContent = course;
+    const meta = document.createElement("span");
+    meta.className = "sh-meta";
+    meta.append(both(left + " to do · " + tasks.length + " total", left + " à faire · " + tasks.length + " au total"));
+    item.append(name, meta);
+    list.append(item);
+  });
+}
+
+// ---------- 16. 4-bit ALU and modulo-60 counter ----------
+
+const alu = { a: 5, b: 3, op: "ADD" };
+const counter = { units: 0, tens: 0, timer: 0 };
+
+function initAlu() {
+  const box = document.querySelector(".alu");
+  if (!box) return;
+  ["a", "b"].forEach((reg) => {
+    const holder = box.querySelector('[data-reg="' + reg + '"]');
+    holder.replaceChildren();
+    for (let bit = 3; bit >= 0; bit--) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "bit";
+      button.dataset.bit = bit;
+      button.innerHTML = '<span class="bit-name">' + reg + bit + '</span><span class="bit-val"></span>';
+      button.addEventListener("click", () => {
+        alu[reg] ^= 1 << bit;
+        renderAlu();
+        award("engineer");
+      });
+      holder.append(button);
+    }
+  });
+  const out = box.querySelector('[data-reg="r"]');
+  out.replaceChildren();
+  for (let bit = 3; bit >= 0; bit--) {
+    const cell = document.createElement("span");
+    cell.className = "bit bit--out";
+    cell.innerHTML = '<span class="bit-name">r' + bit + '</span><span class="bit-val"></span>';
+    out.append(cell);
+  }
+  box.querySelectorAll("[data-op]").forEach((button) => {
+    button.addEventListener("click", () => {
+      alu.op = button.dataset.op;
+      box.querySelectorAll("[data-op]").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      renderAlu();
+      award("engineer");
+    });
+  });
+
+  box.querySelector('[data-clk="step"]').addEventListener("click", () => { tick(); award("engineer"); });
+  box.querySelector('[data-clk="reset"]').addEventListener("click", () => { counter.units = 0; counter.tens = 0; renderCounter(); });
+  const run = box.querySelector('[data-clk="run"]');
+  run.addEventListener("click", () => {
+    const on = run.getAttribute("aria-pressed") !== "true";
+    run.setAttribute("aria-pressed", String(on));
+    run.replaceChildren(on ? both("Pause", "Pause") : both("Run", "Lancer"));
+    clearInterval(counter.timer);
+    if (on) counter.timer = setInterval(tick, 180);
+  });
+  renderAlu();
+  renderCounter();
+}
+
+function computeAlu(a, b, op) {
+  const sign = (x) => (x >> 3) & 1;
+  let raw = 0;
+  let c = 0;
+  let v = 0;
+  if (op === "ADD") { raw = a + b; c = raw > 15 ? 1 : 0; }
+  if (op === "SUB") { raw = a + ((~b) & 15) + 1; c = raw > 15 ? 1 : 0; }
+  if (op === "AND") raw = a & b;
+  if (op === "OR") raw = a | b;
+  if (op === "XOR") raw = a ^ b;
+  if (op === "NOT") raw = (~a) & 15;
+  if (op === "SHL") { raw = a << 1; c = (a >> 3) & 1; }
+  if (op === "SHR") { raw = a >> 1; c = a & 1; }
+  const r = raw & 15;
+  if (op === "ADD") v = sign(a) === sign(b) && sign(r) !== sign(a) ? 1 : 0;
+  if (op === "SUB") v = sign(a) !== sign(b) && sign(r) !== sign(a) ? 1 : 0;
+  return { r, Z: r === 0 ? 1 : 0, C: c, V: v, N: sign(r) };
+}
+
+function bin(x, width) { return x.toString(2).padStart(width, "0"); }
+function signed4(x) { return x > 7 ? x - 16 : x; }
+
+function renderAlu() {
+  const box = document.querySelector(".alu");
+  const res = computeAlu(alu.a, alu.b, alu.op);
+  const usesB = !["NOT", "SHL", "SHR"].includes(alu.op);
+  ["a", "b"].forEach((reg) => {
+    box.querySelectorAll('[data-reg="' + reg + '"] .bit').forEach((button) => {
+      const on = (alu[reg] >> Number(button.dataset.bit)) & 1;
+      button.setAttribute("aria-pressed", String(!!on));
+      button.setAttribute("aria-label", reg.toUpperCase() + " bit " + button.dataset.bit + ": " + on);
+      button.querySelector(".bit-val").textContent = on;
+    });
+    box.querySelector('[data-val="' + reg + '"]').textContent = bin(alu[reg], 4) + " = " + alu[reg] + " (" + (signed4(alu[reg]) >= 0 ? "+" : "") + signed4(alu[reg]) + ")";
+  });
+  box.querySelector('[data-row="b"]').classList.toggle("is-unused", !usesB);
+  box.querySelectorAll('[data-reg="r"] .bit').forEach((cell, i) => {
+    const on = (res.r >> (3 - i)) & 1;
+    cell.classList.toggle("is-on", !!on);
+    cell.querySelector(".bit-val").textContent = on;
+  });
+  box.querySelector('[data-val="r"]').textContent = bin(res.r, 4) + " = " + res.r + " (" + (signed4(res.r) >= 0 ? "+" : "") + signed4(res.r) + ")";
+  box.querySelectorAll("[data-flag]").forEach((flag) => flag.classList.toggle("is-on", !!res[flag.dataset.flag]));
+  const symbol = { ADD: "+", SUB: "−", AND: "AND", OR: "OR", XOR: "XOR" }[alu.op];
+  const eq = usesB
+    ? bin(alu.a, 4) + " " + symbol + " " + bin(alu.b, 4) + " = " + bin(res.r, 4)
+    : alu.op.replace("NOT", "NOT ").replace("SHL", "SHL ").replace("SHR", "SHR ") + bin(alu.a, 4) + " = " + bin(res.r, 4);
+  const flagsOn = ["Z", "C", "V", "N"].filter((f) => res[f]).join(" ");
+  box.querySelector(".alu-eq").textContent = eq + (flagsOn ? "  ·  " + flagsOn : "");
+}
+
+function tick() {
+  counter.units++;
+  if (counter.units === 10) {
+    counter.units = 0;
+    counter.tens = (counter.tens + 1) % 6;
+  }
+  renderCounter();
+}
+
+function renderCounter() {
+  const box = document.querySelector(".alu");
+  box.querySelector('[data-d="units"]').textContent = counter.units;
+  box.querySelector('[data-d="tens"]').textContent = counter.tens;
+  box.querySelector('[data-q="units"]').textContent = bin(counter.units, 4);
+  box.querySelector('[data-q="tens"]').textContent = bin(counter.tens, 3);
+}
+
+// ---------- 17. Achievements ----------
+
+const ACHIEVEMENTS = [
+  { id: "kickoff",    icon: "⚽", en: "Kickoff",       fr: "Coup d'envoi",      hintEn: "Start the story.",                        hintFr: "Commencez l'histoire." },
+  { id: "tactician",  icon: "📋", en: "Tactician",     fr: "Tacticien",         hintEn: "Change the formation on the ScoutIQ board.", hintFr: "Changez la formation sur le tableau de ScoutIQ." },
+  { id: "tester",     icon: "🧪", en: "API tester",    fr: "Testeur d'API",     hintEn: "Send a request to the Listings API.",     hintFr: "Envoyez une requête à la Listings API." },
+  { id: "reader",     icon: "{ }", en: "Code reader",  fr: "Lecteur de code",   hintEn: "Open a file in a code reader.",           hintFr: "Ouvrez un fichier dans un lecteur de code." },
+  { id: "organizer",  icon: "✓",  en: "Organized",     fr: "Organisé",          hintEn: "Add a task in StudyHub.",                 hintFr: "Ajoutez une tâche dans StudyHub." },
+  { id: "validator",  icon: "⚠",  en: "Edge case",     fr: "Cas limite",        hintEn: "Trip StudyHub's validation.",             hintFr: "Déclenchez la validation de StudyHub." },
+  { id: "engineer",   icon: "⚡", en: "Bit flipper",   fr: "Basculeur de bits", hintEn: "Flip a bit on the 4-bit ALU.",            hintFr: "Basculez un bit de l'UAL 4 bits." },
+  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 levels.",                      hintFr: "Ouvrez les 6 niveaux." },
+  { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 8 chapters.",                  hintFr: "Débloquez les 8 chapitres." }
+];
+const earned = new Set();
+const toastQueue = [];
+let toastBusy = false;
+
+function initTrophies() {
+  const list = document.querySelector(".trophy-list");
+  if (!list) return;
+  ACHIEVEMENTS.forEach((a) => {
+    const item = document.createElement("li");
+    item.className = "trophy";
+    item.dataset.trophy = a.id;
+    const icon = document.createElement("span");
+    icon.className = "trophy-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "🔒";
+    const body = document.createElement("span");
+    body.className = "trophy-body";
+    const name = document.createElement("span");
+    name.className = "trophy-name";
+    name.append(both(a.en, a.fr));
+    const hint = document.createElement("span");
+    hint.className = "trophy-hint";
+    hint.append(both(a.hintEn, a.hintFr));
+    const state = document.createElement("span");
+    state.className = "sr-only trophy-state";
+    state.append(both("Locked. ", "Verrouillé. "));
+    body.append(state, name, hint);
+    item.append(icon, body);
+    list.append(item);
+  });
+  document.querySelectorAll(".trophy-total").forEach((el) => { el.textContent = ACHIEVEMENTS.length; });
+
+  // Hook the existing demos.
+  document.querySelectorAll("[data-formation]").forEach((b) => b.addEventListener("click", () => award("tactician")));
+  document.querySelectorAll(".api [data-route]").forEach((b) => b.addEventListener("click", () => award("tester")));
+}
+
+function award(id) {
+  if (earned.has(id)) return;
+  const a = ACHIEVEMENTS.find((x) => x.id === id);
+  if (!a) return;
+  earned.add(id);
+  const item = document.querySelector('[data-trophy="' + id + '"]');
+  if (item) {
+    item.classList.add("is-earned");
+    item.querySelector(".trophy-icon").textContent = a.icon;
+    item.querySelector(".trophy-state").replaceChildren(both("Earned. ", "Obtenu. "));
+  }
+  document.querySelectorAll(".trophy-n").forEach((el) => { el.textContent = earned.size; });
+  queueToast({
+    kind: "trophy",
+    labelEn: "Achievement " + earned.size + "/" + ACHIEVEMENTS.length,
+    labelFr: "Succès " + earned.size + "/" + ACHIEVEMENTS.length,
+    textEn: a.icon + "  " + a.en + " · " + a.hintEn.replace(/\.$/, ""),
+    textFr: a.icon + "  " + a.fr + " · " + a.hintFr.replace(/\.$/, "")
+  });
+}
+
+function queueToast(toast) {
+  toastQueue.push(toast);
+  if (!toastBusy) nextToast();
+}
+
+function nextToast() {
+  const t = toastQueue.shift();
+  if (!t) { toastBusy = false; return; }
+  toastBusy = true;
+  const el = document.querySelector(".unlock");
+  el.querySelector(".unlock-label").replaceChildren(both(t.labelEn, t.labelFr));
+  el.querySelector(".unlock-text").replaceChildren(both(t.textEn, t.textFr));
+  el.classList.toggle("is-trophy", t.kind === "trophy");
+  el.classList.toggle("is-final", !!t.final);
+  el.classList.remove("is-visible");
+  void el.offsetWidth;
+  el.classList.add("is-visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.classList.remove("is-visible");
+    setTimeout(nextToast, 350);
+  }, toastQueue.length ? 2600 : 4000);
+}
+
+// ---------- 18. Start ----------
 
 function init() {
   setLanguage(document.documentElement.lang); // no flip on load, just sync labels
@@ -772,6 +1342,11 @@ function init() {
   initApi();
   initTopbar();
   initActionBar();
+  initTrophies();
+  initLevels();
+  initCodeReaders();
+  initStudyHub();
+  initAlu();
   markSpotCards();
   initProgress();
   initChapters();
