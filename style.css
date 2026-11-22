@@ -3000,3 +3000,231 @@ button.bit[aria-pressed="true"], .bit--out.is-on { background: #FF8A4C; border-c
 .case-grid > * { min-width: 0; }
 .api-body { overflow-x: auto; }
 .demo-shot .api-host { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* =========================================================
+   Sound controls, confetti and a final polish layer
+   ========================================================= */
+.sound { position: relative; }
+.sound-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.sound-btn:hover { border-color: var(--line-strong); }
+.sound-btn svg { width: 18px; height: 18px; }
+.sound .sw-on { display: none; }
+.sound.is-on .sw-on { display: inline; }
+.sound.is-on .sw-off { display: none; }
+.sound.is-on .sound-btn { border-color: color-mix(in srgb, var(--brand) 55%, var(--line)); }
+.sound-eq {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  display: none;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 14px;
+  padding: 2px 3px;
+  border-radius: 6px;
+  background: var(--brand);
+}
+.sound-eq i { display: block; width: 2px; height: 4px; border-radius: 1px; background: var(--bg); }
+.sound.is-playing .sound-eq { display: inline-flex; }
+@media (prefers-reduced-motion: no-preference) {
+  .sound.is-playing .sound-eq i { animation: eq 1s ease-in-out infinite alternate; }
+  .sound.is-playing .sound-eq i:nth-child(2) { animation-duration: .7s; }
+  .sound.is-playing .sound-eq i:nth-child(3) { animation-duration: 1.3s; }
+  .sound.is-playing .sound-eq i:nth-child(4) { animation-duration: .85s; }
+  .sound.is-playing .sound-btn { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 40%, transparent); animation: beat 1.667s ease-out infinite; }
+}
+@keyframes eq { from { height: 2px; } to { height: 10px; } }
+@keyframes beat { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 35%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
+
+.sound-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 60;
+  width: 300px;
+  padding: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface) 97%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: var(--shadow-lg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sound-panel:not([hidden]) { animation: panel-in .28s var(--ease-out); }
+}
+@keyframes panel-in { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
+.sound-head {
+  margin: 0 4px 8px;
+  font-family: var(--font-label);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sound-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sound-row:hover { background: var(--glass); }
+.sound-row-text { display: grid; gap: 2px; }
+.sound-row-title { font-weight: 700; }
+.sound-row-sub { font-size: .82rem; color: var(--muted); }
+.switch {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: background-color 200ms ease;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  transition: transform 250ms var(--ease-out);
+}
+.sound-row[aria-checked="true"] .switch { background: var(--brand); }
+.sound-row[aria-checked="true"] .switch::after { transform: translateX(16px); }
+.sound-vol {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 10px 4px;
+  font-size: .9rem;
+  font-weight: 600;
+}
+.sound-vol input { width: 100%; accent-color: var(--brand); }
+.sound-note { margin: 10px 10px 2px; font-size: .78rem; line-height: 1.45; color: var(--muted); }
+
+.sound-nudge {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -6px;
+  z-index: 59;
+  padding: 9px 14px;
+  border: 1px solid var(--signal);
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--signal-ink);
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 300ms ease, transform 400ms var(--ease-out);
+}
+.sound-nudge::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  background: var(--signal);
+  transform: rotate(45deg);
+}
+.sound-nudge.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .sound-nudge.is-visible { animation: bob 2.4s ease-in-out .4s infinite; }
+}
+@keyframes bob { 50% { transform: translateY(3px); } }
+
+@media (max-width: 480px) {
+  .sound-btn { width: 36px; height: 36px; }
+  .sound-panel { position: fixed; top: 64px; left: 12px; right: 12px; width: auto; }
+}
+
+/* Confetti for achievements */
+.confetti {
+  position: fixed;
+  z-index: 70;
+  width: 7px;
+  height: 11px;
+  margin: -5px 0 0 -3px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confetti 1.1s cubic-bezier(.2, .7, .3, 1) forwards;
+}
+@keyframes confetti {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0) scale(.6); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), calc(var(--dy) + 70px)) rotate(var(--r)) scale(1); }
+}
+
+/* Achievement toasts glow and shine */
+.unlock { overflow: hidden; }
+.unlock.is-trophy { box-shadow: var(--shadow-lg), 0 0 0 1px var(--signal), 0 0 34px -6px color-mix(in srgb, var(--signal) 60%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .unlock.is-trophy.is-visible::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .22) 50%, transparent 65%);
+    transform: translateX(-100%);
+    animation: shine 1.1s .15s ease-out forwards;
+    pointer-events: none;
+  }
+  .unlock.is-visible .unlock-icon { animation: pop .5s var(--ease-out); }
+  .trophy.is-earned { position: relative; overflow: hidden; }
+  .trophy.is-earned::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--signal) 22%, transparent) 50%, transparent 65%);
+    transform: translateX(-100%);
+    animation: shine 1.2s ease-out forwards;
+    pointer-events: none;
+  }
+}
+@keyframes shine { to { transform: translateX(100%); } }
+
+/* Polish: a slow shimmer on the name, softer scrollbars, nicer selection of levels */
+@media (prefers-reduced-motion: no-preference) {
+  .ht-line--accent {
+    background-image: linear-gradient(100deg, var(--brand) 0%, var(--brand-2) 22%, var(--accent-end) 50%, var(--brand-2) 78%, var(--brand) 100%);
+    background-size: 200% 100%;
+    animation: rise .9s var(--ease-out) .12s both, shimmer 7s ease-in-out 1.2s infinite alternate;
+  }
+}
+@keyframes shimmer { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+html { scrollbar-color: color-mix(in srgb, var(--brand) 35%, var(--line-strong)) transparent; }
+.level { transition: transform 300ms var(--ease-out), border-color 200ms ease, box-shadow 300ms ease; }
+.level[aria-current="true"] { box-shadow: var(--shadow-lg), 0 0 30px -8px color-mix(in srgb, var(--signal) 55%, transparent); }
+@media print { .sound, .confetti { display: none !important; } }

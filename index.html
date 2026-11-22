@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-22c">
+  <link rel="stylesheet" href="style.css?v=2026-11-22d">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -39,7 +39,8 @@
       root.lang = lang;
     })();
   </script>
-  <script src="script.js?v=2026-11-22" defer></script>
+  <script src="sound.js?v=2026-11-22d" defer></script>
+  <script src="script.js?v=2026-11-22d" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -60,6 +61,26 @@
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
         </button>
+        <div class="sound" data-sound>
+          <button type="button" class="sound-btn" aria-expanded="false" aria-controls="sound-panel" data-en-label="Sound and music" data-fr-label="Son et musique" aria-label="Sound and music">
+            <svg class="icon-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="sw-on" d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.5a8 8 0 0 1 0 11"/><path class="sw-off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+            <span class="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </button>
+          <button type="button" class="sound-nudge" data-sound-all hidden><span aria-hidden="true">🎧</span> <span lang="en">Play with sound?</span><span lang="fr">Avec le son ?</span></button>
+          <div class="sound-panel" id="sound-panel" hidden>
+            <p class="sound-head"><span lang="en">Sound</span><span lang="fr">Son</span></p>
+            <button type="button" class="sound-row" role="switch" aria-checked="false" data-sound-toggle="music">
+              <span class="sound-row-text"><span class="sound-row-title"><span lang="en">Chill music</span><span lang="fr">Musique calme</span></span><span class="sound-row-sub"><span lang="en">A lo-fi loop, made live in your browser</span><span lang="fr">Une boucle lo-fi, créée en direct dans votre navigateur</span></span></span>
+              <span class="switch" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="sound-row" role="switch" aria-checked="false" data-sound-toggle="sfx">
+              <span class="sound-row-text"><span class="sound-row-title"><span lang="en">Sound effects</span><span lang="fr">Effets sonores</span></span><span class="sound-row-sub"><span lang="en">Unlocks, achievements and clicks</span><span lang="fr">Déblocages, succès et clics</span></span></span>
+              <span class="switch" aria-hidden="true"></span>
+            </button>
+            <label class="sound-vol"><span lang="en">Volume</span><span lang="fr">Volume</span><input type="range" min="0" max="100" value="60" data-sound-volume /></label>
+            <p class="sound-note"><span lang="en">No audio files: every note is synthesized with the Web Audio API.</span><span lang="fr">Aucun fichier audio : chaque note est synthétisée avec la Web Audio API.</span></p>
+          </div>
+        </div>
         <a class="btn btn--amber btn--sm topbar-resume" href="resume.pdf" target="_blank" rel="noopener">
           <span class="resume-long"><span lang="en">Resume (PDF)</span><span lang="fr">CV (PDF)</span></span>
           <span class="resume-short"><span lang="en">Resume</span><span lang="fr">CV</span></span>
@@ -1164,7 +1185,7 @@
         <div class="trophies" aria-labelledby="trophies-title">
           <div class="trophies-head">
             <h3 id="trophies-title"><span lang="en">Trophy cabinet</span><span lang="fr">Vitrine des trophées</span></h3>
-            <p class="trophies-count"><span class="trophy-n">0</span>/<span class="trophy-total">9</span> <span lang="en">earned. Play with the demos to collect them.</span><span lang="fr">obtenus. Essayez les démos pour les collectionner.</span></p>
+            <p class="trophies-count"><span class="trophy-n">0</span>/<span class="trophy-total">10</span> <span lang="en">earned. Play with the demos to collect them.</span><span lang="fr">obtenus. Essayez les démos pour les collectionner.</span></p>
           </div>
           <ul class="trophy-list"></ul>
         </div>
@@ -1195,7 +1216,7 @@
   <div class="rail" aria-hidden="true">
     <ol class="rail-list"></ol>
     <p class="rail-count"><span class="rail-n">0</span>/8</p>
-    <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">9</span></p>
+    <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">10</span></p>
   </div>
   <div class="unlock" aria-hidden="true">
     <span class="unlock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg></span>
