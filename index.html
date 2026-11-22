@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-21">
+  <link rel="stylesheet" href="style.css?v=2026-11-22">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -39,7 +39,7 @@
       root.lang = lang;
     })();
   </script>
-  <script src="script.js?v=2026-11-21" defer></script>
+  <script src="script.js?v=2026-11-22" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -378,8 +378,56 @@
         <div class="section-head">
           <p class="kicker"><span class="ch">04</span><span lang="en">Case files</span><span lang="fr">Les dossiers</span></p>
           <h2><span lang="en">Projects</span><span lang="fr">Projets</span></h2>
-          <p class="section-sub"><span lang="en">How each one works, and what I did.</span><span lang="fr">Comment chacun fonctionne, et ce que j'ai fait.</span></p>
+          <p class="section-sub"><span lang="en">Six projects, sorted into two groups. Pick one to open its case file: demos you can play with and the code you can read.</span><span lang="fr">Six projets, classés en deux groupes. Choisissez-en un pour ouvrir son dossier&nbsp;: des démos à essayer et le code à lire.</span></p>
         </div>
+
+        <div class="levels" data-levels>
+          <div class="levels-top">
+            <p class="levels-title"><span class="levels-blink" aria-hidden="true">▶</span><span lang="en">Select a level</span><span lang="fr">Choisissez un niveau</span></p>
+            <p class="levels-progress" aria-hidden="true"><span class="lv-played">0</span>/6 <span lang="en">played</span><span lang="fr">joués</span></p>
+          </div>
+          <div class="level-group">
+            <h3 class="level-group-title"><span lang="en">Personal projects</span><span lang="fr">Projets personnels</span><span class="lg-n">4</span></h3>
+            <ol class="level-grid">
+              <li><a class="level" href="#scoutiq" data-level="scoutiq">
+                <span class="level-art level-art--scoutiq" aria-hidden="true"><span class="level-num">01</span><span class="level-glyph">4-3-3</span></span>
+                <span class="level-body"><span class="level-name">ScoutIQ</span><span class="level-type"><span lang="en">Java · terminal app</span><span lang="fr">Java · application terminal</span></span><span class="level-line"><span lang="en">Picks a soccer lineup from a roster.</span><span lang="fr">Compose une équipe à partir d'un effectif.</span></span>
+                <span class="level-tags"><span class="ltag">▶ <span lang="en">Video</span><span lang="fr">Vidéo</span></span><span class="ltag">☝ <span lang="en">Interactive</span><span lang="fr">Interactif</span></span><span class="ltag">{ } Code</span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+              <li><a class="level" href="#listings" data-level="listings">
+                <span class="level-art level-art--listings" aria-hidden="true"><span class="level-num">02</span><span class="level-glyph">GET /</span></span>
+                <span class="level-body"><span class="level-name">Listings API</span><span class="level-type"><span lang="en">Spring Boot · REST</span><span lang="fr">Spring Boot · REST</span></span><span class="level-line"><span lang="en">A REST API for student housing.</span><span lang="fr">Une API REST de logements étudiants.</span></span>
+                <span class="level-tags"><span class="ltag">☝ <span lang="en">Try requests</span><span lang="fr">Requêtes</span></span><span class="ltag">{ } Code</span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+              <li><a class="level" href="#trippilot" data-level="trippilot">
+                <span class="level-art level-art--trippilot" aria-hidden="true"><span class="level-num">03</span><span class="level-glyph"><span lang="en">Day 1→N</span><span lang="fr">Jour 1→N</span></span></span>
+                <span class="level-body"><span class="level-name">TripPilot AI</span><span class="level-type"><span lang="en">Open source · Python · AI</span><span lang="fr">Open source · Python · IA</span></span><span class="level-line"><span lang="en">Two AI agents plan a trip day by day.</span><span lang="fr">Deux agents IA planifient un voyage.</span></span>
+                <span class="level-tags"><span class="ltag">▶ <span lang="en">Video</span><span lang="fr">Vidéo</span></span><span class="ltag">↗ <span lang="en">Live app</span><span lang="fr">En ligne</span></span><span class="ltag">{ } Code</span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+              <li><a class="level" href="#levain" data-level="levain">
+                <span class="level-art level-art--levain" aria-hidden="true"><span class="level-num">04</span><span class="level-glyph">Levain</span></span>
+                <span class="level-body"><span class="level-name">Maison Levain</span><span class="level-type"><span lang="en">Web · concept site</span><span lang="fr">Web · site concept</span></span><span class="level-line"><span lang="en">A French site for a bakery.</span><span lang="fr">Un site en français pour une boulangerie.</span></span>
+                <span class="level-tags"><span class="ltag">↗ <span lang="en">Live site</span><span lang="fr">En ligne</span></span><span class="ltag">{ } Code</span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+            </ol>
+          </div>
+          <div class="level-group">
+            <h3 class="level-group-title"><span lang="en">Course projects</span><span lang="fr">Projets de cours</span><span class="lg-n">2</span></h3>
+            <ol class="level-grid">
+              <li><a class="level" href="#studyhub" data-level="studyhub">
+                <span class="level-art level-art--studyhub" aria-hidden="true"><span class="level-num">05</span><span class="level-glyph">✓ ✎ 🗑</span></span>
+                <span class="level-body"><span class="level-name">StudyHub</span><span class="level-type">Android · SEG 2105</span><span class="level-line"><span lang="en">A team app for courses and tasks.</span><span lang="fr">Une appli d'équipe pour cours et tâches.</span></span>
+                <span class="level-tags"><span class="ltag">☝ <span lang="en">Interactive</span><span lang="fr">Interactif</span></span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+              <li><a class="level" href="#logic" data-level="logic">
+                <span class="level-art level-art--logic" aria-hidden="true"><span class="level-num">06</span><span class="level-glyph">1010</span></span>
+                <span class="level-body"><span class="level-name"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></span><span class="level-type">FPGA · CEG 2136</span><span class="level-line"><span lang="en">An ALU and a mod-60 counter on an FPGA.</span><span lang="fr">Une UAL et un compteur modulo 60 sur FPGA.</span></span>
+                <span class="level-tags"><span class="ltag">☝ <span lang="en">Simulator</span><span lang="fr">Simulateur</span></span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+            </ol>
+          </div>
+        </div>
+        <div class="case-stage" data-case-stage>
 
         <!-- ScoutIQ -->
         <article class="case" id="scoutiq">
@@ -471,27 +519,115 @@
                 <p><span lang="en">Top of the striker ranking: Victor, 95/100</span><span lang="fr">En tête du classement des attaquants&nbsp;: Victor, 95/100</span></p>
               </div>
 
-              <details class="code-details">
-                <summary><span lang="en">The code behind the board</span><span lang="fr">Le code derrière le tableau</span></summary>
-<pre tabindex="0" data-en-label="Java code: Formation.create433()" data-fr-label="Code Java : Formation.create433()" aria-label="Java code: Formation.create433()"><code>public static Formation create433() {
-    LinkedHashMap&lt;String, String&gt; spots = new LinkedHashMap&lt;&gt;();
-    spots.put("GK", "GK");
-    spots.put("LB", "LB");
-    spots.put("CB1", "CB");
-    spots.put("CB2", "CB");
-    spots.put("RB", "RB");
-    spots.put("CM1", "CM");
-    spots.put("CM2", "CM");
-    spots.put("CAM", "CAM");
-    spots.put("LW", "LW");
-    spots.put("ST", "ST");
-    spots.put("RW", "RW");
-    return new Formation("4-3-3", spots);
-}</code></pre>
-                <p class="note" lang="en">The FORMATIONS object in this site's script.js uses the same spots in the same order. Order matters: ScoutIQ fills the spots one by one, and a LinkedHashMap keeps them in that order.</p>
-                <p class="note" lang="fr">L'objet FORMATIONS du script.js de ce site reprend les mêmes postes, dans le même ordre. L'ordre compte&nbsp;: ScoutIQ remplit les postes un par un, et une LinkedHashMap les garde dans cet ordre.</p>
-              </details>
             </div>
+          </div>
+                  <div class="code-reader" data-code-reader>
+            <div class="cr-top">
+              <p class="cr-title"><span class="cr-braces" aria-hidden="true">{ }</span><span lang="en">Read the code</span><span lang="fr">Lire le code</span></p>
+              <div class="cr-tabs" role="tablist" data-en-label="Files" data-fr-label="Fichiers" aria-label="Files">
+                <button type="button" role="tab" id="crt-scoutiq-0" aria-controls="crp-scoutiq-0" aria-selected="true"><span class="cr-file">LineupGenerator.java</span><span class="cr-kind">Java</span></button><button type="button" role="tab" id="crt-scoutiq-1" aria-controls="crp-scoutiq-1" aria-selected="false" tabindex="-1"><span class="cr-file">Player.java</span><span class="cr-kind">Java</span></button><button type="button" role="tab" id="crt-scoutiq-2" aria-controls="crp-scoutiq-2" aria-selected="false" tabindex="-1"><span class="cr-file">Formation.java</span><span class="cr-kind">Java</span></button>
+              </div>
+            </div>
+              <div class="cr-panel" role="tabpanel" id="crp-scoutiq-0" aria-labelledby="crt-scoutiq-0">
+                <p class="cr-note"><span lang="en">Fills the formation spot by spot with the best player still available. The HashSet makes sure nobody is picked twice.</span><span lang="fr">Remplit la formation poste par poste avec le meilleur joueur encore disponible. Le HashSet garantit que personne n'est choisi deux fois.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: LineupGenerator.java" data-fr-label="Code : LineupGenerator.java" aria-label="Code: LineupGenerator.java"><code><span class="cl" data-n="10">    public LinkedHashMap&lt;String, Player&gt; generateLineup(ArrayList&lt;Player&gt; players, Formation formation) {</span><span class="cl" data-n="11">        LinkedHashMap&lt;String, Player&gt; lineup = new LinkedHashMap&lt;&gt;();</span><span class="cl" data-n="12">        Set&lt;Player&gt; usedPlayers = new HashSet&lt;&gt;();</span><span class="cl" data-n="13"></span><span class="cl" data-n="14">        for (Map.Entry&lt;String, String&gt; entry : formation.getSpots().entrySet()) {</span><span class="cl" data-n="15">            String lineupSpot = entry.getKey();</span><span class="cl" data-n="16">            String role = entry.getValue();</span><span class="cl" data-n="17">            Player best = findBestAvailable(players, usedPlayers, role);</span><span class="cl" data-n="18">            lineup.put(lineupSpot, best);</span><span class="cl" data-n="19"></span><span class="cl" data-n="20">            if (best != null) {</span><span class="cl" data-n="21">                usedPlayers.add(best);</span><span class="cl" data-n="22">            }</span><span class="cl" data-n="23">        }</span><span class="cl" data-n="24"></span><span class="cl" data-n="25">        return lineup;</span><span class="cl" data-n="26">    }</span><span class="cl" data-n="27"></span><span class="cl" data-n="28">    public Player findBestAvailable(ArrayList&lt;Player&gt; players, Set&lt;Player&gt; usedPlayers, String position) {</span><span class="cl" data-n="29">        Player bestPlayer = null;</span><span class="cl" data-n="30">        int bestScore = -1;</span><span class="cl" data-n="31"></span><span class="cl" data-n="32">        for (Player player : players) {</span><span class="cl" data-n="33">            if (!usedPlayers.contains(player)) {</span><span class="cl" data-n="34">                int score = player.getSuitabilityScore(position);</span><span class="cl" data-n="35"></span><span class="cl" data-n="36">                if (score &gt; bestScore) {</span><span class="cl" data-n="37">                    bestScore = score;</span><span class="cl" data-n="38">                    bestPlayer = player;</span><span class="cl" data-n="39">                }</span><span class="cl" data-n="40">            }</span><span class="cl" data-n="41">        }</span><span class="cl" data-n="42"></span><span class="cl" data-n="43">        return bestPlayer;</span><span class="cl" data-n="44">    }</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/ScoutIQ/blob/main/src/LineupGenerator.java#L10-L44" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+              <div class="cr-panel" role="tabpanel" id="crp-scoutiq-1" aria-labelledby="crt-scoutiq-1" data-cr-hidden>
+                <p class="cr-note"><span lang="en">Each position weighs the 6 ratings differently, then adds a bonus for the player's own positions. Scores are capped at 100.</span><span lang="fr">Chaque poste pondère les 6 notes différemment, puis ajoute un bonus pour les postes du joueur. Les scores plafonnent à 100.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: Player.java" data-fr-label="Code : Player.java" aria-label="Code: Player.java"><code><span class="cl" data-n="110">    public int getSuitabilityScore(String position) {</span><span class="cl" data-n="111">        String role = position.toUpperCase();</span><span class="cl" data-n="112">        int score;</span><span class="cl" data-n="113"></span><span class="cl" data-n="114">        if (role.equals(&quot;GK&quot;)) {</span><span class="cl" data-n="115">            score = (goalkeeping * 75 + passing * 10 + stamina * 10 + pace * 5) / 100;</span><span class="cl" data-n="116">        } else if (role.equals(&quot;CB&quot;)) {</span><span class="cl" data-n="117">            score = (defending * 50 + stamina * 20 + pace * 15 + passing * 15) / 100;</span><span class="cl" data-n="118">        } else if (role.equals(&quot;LB&quot;) || role.equals(&quot;RB&quot;)) {</span><span class="cl" data-n="119">            score = (defending * 30 + pace * 25 + stamina * 25 + passing * 20) / 100;</span><span class="cl" data-n="120">        } else if (role.equals(&quot;CDM&quot;)) {</span><span class="cl" data-n="121">            score = (defending * 30 + passing * 30 + stamina * 25 + pace * 10 + shooting * 5) / 100;</span><span class="cl" data-n="122">        } else if (role.equals(&quot;CM&quot;)) {</span><span class="cl" data-n="123">            score = (passing * 35 + stamina * 25 + defending * 15 + pace * 15 + shooting * 10) / 100;</span><span class="cl" data-n="124">        } else if (role.equals(&quot;CAM&quot;)) {</span><span class="cl" data-n="125">            score = (passing * 35 + shooting * 30 + pace * 20 + stamina * 15) / 100;</span><span class="cl" data-n="126">        } else if (role.equals(&quot;LM&quot;) || role.equals(&quot;RM&quot;) || role.equals(&quot;LW&quot;) || role.equals(&quot;RW&quot;)) {</span><span class="cl" data-n="127">            score = (pace * 35 + passing * 25 + shooting * 25 + stamina * 15) / 100;</span><span class="cl" data-n="128">        } else if (role.equals(&quot;ST&quot;)) {</span><span class="cl" data-n="129">            score = (shooting * 45 + pace * 25 + stamina * 20 + passing * 10) / 100;</span><span class="cl" data-n="130">        } else {</span><span class="cl" data-n="131">            return 0;</span><span class="cl" data-n="132">        }</span><span class="cl" data-n="133"></span><span class="cl" data-n="134">        if (primaryPosition.equals(role)) {</span><span class="cl" data-n="135">            score += 7;</span><span class="cl" data-n="136">        } else if (secondaryPosition.equals(role)) {</span><span class="cl" data-n="137">            score += 3;</span><span class="cl" data-n="138">        }</span><span class="cl" data-n="139"></span><span class="cl" data-n="140">        if (score &gt; 100) {</span><span class="cl" data-n="141">            score = 100;</span><span class="cl" data-n="142">        }</span><span class="cl" data-n="143"></span><span class="cl" data-n="144">        return score;</span><span class="cl" data-n="145">    }</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/ScoutIQ/blob/main/src/Player.java#L110-L145" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+              <div class="cr-panel" role="tabpanel" id="crp-scoutiq-2" aria-labelledby="crt-scoutiq-2" data-cr-hidden>
+                <p class="cr-note"><span lang="en">The board above uses these same spots in the same order. Order matters: a LinkedHashMap keeps the spots in the order ScoutIQ fills them.</span><span lang="fr">Le tableau ci-dessus reprend ces postes, dans le même ordre. L'ordre compte : une LinkedHashMap garde les postes dans l'ordre où ScoutIQ les remplit.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: Formation.java" data-fr-label="Code : Formation.java" aria-label="Code: Formation.java"><code><span class="cl" data-n="21">    public static Formation create433() {</span><span class="cl" data-n="22">        LinkedHashMap&lt;String, String&gt; spots = new LinkedHashMap&lt;&gt;();</span><span class="cl" data-n="23">        spots.put(&quot;GK&quot;, &quot;GK&quot;);</span><span class="cl" data-n="24">        spots.put(&quot;LB&quot;, &quot;LB&quot;);</span><span class="cl" data-n="25">        spots.put(&quot;CB1&quot;, &quot;CB&quot;);</span><span class="cl" data-n="26">        spots.put(&quot;CB2&quot;, &quot;CB&quot;);</span><span class="cl" data-n="27">        spots.put(&quot;RB&quot;, &quot;RB&quot;);</span><span class="cl" data-n="28">        spots.put(&quot;CM1&quot;, &quot;CM&quot;);</span><span class="cl" data-n="29">        spots.put(&quot;CM2&quot;, &quot;CM&quot;);</span><span class="cl" data-n="30">        spots.put(&quot;CAM&quot;, &quot;CAM&quot;);</span><span class="cl" data-n="31">        spots.put(&quot;LW&quot;, &quot;LW&quot;);</span><span class="cl" data-n="32">        spots.put(&quot;ST&quot;, &quot;ST&quot;);</span><span class="cl" data-n="33">        spots.put(&quot;RW&quot;, &quot;RW&quot;);</span><span class="cl" data-n="34">        return new Formation(&quot;4-3-3&quot;, spots);</span><span class="cl" data-n="35">    }</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/ScoutIQ/blob/main/src/Formation.java#L21-L35" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+          </div>
+        </article>
+
+        <!-- Listings API -->
+        <article class="case" id="listings">
+          <div class="case-head">
+            <h3>Listings API</h3>
+            <span class="pill"><span lang="en">Java · Spring Boot · REST</span><span lang="fr">Java · Spring Boot · REST</span></span>
+            <span class="pill pill--live"><span class="live-dot" aria-hidden="true"></span><span lang="en">Current build</span><span lang="fr">En cours</span></span>
+          </div>
+          <p class="case-lead"><span lang="en">A REST API for student housing listings, built to learn Spring Boot and PostgreSQL.</span><span lang="fr">Une API REST d'annonces de logements étudiants, créée pour apprendre Spring Boot et PostgreSQL.</span></p>
+          <div class="case-grid">
+            <div class="case-text">
+              <ul class="stats stats--3">
+                <li><strong class="stat-num">5</strong><span class="stat-label"><span lang="en">operations</span><span lang="fr">opérations</span></span></li>
+                <li><strong class="stat-num">8</strong><span class="stat-label"><span lang="en">controller tests</span><span lang="fr">tests du contrôleur</span></span></li>
+                <li><strong class="stat-num">3</strong><span class="stat-label"><span lang="en">core classes</span><span lang="fr">classes principales</span></span></li>
+              </ul>
+              <h4><span lang="en">What I built</span><span lang="fr">Ce que j'ai développé</span></h4>
+              <ul class="bullets">
+                <li><span lang="en">Endpoints to add, list, filter by maximum rent, fetch and delete listings, with 404 Not Found for an unknown id and 204 No Content after a delete.</span><span lang="fr">Des points de terminaison pour ajouter, lister, filtrer par loyer maximum, consulter et supprimer des annonces, avec 404 Not Found pour un identifiant inconnu et 204 No Content après une suppression.</span></li>
+                <li><span lang="en">A JPA entity mapped to a PostgreSQL table, and a Spring Data repository whose rent filter query comes from the method name alone.</span><span lang="fr">Une entité JPA associée à une table PostgreSQL, et un dépôt Spring Data dont la requête de filtre par loyer découle du seul nom de la méthode.</span></li>
+                <li><span lang="en">Rejects a negative rent with 400 Bad Request.</span><span lang="fr">Refuse un loyer négatif avec 400 Bad Request.</span></li>
+                <li><span lang="en">Controller tests with @WebMvcTest and a mocked repository, so they run without a database.</span><span lang="fr">Des tests du contrôleur avec @WebMvcTest et un dépôt simulé, qui tournent donc sans base de données.</span></li>
+              </ul>
+              <h4><span lang="en">The 3 classes</span><span lang="fr">Les 3 classes</span></h4>
+              <ul class="chips">
+                <li class="chip chip--mono">Listing <span class="chip-to"><span lang="en">JPA entity</span><span lang="fr">entité JPA</span></span></li>
+                <li class="chip chip--mono">ListingRepository <span class="chip-to">Spring Data</span></li>
+                <li class="chip chip--mono">ListingController <span class="chip-to">REST</span></li>
+              </ul>
+              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
+              <ul class="chips">
+                <li class="chip">Java</li><li class="chip">Spring Boot</li><li class="chip">Spring Data JPA</li><li class="chip">PostgreSQL</li><li class="chip">Maven</li><li class="chip">MockMvc</li>
+              </ul>
+              <p class="links-row links-row--case">
+                <a href="https://github.com/iliass-elguaari/spring-boot-listings-api" target="_blank" rel="noopener"><span lang="en">Code on GitHub ↗</span><span lang="fr">Code sur GitHub ↗</span></a>
+              </p>
+            </div>
+            <div class="case-visual">
+              <figure class="api" aria-labelledby="api-cap">
+                <div class="api-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="api-host">localhost:8080</span></div>
+                <div class="api-routes" role="group" data-en-label="Try a request" data-fr-label="Essayez une requête" aria-label="Try a request">
+                  <button type="button" data-route="0" aria-pressed="true"><span class="verb verb--get">GET</span>/listings</button>
+                  <button type="button" data-route="1" aria-pressed="false"><span class="verb verb--get">GET</span>/listings?maxRent=1000</button>
+                  <button type="button" data-route="2" aria-pressed="false"><span class="verb verb--get">GET</span>/listings/1</button>
+                  <button type="button" data-route="3" aria-pressed="false"><span class="verb verb--get">GET</span>/listings/99</button>
+                  <button type="button" data-route="4" aria-pressed="false"><span class="verb verb--post">POST</span>/listings</button>
+                  <button type="button" data-route="5" aria-pressed="false"><span class="verb verb--post">POST</span>/listings <span class="route-note"><span lang="en">(rent −5)</span><span lang="fr">(loyer −5)</span></span></button>
+                  <button type="button" data-route="6" aria-pressed="false"><span class="verb verb--del">DELETE</span>/listings/1</button>
+                </div>
+                <div class="api-out" aria-live="polite">
+                  <p class="api-status"><span class="status-code status-code--ok">200 OK</span></p>
+<pre class="api-body" tabindex="0" data-en-label="Response body" data-fr-label="Corps de la réponse" aria-label="Response body"><code>[
+  { "id": 1, "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 },
+  { "id": 2, "address": "200 Rideau St", "monthlyRent": 1400, "bedrooms": 2 }
+]</code></pre>
+                  <p class="api-test"><span lang="en">Checked by</span><span lang="fr">Vérifié par</span> <code>getReturnsAllListingsWithoutFilter()</code></p>
+                </div>
+                <figcaption id="api-cap"><span lang="en">Pick a request to see what the API answers. The listings are the sample data from its tests, and each answer names the test that checks it.</span><span lang="fr">Choisissez une requête pour voir ce que l'API répond. Les annonces sont les données d'exemple de ses tests, et chaque réponse indique le test qui la vérifie.</span></figcaption>
+              </figure>
+            </div>
+          </div>
+                  <div class="code-reader" data-code-reader>
+            <div class="cr-top">
+              <p class="cr-title"><span class="cr-braces" aria-hidden="true">{ }</span><span lang="en">Read the code</span><span lang="fr">Lire le code</span></p>
+              <div class="cr-tabs" role="tablist" data-en-label="Files" data-fr-label="Fichiers" aria-label="Files">
+                <button type="button" role="tab" id="crt-listings-0" aria-controls="crp-listings-0" aria-selected="true"><span class="cr-file">ListingController.java</span><span class="cr-kind">Spring</span></button><button type="button" role="tab" id="crt-listings-1" aria-controls="crp-listings-1" aria-selected="false" tabindex="-1"><span class="cr-file">ListingRepository.java</span><span class="cr-kind">Spring Data</span></button><button type="button" role="tab" id="crt-listings-2" aria-controls="crp-listings-2" aria-selected="false" tabindex="-1"><span class="cr-file">Listing.java</span><span class="cr-kind">JPA</span></button>
+              </div>
+            </div>
+              <div class="cr-panel" role="tabpanel" id="crp-listings-0" aria-labelledby="crt-listings-0">
+                <p class="cr-note"><span lang="en">Each method is one endpoint. Unknown ids return 404, and a delete returns 204 No Content.</span><span lang="fr">Chaque méthode est un point de terminaison. Un identifiant inconnu renvoie 404, et une suppression renvoie 204 No Content.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: ListingController.java" data-fr-label="Code : ListingController.java" aria-label="Code: ListingController.java"><code><span class="cl" data-n="15">@RestController</span><span class="cl" data-n="16">@RequestMapping(&quot;/listings&quot;)</span><span class="cl" data-n="17">public class ListingController {</span><span class="cl" data-n="18"></span><span class="cl" data-n="19">    private final ListingRepository repository;</span><span class="cl" data-n="20"></span><span class="cl" data-n="21">    public ListingController(ListingRepository repository){</span><span class="cl" data-n="22">        this.repository = repository;</span><span class="cl" data-n="23">    }</span><span class="cl" data-n="24"></span><span class="cl" data-n="25"></span><span class="cl" data-n="26">    @GetMapping</span><span class="cl" data-n="27">    public List&lt;Listing&gt; getListings(@RequestParam(required = false) Integer maxRent){</span><span class="cl" data-n="28">        if (maxRent== null){</span><span class="cl" data-n="29">            return repository.findAll();</span><span class="cl" data-n="30">        }</span><span class="cl" data-n="31">        return repository.findByMonthlyRentLessThanEqual(maxRent);</span><span class="cl" data-n="32">    }</span><span class="cl" data-n="33"></span><span class="cl" data-n="34">    @GetMapping(&quot;/{id}&quot;)</span><span class="cl" data-n="35">    public ResponseEntity&lt;Listing&gt; getListing(@PathVariable Long id){</span><span class="cl" data-n="36">        return repository.findById(id)</span><span class="cl" data-n="37">                .map(ResponseEntity::ok)</span><span class="cl" data-n="38">                .orElse(ResponseEntity.notFound().build());</span><span class="cl" data-n="39">    }</span><span class="cl" data-n="40"></span><span class="cl" data-n="41">    @DeleteMapping(&quot;/{id}&quot;)</span><span class="cl" data-n="42">    public ResponseEntity&lt;Void&gt; deleteListing(@PathVariable Long id){</span><span class="cl" data-n="43">        if (!repository.existsById(id)){</span><span class="cl" data-n="44">            return ResponseEntity.notFound().build();</span><span class="cl" data-n="45">        }</span><span class="cl" data-n="46">        repository.deleteById(id);</span><span class="cl" data-n="47">        return ResponseEntity.noContent().build();</span><span class="cl" data-n="48">    }</span><span class="cl" data-n="49"></span><span class="cl" data-n="50">    @PostMapping</span><span class="cl" data-n="51">    public Listing addListing(@RequestBody Listing listing){</span><span class="cl" data-n="52">        return repository.save(listing);</span><span class="cl" data-n="53">    }</span><span class="cl" data-n="54"></span><span class="cl" data-n="55"></span><span class="cl" data-n="56"></span><span class="cl" data-n="57"></span><span class="cl" data-n="58"></span><span class="cl" data-n="59">}</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/spring-boot-listings-api/blob/main/src/main/java/com/example/listings/ListingController.java" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+              <div class="cr-panel" role="tabpanel" id="crp-listings-1" aria-labelledby="crt-listings-1" data-cr-hidden>
+                <p class="cr-note"><span lang="en">No SQL written by hand: Spring Data builds the rent filter query from the method name.</span><span lang="fr">Aucune requête SQL écrite à la main : Spring Data construit le filtre par loyer à partir du nom de la méthode.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: ListingRepository.java" data-fr-label="Code : ListingRepository.java" aria-label="Code: ListingRepository.java"><code><span class="cl" data-n="7">public interface ListingRepository extends JpaRepository&lt;Listing , Long&gt;{</span><span class="cl" data-n="8"></span><span class="cl" data-n="9">        List&lt;Listing&gt; findByMonthlyRentLessThanEqual(int maxRent);</span><span class="cl" data-n="10"></span><span class="cl" data-n="11">}</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/spring-boot-listings-api/blob/main/src/main/java/com/example/listings/ListingRepository.java" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+              <div class="cr-panel" role="tabpanel" id="crp-listings-2" aria-labelledby="crt-listings-2" data-cr-hidden>
+                <p class="cr-note"><span lang="en">The entity maps to a PostgreSQL table, and the setter refuses a negative rent.</span><span lang="fr">L'entité correspond à une table PostgreSQL, et le mutateur refuse un loyer négatif.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="java" data-en-label="Code: Listing.java" data-fr-label="Code : Listing.java" aria-label="Code: Listing.java"><code><span class="cl" data-n="8"></span><span class="cl" data-n="9"></span><span class="cl" data-n="10"></span><span class="cl" data-n="11">@Entity</span><span class="cl" data-n="12">public class Listing {</span><span class="cl" data-n="13">    @GeneratedValue(strategy = GenerationType.IDENTITY)</span><span class="cl" data-n="14">    @Id</span><span class="cl" data-n="15">    private Long id;</span><span class="cl cl--gap" data-n="⋮"></span><span class="cl" data-n="32">    public int getMonthlyRent() {</span><span class="cl" data-n="33">        return monthlyRent;</span><span class="cl" data-n="34">    }</span><span class="cl" data-n="35">    public void setMonthlyRent(int monthlyRent) {</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/spring-boot-listings-api/blob/main/src/main/java/com/example/listings/Listing.java" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
           </div>
         </article>
 
@@ -600,67 +736,23 @@
               <li class="badge-mine badge-mine--chip"><span lang="en">Deployed on Streamlit Community Cloud</span><span lang="fr">Déployé sur Streamlit Community Cloud</span></li>
             </ul>
           </figure>
-        </article>
-
-        <!-- Listings API -->
-        <article class="case" id="listings">
-          <div class="case-head">
-            <h3>Listings API</h3>
-            <span class="pill"><span lang="en">Java · Spring Boot · REST</span><span lang="fr">Java · Spring Boot · REST</span></span>
-            <span class="pill pill--live"><span class="live-dot" aria-hidden="true"></span><span lang="en">Current build</span><span lang="fr">En cours</span></span>
-          </div>
-          <p class="case-lead"><span lang="en">A REST API for student housing listings, built to learn Spring Boot and PostgreSQL.</span><span lang="fr">Une API REST d'annonces de logements étudiants, créée pour apprendre Spring Boot et PostgreSQL.</span></p>
-          <div class="case-grid">
-            <div class="case-text">
-              <ul class="stats stats--3">
-                <li><strong class="stat-num">5</strong><span class="stat-label"><span lang="en">operations</span><span lang="fr">opérations</span></span></li>
-                <li><strong class="stat-num">8</strong><span class="stat-label"><span lang="en">controller tests</span><span lang="fr">tests du contrôleur</span></span></li>
-                <li><strong class="stat-num">3</strong><span class="stat-label"><span lang="en">core classes</span><span lang="fr">classes principales</span></span></li>
-              </ul>
-              <h4><span lang="en">What I built</span><span lang="fr">Ce que j'ai développé</span></h4>
-              <ul class="bullets">
-                <li><span lang="en">Endpoints to add, list, filter by maximum rent, fetch and delete listings, with 404 Not Found for an unknown id and 204 No Content after a delete.</span><span lang="fr">Des points de terminaison pour ajouter, lister, filtrer par loyer maximum, consulter et supprimer des annonces, avec 404 Not Found pour un identifiant inconnu et 204 No Content après une suppression.</span></li>
-                <li><span lang="en">A JPA entity mapped to a PostgreSQL table, and a Spring Data repository whose rent filter query comes from the method name alone.</span><span lang="fr">Une entité JPA associée à une table PostgreSQL, et un dépôt Spring Data dont la requête de filtre par loyer découle du seul nom de la méthode.</span></li>
-                <li><span lang="en">Rejects a negative rent with 400 Bad Request.</span><span lang="fr">Refuse un loyer négatif avec 400 Bad Request.</span></li>
-                <li><span lang="en">Controller tests with @WebMvcTest and a mocked repository, so they run without a database.</span><span lang="fr">Des tests du contrôleur avec @WebMvcTest et un dépôt simulé, qui tournent donc sans base de données.</span></li>
-              </ul>
-              <h4><span lang="en">The 3 classes</span><span lang="fr">Les 3 classes</span></h4>
-              <ul class="chips">
-                <li class="chip chip--mono">Listing <span class="chip-to"><span lang="en">JPA entity</span><span lang="fr">entité JPA</span></span></li>
-                <li class="chip chip--mono">ListingRepository <span class="chip-to">Spring Data</span></li>
-                <li class="chip chip--mono">ListingController <span class="chip-to">REST</span></li>
-              </ul>
-              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
-              <ul class="chips">
-                <li class="chip">Java</li><li class="chip">Spring Boot</li><li class="chip">Spring Data JPA</li><li class="chip">PostgreSQL</li><li class="chip">Maven</li><li class="chip">MockMvc</li>
-              </ul>
-              <p class="links-row links-row--case">
-                <a href="https://github.com/iliass-elguaari/spring-boot-listings-api" target="_blank" rel="noopener"><span lang="en">Code on GitHub ↗</span><span lang="fr">Code sur GitHub ↗</span></a>
-              </p>
+                  <div class="code-reader" data-code-reader>
+            <div class="cr-top">
+              <p class="cr-title"><span class="cr-braces" aria-hidden="true">{ }</span><span lang="en">Read the code</span><span lang="fr">Lire le code</span></p>
+              <div class="cr-tabs" role="tablist" data-en-label="Files" data-fr-label="Fichiers" aria-label="Files">
+                <button type="button" role="tab" id="crt-trippilot-0" aria-controls="crp-trippilot-0" aria-selected="true"><span class="cr-file">travel_agent.py</span><span class="cr-kind">Bug fix 1</span></button><button type="button" role="tab" id="crt-trippilot-1" aria-controls="crp-trippilot-1" aria-selected="false" tabindex="-1"><span class="cr-file">travel_agent.py</span><span class="cr-kind">Bug fix 2</span></button>
+              </div>
             </div>
-            <div class="case-visual">
-              <figure class="api" aria-labelledby="api-cap">
-                <div class="api-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="api-host">localhost:8080</span></div>
-                <div class="api-routes" role="group" data-en-label="Try a request" data-fr-label="Essayez une requête" aria-label="Try a request">
-                  <button type="button" data-route="0" aria-pressed="true"><span class="verb verb--get">GET</span>/listings</button>
-                  <button type="button" data-route="1" aria-pressed="false"><span class="verb verb--get">GET</span>/listings?maxRent=1000</button>
-                  <button type="button" data-route="2" aria-pressed="false"><span class="verb verb--get">GET</span>/listings/1</button>
-                  <button type="button" data-route="3" aria-pressed="false"><span class="verb verb--get">GET</span>/listings/99</button>
-                  <button type="button" data-route="4" aria-pressed="false"><span class="verb verb--post">POST</span>/listings</button>
-                  <button type="button" data-route="5" aria-pressed="false"><span class="verb verb--post">POST</span>/listings <span class="route-note"><span lang="en">(rent −5)</span><span lang="fr">(loyer −5)</span></span></button>
-                  <button type="button" data-route="6" aria-pressed="false"><span class="verb verb--del">DELETE</span>/listings/1</button>
-                </div>
-                <div class="api-out" aria-live="polite">
-                  <p class="api-status"><span class="status-code status-code--ok">200 OK</span></p>
-<pre class="api-body" tabindex="0" data-en-label="Response body" data-fr-label="Corps de la réponse" aria-label="Response body"><code>[
-  { "id": 1, "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 },
-  { "id": 2, "address": "200 Rideau St", "monthlyRent": 1400, "bedrooms": 2 }
-]</code></pre>
-                  <p class="api-test"><span lang="en">Checked by</span><span lang="fr">Vérifié par</span> <code>getReturnsAllListingsWithoutFilter()</code></p>
-                </div>
-                <figcaption id="api-cap"><span lang="en">Pick a request to see what the API answers. The listings are the sample data from its tests, and each answer names the test that checks it.</span><span lang="fr">Choisissez une requête pour voir ce que l'API répond. Les annonces sont les données d'exemple de ses tests, et chaque réponse indique le test qui la vérifie.</span></figcaption>
-              </figure>
-            </div>
+              <div class="cr-panel" role="tabpanel" id="crp-trippilot-0" aria-labelledby="crt-trippilot-0">
+                <p class="cr-note"><span lang="en">Fix for the vanishing itinerary: the result lives in session_state, outside the button code, so the re-run after a download keeps it.</span><span lang="fr">Correctif de l'itinéraire qui disparaissait : le résultat vit dans session_state, hors du code du bouton, donc la réexécution après un téléchargement le garde.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="python" data-en-label="Code: travel_agent.py" data-fr-label="Code : travel_agent.py" aria-label="Code: travel_agent.py"><code><span class="cl" data-n="114"></span><span class="cl" data-n="115"># Streamlit re-runs this whole file from top to bottom every time you click</span><span class="cl" data-n="116"># something. session_state is how we remember things between those re-runs.</span><span class="cl" data-n="117">if &#x27;itinerary&#x27; not in st.session_state:</span><span class="cl" data-n="118">    st.session_state.itinerary = None</span><span class="cl" data-n="119">if &#x27;is_sample&#x27; not in st.session_state:</span><span class="cl" data-n="120">    st.session_state.is_sample = False</span><span class="cl cl--gap" data-n="⋮"></span><span class="cl" data-n="209">                &quot;and that your OpenAI account has credit, then try again.&quot;</span><span class="cl" data-n="210">            )</span><span class="cl" data-n="211"></span><span class="cl" data-n="212"># ---------------------------------------------------------------------------</span><span class="cl" data-n="213"># PART 5: Show the itinerary + the calendar download</span><span class="cl" data-n="214"># ---------------------------------------------------------------------------</span><span class="cl" data-n="215"># This sits OUTSIDE the button code on purpose: clicking the download button</span><span class="cl" data-n="216"># re-runs the file, and the itinerary would disappear if it only lived inside</span><span class="cl" data-n="217"># the &quot;if generate:&quot; block.</span><span class="cl" data-n="218">if st.session_state.itinerary:</span><span class="cl" data-n="219">    if st.session_state.is_sample:</span><span class="cl" data-n="220">        st.info(&quot;This is a saved example from a real run, so you can see the output without any API keys.&quot;)</span><span class="cl" data-n="221"></span><span class="cl" data-n="222">    st.markdown(st.session_state.itinerary)</span><span class="cl" data-n="223"></span><span class="cl" data-n="224">    ics_content = generate_ics_content(st.session_state.itinerary, start_date)</span><span class="cl" data-n="225">    st.download_button(</span><span class="cl" data-n="226">        label=&quot;📅 Download as calendar (.ics)&quot;,</span><span class="cl" data-n="227">        data=ics_content,</span><span class="cl" data-n="228">        file_name=&quot;travel_itinerary.ics&quot;,</span><span class="cl" data-n="229">        mime=&quot;text/calendar&quot;,</span><span class="cl" data-n="230">    )</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/TripPilot-AI/blob/main/travel_agent.py#L209-L230" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+              <div class="cr-panel" role="tabpanel" id="crp-trippilot-1" aria-labelledby="crt-trippilot-1" data-cr-hidden>
+                <p class="cr-note"><span lang="en">Fix for the calendar export: each "Day N" becomes an all-day event on the chosen start date plus N − 1 days.</span><span lang="fr">Correctif de l'export calendrier : chaque « Day N » devient un événement d'une journée à la date de départ choisie plus N − 1 jours.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="python" data-en-label="Code: travel_agent.py" data-fr-label="Code : travel_agent.py" aria-label="Code: travel_agent.py"><code><span class="cl" data-n="21">def generate_ics_content(plan_text: str, start_date: date) -&gt; bytes:</span><span class="cl" data-n="22">    &quot;&quot;&quot;Turn the itinerary text into an .ics calendar file (one all-day event per day).&quot;&quot;&quot;</span><span class="cl" data-n="23">    cal = Calendar()</span><span class="cl" data-n="24">    cal.add(&#x27;prodid&#x27;, &#x27;-//TripPilot AI//github.com//&#x27;)</span><span class="cl" data-n="25">    cal.add(&#x27;version&#x27;, &#x27;2.0&#x27;)</span><span class="cl" data-n="26"></span><span class="cl" data-n="27">    # Find &quot;Day 1 ...&quot;, &quot;Day 2 ...&quot; in the AI&#x27;s text</span><span class="cl" data-n="28">    day_pattern = re.compile(r&#x27;Day (\d+)[:\s]+(.*?)(?=Day \d+|$)&#x27;, re.DOTALL)</span><span class="cl" data-n="29">    days = day_pattern.findall(plan_text)</span><span class="cl" data-n="30"></span><span class="cl" data-n="31">    if not days:</span><span class="cl" data-n="32">        # Fallback: the AI didn&#x27;t use &quot;Day N&quot; headings, so make one event with everything</span><span class="cl" data-n="33">        event = Event()</span><span class="cl" data-n="34">        event.add(&#x27;summary&#x27;, &quot;Travel Itinerary&quot;)</span><span class="cl" data-n="35">        event.add(&#x27;description&#x27;, plan_text)</span><span class="cl" data-n="36">        event.add(&#x27;dtstart&#x27;, start_date)</span><span class="cl" data-n="37">        event.add(&#x27;dtend&#x27;, start_date + timedelta(days=1))</span><span class="cl" data-n="38">        event.add(&#x27;dtstamp&#x27;, datetime.now())</span><span class="cl" data-n="39">        cal.add_component(event)</span><span class="cl" data-n="40">    else:</span><span class="cl" data-n="41">        for day_num, day_content in days:</span><span class="cl" data-n="42">            current_date = start_date + timedelta(days=int(day_num) - 1)</span><span class="cl" data-n="43"></span><span class="cl" data-n="44">            event = Event()</span><span class="cl" data-n="45">            event.add(&#x27;summary&#x27;, f&quot;Day {day_num} Itinerary&quot;)</span><span class="cl" data-n="46">            event.add(&#x27;description&#x27;, day_content.strip())</span><span class="cl" data-n="47">            event.add(&#x27;dtstart&#x27;, current_date)</span><span class="cl" data-n="48">            # For all-day events, the end date is the NEXT day</span><span class="cl" data-n="49">            event.add(&#x27;dtend&#x27;, current_date + timedelta(days=1))</span><span class="cl" data-n="50">            event.add(&#x27;dtstamp&#x27;, datetime.now())</span><span class="cl" data-n="51">            cal.add_component(event)</span><span class="cl" data-n="52"></span><span class="cl" data-n="53">    return cal.to_ical()</span><span class="cl" data-n="54"># I LOVE THISSSS!!!!</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/TripPilot-AI/blob/main/travel_agent.py#L21-L54" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
           </div>
         </article>
 
@@ -699,7 +791,145 @@
               </p>
             </div>
           </div>
+                  <div class="code-reader" data-code-reader>
+            <div class="cr-top">
+              <p class="cr-title"><span class="cr-braces" aria-hidden="true">{ }</span><span lang="en">Read the code</span><span lang="fr">Lire le code</span></p>
+              <div class="cr-tabs" role="tablist" data-en-label="Files" data-fr-label="Fichiers" aria-label="Files">
+                <button type="button" role="tab" id="crt-levain-0" aria-controls="crp-levain-0" aria-selected="true"><span class="cr-file">boulangerie/index.html</span><span class="cr-kind">JavaScript</span></button>
+              </div>
+            </div>
+              <div class="cr-panel" role="tabpanel" id="crp-levain-0" aria-labelledby="crt-levain-0">
+                <p class="cr-note"><span lang="en">The 'open now' badge reads the time in Paris, whatever the visitor's time zone, and checks it against the week's hours.</span><span lang="fr">Le badge « Ouvert » lit l'heure de Paris, quel que soit le fuseau du visiteur, et la compare aux horaires de la semaine.</span></p>
+<pre class="cr-code" tabindex="0" data-lang="js" data-en-label="Code: boulangerie/index.html" data-fr-label="Code : boulangerie/index.html" aria-label="Code: boulangerie/index.html"><code><span class="cl" data-n="318">    const hours = [</span><span class="cl" data-n="319">      { open: 7, close: 13 },</span><span class="cl" data-n="320">      null,</span><span class="cl" data-n="321">      { open: 7, close: 19.5 },</span><span class="cl" data-n="322">      { open: 7, close: 19.5 },</span><span class="cl" data-n="323">      { open: 7, close: 19.5 },</span><span class="cl" data-n="324">      { open: 7, close: 19.5 },</span><span class="cl" data-n="325">      { open: 7, close: 19.5 }</span><span class="cl" data-n="326">    ];</span><span class="cl" data-n="327"></span><span class="cl" data-n="328">    const formatHour = (h) =&gt; Math.floor(h) + &quot; h&quot; + (h % 1 ? String(Math.round((h % 1) * 60)).padStart(2, &quot;0&quot;) : &quot;&quot;);</span><span class="cl" data-n="329"></span><span class="cl" data-n="330">    function parisNow() {</span><span class="cl" data-n="331">      const parts = new Intl.DateTimeFormat(&quot;en-GB&quot;, {</span><span class="cl" data-n="332">        timeZone: &quot;Europe/Paris&quot;, weekday: &quot;short&quot;, hour: &quot;numeric&quot;, minute: &quot;numeric&quot;, hour12: false</span><span class="cl" data-n="333">      }).formatToParts(new Date());</span><span class="cl" data-n="334">      const get = (type) =&gt; parts.find(p =&gt; p.type === type).value;</span><span class="cl" data-n="335">      const day = [&quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;].indexOf(get(&quot;weekday&quot;));</span><span class="cl" data-n="336">      return { day, time: Number(get(&quot;hour&quot;)) + Number(get(&quot;minute&quot;)) / 60 };</span><span class="cl" data-n="337">    }</span><span class="cl" data-n="338"></span><span class="cl" data-n="339">    function showHours() {</span><span class="cl" data-n="340">      const now = parisNow();</span><span class="cl" data-n="341">      const table = document.getElementById(&quot;hours&quot;);</span><span class="cl" data-n="342"></span><span class="cl" data-n="343">      // List Monday first, the way French shops do.</span><span class="cl" data-n="344">      const order = [1, 2, 3, 4, 5, 6, 0];</span><span class="cl" data-n="345">      table.innerHTML = order.map(d =&gt; {</span><span class="cl" data-n="346">        const h = hours[d];</span><span class="cl" data-n="347">        const text = h ? `${formatHour(h.open)} – ${formatHour(h.close)}` : &quot;Fermé&quot;;</span><span class="cl" data-n="348">        return `&lt;tr class=&quot;${d === now.day ? &quot;today&quot; : &quot;&quot;}&quot;&gt;&lt;td&gt;${days[d]}&lt;/td&gt;&lt;td&gt;${text}&lt;/td&gt;&lt;/tr&gt;`;</span><span class="cl" data-n="349">      }).join(&quot;&quot;);</span><span class="cl" data-n="350"></span><span class="cl" data-n="351">      const today = hours[now.day];</span><span class="cl" data-n="352">      const isOpen = today !== null &amp;&amp; now.time &gt;= today.open &amp;&amp; now.time &lt; today.close;</span><span class="cl" data-n="353">      const status = document.getElementById(&quot;status&quot;);</span><span class="cl" data-n="354">      status.className = &quot;status &quot; + (isOpen ? &quot;open&quot; : &quot;closed&quot;);</span><span class="cl" data-n="355">      document.getElementById(&quot;status-text&quot;).textContent = isOpen</span><span class="cl" data-n="356">        ? `Ouvert maintenant, jusqu&#x27;à ${formatHour(today.close)}`</span><span class="cl" data-n="357">        : &quot;Fermé pour le moment&quot;;</span><span class="cl" data-n="358">    }</span></code></pre>
+                <p class="cr-src"><a href="https://github.com/iliass-elguaari/iliass-elguaari.github.io/blob/main/boulangerie/index.html#L318-L358" target="_blank" rel="noopener"><span lang="en">Open this file on GitHub ↗</span><span lang="fr">Ouvrir ce fichier sur GitHub ↗</span></a></p>
+              </div>
+          </div>
         </article>
+
+        <!-- StudyHub -->
+        <article class="case" id="studyhub">
+          <div class="case-head">
+            <h3>StudyHub</h3>
+            <span class="pill"><span lang="en">Android · SEG 2105</span><span lang="fr">Android · SEG 2105</span></span>
+            <span class="pill pill--course"><span lang="en">Course project · team</span><span lang="fr">Projet de cours · équipe</span></span>
+          </div>
+          <p class="case-lead"><span lang="en">A team Android app for students to manage their courses and tasks, built in Android Studio for SEG 2105 (Introduction to Software Engineering).</span><span lang="fr">Une application Android d'équipe pour gérer ses cours et ses tâches, développée dans Android Studio pour le cours SEG 2105 (Introduction au génie logiciel).</span></p>
+          <div class="case-grid">
+            <div class="case-text">
+              <h4><span lang="en">What the app does</span><span lang="fr">Ce que fait l'application</span></h4>
+              <ul class="bullets">
+                <li><span lang="en">Students keep a list of tasks for each course, and can add, edit, complete and delete them.</span><span lang="fr">Les étudiants gardent une liste de tâches pour chaque cours, et peuvent les ajouter, les modifier, les terminer et les supprimer.</span></li>
+                <li><span lang="en">Every form checks its fields before saving, so a task can't have an empty name or an impossible date.</span><span lang="fr">Chaque formulaire vérifie ses champs avant d'enregistrer : une tâche ne peut pas avoir un nom vide ou une date impossible.</span></li>
+                <li><span lang="en">Separate navigation for students and for admins.</span><span lang="fr">Une navigation distincte pour les étudiants et pour les administrateurs.</span></li>
+                <li><span lang="en">Designed with UML diagrams first, built as a team with Git and GitHub, then integrated and tested.</span><span lang="fr">Conçue d'abord avec des diagrammes UML, développée en équipe avec Git et GitHub, puis intégrée et testée.</span></li>
+              </ul>
+              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
+              <ul class="chips">
+                <li class="chip">Android Studio</li><li class="chip">UML</li><li class="chip">Git &amp; GitHub</li><li class="chip"><span lang="en">Team project</span><span lang="fr">Projet d'équipe</span></li>
+              </ul>
+            </div>
+            <div class="case-visual">
+              <figure class="phone" aria-labelledby="sh-cap">
+                <div class="phone-screen">
+                  <div class="phone-status" aria-hidden="true"><span>StudyHub</span><span>9:41</span></div>
+                  <div class="sh-view" data-sh-view="tasks">
+                    <p class="sh-title"><span lang="en">My tasks</span><span lang="fr">Mes tâches</span></p>
+                    <ul class="sh-tasks">
+                      <li class="sh-task is-done"><span class="sh-check" aria-hidden="true">✓</span><span class="sh-text"><span class="sh-name">UML class diagram</span><span class="sh-meta">SEG 2105 · 2026-11-14</span></span></li>
+                      <li class="sh-task"><span class="sh-check" aria-hidden="true"></span><span class="sh-text"><span class="sh-name">ALU lab report</span><span class="sh-meta">CEG 2136 · 2026-11-21</span></span></li>
+                      <li class="sh-task"><span class="sh-check" aria-hidden="true"></span><span class="sh-text"><span class="sh-name">Practice proofs</span><span class="sh-meta">MAT 1348 · 2026-11-25</span></span></li>
+                    </ul>
+                    <form class="sh-form" novalidate>
+                      <label class="sr-only" for="sh-name"><span lang="en">Task name</span><span lang="fr">Nom de la tâche</span></label>
+                      <input id="sh-name" type="text" autocomplete="off" maxlength="40" data-en-ph="New task" data-fr-ph="Nouvelle tâche" placeholder="New task">
+                      <div class="sh-row">
+                        <label class="sr-only" for="sh-date"><span lang="en">Due date (YYYY-MM-DD)</span><span lang="fr">Échéance (AAAA-MM-JJ)</span></label>
+                        <input id="sh-date" type="text" inputmode="numeric" autocomplete="off" maxlength="10" data-en-ph="YYYY-MM-DD" data-fr-ph="AAAA-MM-JJ" placeholder="YYYY-MM-DD">
+                        <label class="sr-only" for="sh-course"><span lang="en">Course</span><span lang="fr">Cours</span></label>
+                        <select id="sh-course"><option>SEG 2105</option><option>CEG 2136</option><option>MAT 1348</option></select>
+                      </div>
+                      <p class="sh-error" aria-live="polite"></p>
+                      <button type="submit" class="sh-add"><span lang="en">Add task</span><span lang="fr">Ajouter</span></button>
+                    </form>
+                  </div>
+                  <div class="sh-view" data-sh-view="courses" hidden>
+                    <p class="sh-title"><span lang="en">My courses</span><span lang="fr">Mes cours</span></p>
+                    <ul class="sh-courses"></ul>
+                  </div>
+                  <div class="sh-tabs" role="group" data-en-label="Screens" data-fr-label="Écrans" aria-label="Screens">
+                    <button type="button" data-sh-tab="tasks" aria-pressed="true"><span lang="en">Tasks</span><span lang="fr">Tâches</span></button>
+                    <button type="button" data-sh-tab="courses" aria-pressed="false"><span lang="en">My courses</span><span lang="fr">Mes cours</span></button>
+                  </div>
+                </div>
+                <figcaption id="sh-cap"><span lang="en">Try it: check off, edit or delete a task, or add one with a bad date to see the validation. This is a web mock-up of how the app works, not its Android code.</span><span lang="fr">Essayez&nbsp;: cochez, modifiez ou supprimez une tâche, ou ajoutez-en une avec une date invalide pour voir la validation. C'est une maquette web du fonctionnement de l'appli, pas son code Android.</span></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4-bit digital logic system -->
+        <article class="case" id="logic">
+          <div class="case-head">
+            <h3><span lang="en">4-Bit Digital Logic System</span><span lang="fr">Système logique 4 bits</span></h3>
+            <span class="pill">Quartus · FPGA · CEG 2136</span>
+            <span class="pill pill--course"><span lang="en">Course project · lab</span><span lang="fr">Projet de cours · labo</span></span>
+          </div>
+          <p class="case-lead"><span lang="en">A 4-bit ALU and a modulo-60 counter, designed in Intel Quartus and tested on an Altera DE2-115 FPGA board.</span><span lang="fr">Une UAL 4 bits et un compteur modulo 60, conçus dans Intel Quartus et testés sur une carte FPGA Altera DE2-115.</span></p>
+          <div class="case-grid">
+            <div class="case-text">
+              <ul class="stats stats--3">
+                <li><strong class="stat-num">4</strong><span class="stat-label"><span lang="en">bit datapath</span><span lang="fr">bits de données</span></span></li>
+                <li><strong class="stat-num">16</strong><span class="stat-label"><span lang="en">operations</span><span lang="fr">opérations</span></span></li>
+                <li><strong class="stat-num">4</strong><span class="stat-label"><span lang="en">status flags</span><span lang="fr">indicateurs</span></span></li>
+              </ul>
+              <h4><span lang="en">What it does</span><span lang="fr">Ce que ça fait</span></h4>
+              <ul class="bullets">
+                <li><span lang="en">A 4-bit ALU with 16 arithmetic, logic and shift operations, and Zero, Carry, Overflow and Negative flags.</span><span lang="fr">Une UAL 4 bits avec 16 opérations arithmétiques, logiques et de décalage, et les indicateurs zéro, retenue, débordement et négatif.</span></li>
+                <li><span lang="en">A modulo-60 counter made by cascading a BCD counter (0–9) and a modulo-6 counter built from JK flip-flops, with the logic derived from K-maps.</span><span lang="fr">Un compteur modulo 60 obtenu en cascadant un compteur BCD (0 à 9) et un compteur modulo 6 faits de bascules JK, avec une logique tirée de tableaux de Karnaugh.</span></li>
+                <li><span lang="en">Each design was checked in waveform simulation, then run on the FPGA board.</span><span lang="fr">Chaque circuit a été vérifié par simulation de chronogrammes, puis exécuté sur la carte FPGA.</span></li>
+              </ul>
+              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
+              <ul class="chips">
+                <li class="chip">Intel Quartus</li><li class="chip">DE2-115 FPGA</li><li class="chip"><span lang="en">JK flip-flops</span><span lang="fr">Bascules JK</span></li><li class="chip"><span lang="en">K-maps</span><span lang="fr">Tableaux de Karnaugh</span></li><li class="chip"><span lang="en">Waveform simulation</span><span lang="fr">Chronogrammes</span></li>
+              </ul>
+            </div>
+            <div class="case-visual">
+              <figure class="alu" aria-labelledby="alu-cap">
+                <p class="alu-head"><span lang="en">4-bit ALU · pick an operation, flip the bits</span><span lang="fr">UAL 4 bits · choisissez une opération, basculez les bits</span></p>
+                <div class="alu-ops" role="group" data-en-label="Operation" data-fr-label="Opération" aria-label="Operation">
+                  <button type="button" data-op="ADD" aria-pressed="true">ADD</button><button type="button" data-op="SUB" aria-pressed="false">SUB</button><button type="button" data-op="AND" aria-pressed="false">AND</button><button type="button" data-op="OR" aria-pressed="false">OR</button><button type="button" data-op="XOR" aria-pressed="false">XOR</button><button type="button" data-op="NOT" aria-pressed="false">NOT A</button><button type="button" data-op="SHL" aria-pressed="false">SHL A</button><button type="button" data-op="SHR" aria-pressed="false">SHR A</button>
+                </div>
+                <div class="alu-row" data-row="a"><span class="alu-lab">A</span><span class="bits" data-reg="a"></span><span class="alu-val" data-val="a">0101 = 5</span></div>
+                <div class="alu-row" data-row="b"><span class="alu-lab">B</span><span class="bits" data-reg="b"></span><span class="alu-val" data-val="b">0011 = 3</span></div>
+                <div class="alu-row alu-row--out"><span class="alu-lab">=</span><span class="bits bits--out" data-reg="r"></span><span class="alu-val" data-val="r">1000 = 8</span></div>
+                <ul class="flags" aria-label="Flags">
+                  <li data-flag="Z"><b>Z</b><span lang="en">zero</span><span lang="fr">zéro</span></li>
+                  <li data-flag="C"><b>C</b><span lang="en">carry</span><span lang="fr">retenue</span></li>
+                  <li data-flag="V"><b>V</b><span lang="en">overflow</span><span lang="fr">débordement</span></li>
+                  <li data-flag="N"><b>N</b><span lang="en">negative</span><span lang="fr">négatif</span></li>
+                </ul>
+                <p class="alu-eq" aria-live="polite"></p>
+                <div class="counter">
+                  <p class="alu-head"><span lang="en">Modulo-60 counter · BCD + mod-6</span><span lang="fr">Compteur modulo 60 · BCD + mod 6</span></p>
+                  <div class="counter-body">
+                    <div class="digits" aria-live="off">
+                      <span class="digit-box"><span class="digit" data-d="tens">0</span><span class="digit-bits" data-q="tens">000</span><span class="digit-lab"><span lang="en">tens · mod 6</span><span lang="fr">dizaines · mod 6</span></span></span>
+                      <span class="digit-box"><span class="digit" data-d="units">0</span><span class="digit-bits" data-q="units">0000</span><span class="digit-lab"><span lang="en">units · BCD</span><span lang="fr">unités · BCD</span></span></span>
+                    </div>
+                    <div class="counter-btns">
+                      <button type="button" data-clk="step"><span lang="en">Clock ▸</span><span lang="fr">Horloge ▸</span></button>
+                      <button type="button" data-clk="run" aria-pressed="false"><span lang="en">Run</span><span lang="fr">Lancer</span></button>
+                      <button type="button" data-clk="reset"><span lang="en">Reset</span><span lang="fr">Remise à zéro</span></button>
+                    </div>
+                  </div>
+                </div>
+                <figcaption id="alu-cap"><span lang="en">A browser model of the circuits: it runs 8 of the ALU's 16 operations. On SUB, carry is the carry-out of A + ~B + 1. The units count 0–9 and enable the tens, which wrap after 5.</span><span lang="fr">Un modèle des circuits dans le navigateur&nbsp;: il exécute 8 des 16 opérations de l'UAL. Pour SUB, la retenue est celle de A + ~B + 1. Les unités comptent de 0 à 9 et activent les dizaines, qui reviennent à 0 après 5.</span></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+        </div>
+
       </div>
     </section>
 
@@ -822,6 +1052,8 @@
             <ul class="chips">
               <li class="chip"><span lang="en">Object-Oriented Programming</span><span lang="fr">Programmation orientée objet</span></li>
               <li class="chip"><span lang="en">Data Structures</span><span lang="fr">Structures de données</span></li>
+              <li class="chip"><span lang="en">Introduction to Software Engineering</span><span lang="fr">Introduction au génie logiciel</span></li>
+              <li class="chip"><span lang="en">Computer Architecture</span><span lang="fr">Architecture des ordinateurs</span></li>
               <li class="chip"><span lang="en">Digital Systems</span><span lang="fr">Systèmes numériques</span></li>
               <li class="chip"><span lang="en">Discrete Mathematics</span><span lang="fr">Mathématiques discrètes</span></li>
               <li class="chip"><span lang="en">Calculus</span><span lang="fr">Calcul différentiel et intégral</span></li>
@@ -860,6 +1092,8 @@
             <dd class="chips">
               <a class="chip" href="#projects">Git <span class="chip-to">→ ScoutIQ, TripPilot AI</span></a>
               <a class="chip" href="#projects">GitHub <span class="chip-to">→ ScoutIQ, TripPilot AI</span></a>
+              <a class="chip" href="#studyhub">Android Studio <span class="chip-to">→ StudyHub</span></a>
+              <a class="chip" href="#logic">Intel Quartus <span class="chip-to"><span lang="en">→ 4-bit logic system</span><span lang="fr">→ système logique 4 bits</span></span></a>
               <span class="chip">VS Code</span>
               <span class="chip">IntelliJ IDEA</span>
               <a class="chip" href="#trippilot">Streamlit <span class="chip-to">→ TripPilot AI</span></a>
@@ -873,6 +1107,8 @@
               <a class="chip" href="#scoutiq"><span lang="en">Object-Oriented Programming</span><span lang="fr">Programmation orientée objet</span> <span class="chip-to">→ ScoutIQ</span></a>
               <a class="chip" href="#scoutiq"><span lang="en">Data Structures &amp; Algorithms</span><span lang="fr">Structures de données et algorithmes</span> <span class="chip-to">→ ScoutIQ</span></a>
               <a class="chip" href="#trippilot"><span lang="en">API Integration</span><span lang="fr">Intégration d'API</span> <span class="chip-to">→ TripPilot AI (OpenAI, SerpAPI)</span></a>
+              <a class="chip" href="#logic"><span lang="en">Digital logic &amp; FPGA</span><span lang="fr">Logique numérique et FPGA</span> <span class="chip-to"><span lang="en">→ 4-bit logic system</span><span lang="fr">→ système logique 4 bits</span></span></a>
+              <a class="chip" href="#studyhub">UML <span class="chip-to">→ StudyHub</span></a>
               <a class="chip" href="#listings"><span lang="en">REST APIs</span><span lang="fr">API REST</span> <span class="chip-to">→ Listings API</span></a>
               <a class="chip" href="#listings"><span lang="en">Automated testing</span><span lang="fr">Tests automatisés</span> <span class="chip-to">→ Listings API, ScoutIQ</span></a>
               <a class="chip" href="#bugs"><span lang="en">Debugging</span><span lang="fr">Débogage</span> <span class="chip-to"><span lang="en">→ TripPilot AI, bug fixes</span><span lang="fr">→ TripPilot AI, bugs corrigés</span></span></a>
@@ -917,6 +1153,13 @@
             <a class="btn btn--outline" href="https://github.com/iliass-elguaari" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
         </div>
+        <div class="trophies" aria-labelledby="trophies-title">
+          <div class="trophies-head">
+            <h3 id="trophies-title"><span lang="en">Trophy cabinet</span><span lang="fr">Vitrine des trophées</span></h3>
+            <p class="trophies-count"><span class="trophy-n">0</span>/<span class="trophy-total">9</span> <span lang="en">earned. Play with the demos to collect them.</span><span lang="fr">obtenus. Essayez les démos pour les collectionner.</span></p>
+          </div>
+          <ul class="trophy-list"></ul>
+        </div>
       </div>
     </section>
   </main>
@@ -944,6 +1187,7 @@
   <div class="rail" aria-hidden="true">
     <ol class="rail-list"></ol>
     <p class="rail-count"><span class="rail-n">0</span>/8</p>
+    <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">9</span></p>
   </div>
   <div class="unlock" aria-hidden="true">
     <span class="unlock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg></span>
