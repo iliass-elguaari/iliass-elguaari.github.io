@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-22">
+  <link rel="stylesheet" href="style.css?v=2026-11-22c">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -397,7 +397,7 @@
               <li><a class="level" href="#listings" data-level="listings">
                 <span class="level-art level-art--listings" aria-hidden="true"><span class="level-num">02</span><span class="level-glyph">GET /</span></span>
                 <span class="level-body"><span class="level-name">Listings API</span><span class="level-type"><span lang="en">Spring Boot · REST</span><span lang="fr">Spring Boot · REST</span></span><span class="level-line"><span lang="en">A REST API for student housing.</span><span lang="fr">Une API REST de logements étudiants.</span></span>
-                <span class="level-tags"><span class="ltag">☝ <span lang="en">Try requests</span><span lang="fr">Requêtes</span></span><span class="ltag">{ } Code</span></span></span>
+                <span class="level-tags"><span class="ltag">↗ <span lang="en">Live demo</span><span lang="fr">Démo en ligne</span></span><span class="ltag">☝ <span lang="en">Try requests</span><span lang="fr">Requêtes</span></span><span class="ltag">{ } Code</span></span></span>
                 <span class="level-state" aria-hidden="true"></span></a></li>
               <li><a class="level" href="#trippilot" data-level="trippilot">
                 <span class="level-art level-art--trippilot" aria-hidden="true"><span class="level-num">03</span><span class="level-glyph"><span lang="en">Day 1→N</span><span lang="fr">Jour 1→N</span></span></span>
@@ -565,6 +565,7 @@
               <ul class="bullets">
                 <li><span lang="en">Endpoints to add, list, filter by maximum rent, fetch and delete listings, with 404 Not Found for an unknown id and 204 No Content after a delete.</span><span lang="fr">Des points de terminaison pour ajouter, lister, filtrer par loyer maximum, consulter et supprimer des annonces, avec 404 Not Found pour un identifiant inconnu et 204 No Content après une suppression.</span></li>
                 <li><span lang="en">A JPA entity mapped to a PostgreSQL table, and a Spring Data repository whose rent filter query comes from the method name alone.</span><span lang="fr">Une entité JPA associée à une table PostgreSQL, et un dépôt Spring Data dont la requête de filtre par loyer découle du seul nom de la méthode.</span></li>
+                <li><span lang="en">A web front end to browse listings, filter by maximum rent, add a listing with validation and delete one. The live demo runs in a browser-only mode.</span><span lang="fr">Une interface web pour parcourir les annonces, filtrer par loyer maximum, ajouter une annonce avec validation et en supprimer une. La démo en ligne fonctionne dans un mode navigateur seulement.</span></li>
                 <li><span lang="en">Rejects a negative rent with 400 Bad Request.</span><span lang="fr">Refuse un loyer négatif avec 400 Bad Request.</span></li>
                 <li><span lang="en">Controller tests with @WebMvcTest and a mocked repository, so they run without a database.</span><span lang="fr">Des tests du contrôleur avec @WebMvcTest et un dépôt simulé, qui tournent donc sans base de données.</span></li>
               </ul>
@@ -579,6 +580,7 @@
                 <li class="chip">Java</li><li class="chip">Spring Boot</li><li class="chip">Spring Data JPA</li><li class="chip">PostgreSQL</li><li class="chip">Maven</li><li class="chip">MockMvc</li>
               </ul>
               <p class="links-row links-row--case">
+                <a class="btn btn--amber btn--sm" href="https://iliass-elguaari.github.io/spring-boot-listings-api/" target="_blank" rel="noopener"><span lang="en">Try the live demo ↗</span><span lang="fr">Essayer la démo en ligne ↗</span></a>
                 <a href="https://github.com/iliass-elguaari/spring-boot-listings-api" target="_blank" rel="noopener"><span lang="en">Code on GitHub ↗</span><span lang="fr">Code sur GitHub ↗</span></a>
               </p>
             </div>
@@ -604,6 +606,12 @@
                 </div>
                 <figcaption id="api-cap"><span lang="en">Pick a request to see what the API answers. The listings are the sample data from its tests, and each answer names the test that checks it.</span><span lang="fr">Choisissez une requête pour voir ce que l'API répond. Les annonces sont les données d'exemple de ses tests, et chaque réponse indique le test qui la vérifie.</span></figcaption>
               </figure>
+              <a class="demo-shot spot" href="https://iliass-elguaari.github.io/spring-boot-listings-api/" target="_blank" rel="noopener">
+                <span class="api-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="api-host">iliass-elguaari.github.io/spring-boot-listings-api</span></span>
+                <img src="listings-demo.jpg" width="720" height="864" loading="lazy" alt="" />
+                <span class="demo-shot-cta"><span lang="en">Open the live front end ↗</span><span lang="fr">Ouvrir l'interface en ligne ↗</span></span>
+              </a>
+              <p class="note demo-shot-note"><span lang="en">The front end: browse listings, filter by rent, add or delete one. Online it runs in a browser-only demo mode; with the Spring Boot server running it talks to the real API.</span><span lang="fr">L'interface : parcourir les annonces, filtrer par loyer, en ajouter ou en supprimer une. En ligne, elle tourne en mode démo dans le navigateur ; avec le serveur Spring Boot lancé, elle parle à la vraie API.</span></p>
             </div>
           </div>
                   <div class="code-reader" data-code-reader>
