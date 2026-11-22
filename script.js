@@ -18,15 +18,12 @@ const PAGE_TEXT = {
   }
 };
 
-// The 8 chapters. Each one unlocks a short fact the first time it scrolls into view.
+// The 7 chapters. Each one unlocks a short fact the first time it scrolls into view.
 // Every fact comes from the page itself.
 const CHAPTERS = [
   { id: "projects",   en: "Projects",   fr: "Projets",
-    factEn: "Six projects in two groups: three of my own and three from my uOttawa courses. Each one is a level.",
-    factFr: "Six projets en deux groupes : trois personnels et trois de mes cours à l'Université d'Ottawa. Chacun est un niveau." },
-  { id: "demos",      en: "Demos",      fr: "Démos",
-    factEn: "Both demos are real projects, with the code on GitHub.",
-    factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
+    factEn: "Six projects: three of my own and three from my uOttawa courses. Each one opens a demo.",
+    factFr: "Six projets : trois personnels et trois de mes cours à l'Université d'Ottawa. Chacun ouvre une démo." },
   { id: "next",       en: "Next move",  fr: "Prochaine étape",
     factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
     factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
@@ -238,7 +235,7 @@ function toggleTheme() {
 
 // If a thumbnail can't load, remove it so the designed artwork shows instead.
 function initVideos() {
-  document.querySelectorAll(".video-thumb").forEach((img) => {
+  document.querySelectorAll(".video-thumb, .pcard-img").forEach((img) => {
     if (img.complete && img.naturalWidth === 0) img.remove();
     img.addEventListener("error", () => img.remove());
   });
@@ -257,7 +254,9 @@ function loadVideo(container) {
   iframe.allowFullscreen = true;
   iframe.referrerPolicy = "strict-origin-when-cross-origin";
 
-  container.querySelector(".video-play").replaceWith(iframe);
+  const button = container.querySelector(".video-play");
+  container._button = button;
+  button.replaceWith(iframe);
   iframe.focus();
 }
 
@@ -760,7 +759,7 @@ function markSpotCards() {
   ).forEach((el) => el.classList.add("spot"));
 }
 
-// ---------- 13. Level select: one project case file at a time ----------
+// ---------- 13. Project grid and viewer: every project on one screen, details open on top ----------
 
 const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "studyhub", "logic", "ums"];
 const LEVEL_NAMES = {
@@ -773,80 +772,150 @@ const LEVEL_NAMES = {
 };
 const played = new Set();
 let currentLevel = null;
+let viewerOpener = null;
 
 function initLevels() {
   const stage = document.querySelector("[data-case-stage]");
   if (!stage) return;
   document.documentElement.classList.add("has-levels");
+  stage.tabIndex = -1;
 
-  // Header and footer that frame the open case file.
+  // Header (title + close) and footer (previous / next) that frame the open project.
   const head = document.createElement("div");
   head.className = "stage-head";
-  head.setAttribute("aria-hidden", "true");
+  head.innerHTML = '<p class="stage-title"></p><button type="button" class="stage-close"></button>';
+  const close = head.querySelector(".stage-close");
+  close.dataset.enLabel = "Close";
+  close.dataset.frLabel = "Fermer";
+  close.setAttribute("aria-label", currentLang() === "fr" ? "Fermer" : "Close");
+  close.textContent = "✕";
+  close.addEventListener("click", closeViewer);
   stage.prepend(head);
 
   const nav = document.createElement("nav");
   nav.className = "stage-nav";
-  nav.setAttribute("aria-label", "Levels");
   nav.dataset.enLabel = "Other projects";
   nav.dataset.frLabel = "Autres projets";
+  nav.setAttribute("aria-label", "Other projects");
   nav.innerHTML = '<button type="button" class="stage-prev"></button><span class="stage-count"></span><button type="button" class="stage-next"></button>';
   stage.append(nav);
   nav.querySelector(".stage-prev").addEventListener("click", () => stepLevel(-1));
   nav.querySelector(".stage-next").addEventListener("click", () => stepLevel(1));
 
+  // A click on the dimmed backdrop (outside the panel) closes the viewer.
+  stage.addEventListener("click", (event) => { if (event.target === stage) closeViewer(); });
+
+  document.addEventListener("keydown", (event) => {
+    if (!stage.classList.contains("is-open")) return;
+    if (event.key === "Escape") { event.preventDefault(); closeViewer(); return; }
+    if (event.target.closest && event.target.closest("input, select, textarea, [contenteditable]")) return;
+    if (event.key === "ArrowLeft") stepLevel(-1);
+    if (event.key === "ArrowRight") stepLevel(1);
+    if (event.key === "Tab") trapFocus(event, stage);
+  });
+
   document.querySelectorAll("[data-level]").forEach((card) => {
     card.addEventListener("click", (event) => {
       event.preventDefault();
-      selectLevel(card.dataset.level, true);
-      history.replaceState(null, "", "#" + card.dataset.level);
+      viewerOpener = card;
+      openViewer(card.dataset.level);
     });
   });
 
-  // Any in-page link that points into a closed case file opens that case first.
+  // Filter buttons: All / Personal / Courses.
+  document.querySelectorAll(".pfilter-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const f = btn.dataset.filter;
+      document.querySelectorAll(".pfilter-btn").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      document.querySelectorAll(".pcard").forEach((card) => {
+        card.hidden = f !== "all" && card.dataset.group !== f;
+      });
+    });
+  });
+
+  // Any in-page link that points into a project opens the viewer on it;
+  // a link from inside the viewer to the rest of the page closes it first.
   document.addEventListener("click", (event) => {
     const link = event.target.closest('a[href^="#"]');
     if (!link || link.hasAttribute("data-level")) return;
-    openCaseFor(link.getAttribute("href").slice(1));
+    const id = link.getAttribute("href").slice(1);
+    if (openCaseFor(id)) return;
+    if (stage.classList.contains("is-open") && stage.contains(link)) closeViewer(true);
   }, true);
   addEventListener("hashchange", () => openCaseFor(location.hash.slice(1)));
 
-  if (!openCaseFor(location.hash.slice(1))) selectLevel(LEVEL_ORDER[0], false, true);
+  selectLevel(LEVEL_ORDER[0], true);
+  openCaseFor(location.hash.slice(1));
 }
 
-// If the id is inside a case file, shows that case. Returns true when it did.
+// If the id is a project or sits inside one, opens the viewer there. Returns true when it did.
 function openCaseFor(id) {
   if (!id) return false;
   const target = document.getElementById(id);
   const article = target ? target.closest(".case-stage .case") : null;
   if (!article) return false;
-  if (article.id !== currentLevel) selectLevel(article.id, false);
+  openViewer(article.id, target !== article ? target : null);
   return true;
+}
+
+function openViewer(id, focusTarget) {
+  const stage = document.querySelector("[data-case-stage]");
+  const wasOpen = stage.classList.contains("is-open");
+  if (id !== currentLevel || !wasOpen) selectLevel(id);
+  if (!wasOpen) {
+    stage.classList.add("is-open");
+    document.documentElement.classList.add("viewer-open");
+    stage.scrollTop = 0;
+    stage.querySelector(".stage-close").focus({ preventScroll: true });
+  }
+  if (location.hash.slice(1) !== (focusTarget ? focusTarget.id : id)) history.replaceState(null, "", "#" + id);
+  if (focusTarget) requestAnimationFrame(() => focusTarget.scrollIntoView({ block: "start" }));
+}
+
+function closeViewer(keepHash) {
+  const stage = document.querySelector("[data-case-stage]");
+  if (!stage.classList.contains("is-open")) return;
+  stopVideos(stage);
+  stage.classList.remove("is-open");
+  document.documentElement.classList.remove("viewer-open");
+  if (keepHash !== true) history.replaceState(null, "", "#projects");
+  const back = viewerOpener || document.querySelector('[data-level="' + currentLevel + '"]');
+  if (back && keepHash !== true) back.focus({ preventScroll: true });
+  viewerOpener = null;
+}
+
+// Keeps Tab inside the open viewer.
+function trapFocus(event, stage) {
+  const items = [...stage.querySelectorAll('a[href], button:not([disabled]), input, select, textarea, iframe, [tabindex]:not([tabindex="-1"])')]
+    .filter((el) => !el.closest("[hidden]") && el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 }
 
 function stepLevel(delta) {
   const i = LEVEL_ORDER.indexOf(currentLevel);
   const next = LEVEL_ORDER[(i + delta + LEVEL_ORDER.length) % LEVEL_ORDER.length];
-  selectLevel(next, true);
-  history.replaceState(null, "", "#" + next);
+  openViewer(next);
+  const stage = document.querySelector("[data-case-stage]");
+  stage.scrollTop = 0;
 }
 
-function selectLevel(id, scroll, quiet) {
+function selectLevel(id, quiet) {
+  const stage = document.querySelector("[data-case-stage]");
+  if (currentLevel && currentLevel !== id) stopVideos(stage);
   currentLevel = id;
   const index = LEVEL_ORDER.indexOf(id);
   document.querySelectorAll(".case-stage .case").forEach((article) => {
     article.hidden = article.id !== id;
   });
-  document.querySelectorAll("[data-level]").forEach((card) => {
-    if (card.dataset.level === id) card.setAttribute("aria-current", "true");
-    else card.removeAttribute("aria-current");
-  });
 
-  const stage = document.querySelector("[data-case-stage]");
   const name = LEVEL_NAMES[id];
-  stage.querySelector(".stage-head").replaceChildren(both(
-    "Level " + String(index + 1).padStart(2, "0") + " · " + name.en,
-    "Niveau " + String(index + 1).padStart(2, "0") + " · " + name.fr
+  stage.querySelector(".stage-title").replaceChildren(both(
+    String(index + 1).padStart(2, "0") + " / 06 · " + name.en,
+    String(index + 1).padStart(2, "0") + " / 06 · " + name.fr
   ));
   const prev = LEVEL_NAMES[LEVEL_ORDER[(index + LEVEL_ORDER.length - 1) % LEVEL_ORDER.length]];
   const next = LEVEL_NAMES[LEVEL_ORDER[(index + 1) % LEVEL_ORDER.length]];
@@ -854,22 +923,29 @@ function selectLevel(id, scroll, quiet) {
   stage.querySelector(".stage-next").replaceChildren(both(next.en + " →", next.fr + " →"));
   stage.querySelector(".stage-count").textContent = (index + 1) + " / " + LEVEL_ORDER.length;
 
-  // Restart the entrance animation of the case file.
+  // Restart the entrance animation of the project.
   const article = document.getElementById(id);
   article.classList.remove("is-entering");
   void article.offsetWidth;
   if (!quiet) article.classList.add("is-entering");
 
   if (!quiet) markPlayed(id);
-  if (scroll) stage.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+}
+
+// Puts any playing YouTube video back to its play button.
+function stopVideos(root) {
+  root.querySelectorAll(".video iframe").forEach((iframe) => {
+    const container = iframe.closest(".video");
+    if (container._button) iframe.replaceWith(container._button);
+    else iframe.remove();
+  });
 }
 
 function markPlayed(id) {
   if (played.has(id)) return;
   played.add(id);
   const card = document.querySelector('[data-level="' + id + '"]');
-  if (card) card.classList.add("is-played");
-  document.querySelector(".lv-played").textContent = played.size;
+  if (card) card.closest(".pcard").classList.add("is-played");
   if (played.size === LEVEL_ORDER.length) award("explorer");
 }
 
@@ -1245,9 +1321,9 @@ const ACHIEVEMENTS = [
   { id: "validator",  icon: "⚠",  en: "Edge case",     fr: "Cas limite",        hintEn: "Trip StudyHub's validation.",             hintFr: "Déclenchez la validation de StudyHub." },
   { id: "engineer",   icon: "⚡", en: "Bit flipper",   fr: "Basculeur de bits", hintEn: "Flip a bit on the 4-bit ALU.",            hintFr: "Basculez un bit de l'UAL 4 bits." },
   { id: "registrar",  icon: "🎓", en: "Registrar",     fr: "Registraire",       hintEn: "Record a grade or try an edge case in the University Management System.", hintFr: "Enregistrez une note ou testez un cas limite dans le système universitaire." },
-  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 levels.",                      hintFr: "Ouvrez les 6 niveaux." },
+  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 projects.",                    hintFr: "Ouvrez les 6 projets." },
   { id: "dj",         icon: "🎧", en: "Sound check",   fr: "Test de son",       hintEn: "Turn on the music.",                      hintFr: "Activez la musique." },
-  { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 8 chapters.",                  hintFr: "Débloquez les 8 chapitres." }
+  { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 7 chapters.",                  hintFr: "Débloquez les 7 chapitres." }
 ];
 const earned = new Set();
 const toastQueue = [];

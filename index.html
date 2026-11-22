@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-22k">
+  <link rel="stylesheet" href="style.css?v=2026-11-22m">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -39,8 +39,8 @@
       root.lang = lang;
     })();
   </script>
-  <script src="sound.js?v=2026-11-22k" defer></script>
-  <script src="script.js?v=2026-11-22k" defer></script>
+  <script src="sound.js?v=2026-11-22m" defer></script>
+  <script src="script.js?v=2026-11-22m" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -188,16 +188,15 @@
           </div>
 
           <nav class="jump" data-en-label="Chapters" data-fr-label="Chapitres" aria-label="Chapters">
-            <p class="jump-title" aria-hidden="true"><span lang="en">8 chapters · scroll to unlock them</span><span lang="fr">8 chapitres · faites défiler pour les débloquer</span></p>
+            <p class="jump-title" aria-hidden="true"><span lang="en">7 chapters · scroll to unlock them</span><span lang="fr">7 chapitres · faites défiler pour les débloquer</span></p>
             <ol>
               <li><a href="#projects"><span class="jn">01</span><span lang="en">Projects</span><span lang="fr">Projets</span></a></li>
-              <li><a href="#demos"><span class="jn">02</span><span lang="en">Demos</span><span lang="fr">Démos</span></a></li>
-              <li><a href="#next"><span class="jn">03</span><span lang="en">Next move</span><span lang="fr">Prochaine étape</span></a></li>
-              <li><a href="#experience"><span class="jn">04</span><span lang="en">Experience</span><span lang="fr">Parcours</span></a></li>
-              <li><a href="#skills"><span class="jn">05</span><span lang="en">Skills</span><span lang="fr">Compétences</span></a></li>
-              <li><a href="#proof"><span class="jn">06</span><span lang="en">Proof</span><span lang="fr">Preuves</span></a></li>
-              <li><a href="#pitch"><span class="jn">07</span>Soccer</a></li>
-              <li><a href="#contact"><span class="jn">08</span>Contact</a></li>
+              <li><a href="#next"><span class="jn">02</span><span lang="en">Next move</span><span lang="fr">Prochaine étape</span></a></li>
+              <li><a href="#experience"><span class="jn">03</span><span lang="en">Experience</span><span lang="fr">Parcours</span></a></li>
+              <li><a href="#skills"><span class="jn">04</span><span lang="en">Skills</span><span lang="fr">Compétences</span></a></li>
+              <li><a href="#proof"><span class="jn">05</span><span lang="en">Proof</span><span lang="fr">Preuves</span></a></li>
+              <li><a href="#pitch"><span class="jn">06</span>Soccer</a></li>
+              <li><a href="#contact"><span class="jn">07</span>Contact</a></li>
             </ol>
           </nav>
         </div>
@@ -223,58 +222,81 @@
     <section id="projects" class="section" data-chapter="1">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker"><span class="ch">01</span><span lang="en">Case files</span><span lang="fr">Les dossiers</span></p>
+          <p class="kicker"><span class="ch">01</span><span lang="en">Selected work</span><span lang="fr">Réalisations</span></p>
           <h2><span lang="en">Projects</span><span lang="fr">Projets</span></h2>
-          <p class="section-sub"><span lang="en">Six projects, sorted into two groups. Pick one to open its case file: demos you can play with and the code you can read.</span><span lang="fr">Six projets, classés en deux groupes. Choisissez-en un pour ouvrir son dossier&nbsp;: des démos à essayer et le code à lire.</span></p>
+          <p class="section-sub"><span lang="en">Click a project to open its demo, details and code.</span><span lang="fr">Cliquez sur un projet pour ouvrir sa démo, ses détails et son code.</span></p>
+          <div class="pfilter" role="group" data-en-label="Filter projects" data-fr-label="Filtrer les projets" aria-label="Filter projects">
+            <button type="button" class="pfilter-btn" data-filter="all" aria-pressed="true"><span lang="en">All</span><span lang="fr">Tous</span> <span class="pf-n">6</span></button>
+            <button type="button" class="pfilter-btn" data-filter="personal" aria-pressed="false"><span lang="en">Personal</span><span lang="fr">Personnels</span> <span class="pf-n">3</span></button>
+            <button type="button" class="pfilter-btn" data-filter="course" aria-pressed="false"><span lang="en">uOttawa courses</span><span lang="fr">Cours uOttawa</span> <span class="pf-n">3</span></button>
+          </div>
         </div>
 
-        <div class="levels" data-levels>
-          <div class="levels-top">
-            <p class="levels-title"><span class="levels-blink" aria-hidden="true">▶</span><span lang="en">Select a level</span><span lang="fr">Choisissez un niveau</span></p>
-            <p class="levels-progress" aria-hidden="true"><span class="lv-played">0</span>/6 <span lang="en">played</span><span lang="fr">joués</span></p>
-          </div>
-          <div class="level-group">
-            <h3 class="level-group-title"><span lang="en">Personal projects</span><span lang="fr">Projets personnels</span><span class="lg-n">3</span></h3>
-            <ol class="level-grid">
-              <li><a class="level" href="#scoutiq" data-level="scoutiq">
-                <span class="level-art level-art--scoutiq" aria-hidden="true"><span class="level-num">01</span><span class="level-glyph">4-3-3</span></span>
-                <span class="level-body"><span class="level-name">ScoutIQ</span><span class="level-type"><span lang="en">Java · terminal app</span><span lang="fr">Java · application terminal</span></span><span class="level-line"><span lang="en">Picks a soccer lineup from a roster.</span><span lang="fr">Compose une équipe à partir d'un effectif.</span></span>
-                <span class="level-tags"><span class="ltag">▶ <span lang="en">Video</span><span lang="fr">Vidéo</span></span><span class="ltag">☝ <span lang="en">Interactive</span><span lang="fr">Interactif</span></span><span class="ltag">{ } Code</span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-              <li><a class="level" href="#trippilot" data-level="trippilot">
-                <span class="level-art level-art--trippilot" aria-hidden="true"><span class="level-num">02</span><span class="level-glyph"><span lang="en">Day 1→N</span><span lang="fr">Jour 1→N</span></span></span>
-                <span class="level-body"><span class="level-name">TripPilot AI</span><span class="level-type"><span lang="en">Open source · Python · AI</span><span lang="fr">Open source · Python · IA</span></span><span class="level-line"><span lang="en">Two AI agents plan a trip day by day.</span><span lang="fr">Deux agents IA planifient un voyage.</span></span>
-                <span class="level-tags"><span class="ltag">▶ <span lang="en">Video</span><span lang="fr">Vidéo</span></span><span class="ltag">↗ <span lang="en">Live app</span><span lang="fr">En ligne</span></span><span class="ltag">{ } Code</span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-              <li><a class="level" href="#listings" data-level="listings">
-                <span class="level-art level-art--listings" aria-hidden="true"><span class="level-num">03</span><span class="level-glyph">GET /</span></span>
-                <span class="level-body"><span class="level-name">Listings API</span><span class="level-type"><span lang="en">Spring Boot · REST</span><span lang="fr">Spring Boot · REST</span></span><span class="level-line"><span lang="en">A REST API for student housing.</span><span lang="fr">Une API REST de logements étudiants.</span></span>
-                <span class="level-tags"><span class="ltag">↗ <span lang="en">Live demo</span><span lang="fr">Démo en ligne</span></span><span class="ltag">☝ <span lang="en">Try requests</span><span lang="fr">Requêtes</span></span><span class="ltag">{ } Code</span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-            </ol>
-          </div>
-          <div class="level-group">
-            <h3 class="level-group-title"><span lang="en">Course projects</span><span lang="fr">Projets de cours</span><span class="lg-n">3</span></h3>
-            <ol class="level-grid">
-              <li><a class="level" href="#studyhub" data-level="studyhub">
-                <span class="level-art level-art--studyhub" aria-hidden="true"><span class="level-num">04</span><span class="level-glyph">✓ ✎ 🗑</span></span>
-                <span class="level-body"><span class="level-name">StudyHub</span><span class="level-type">Kotlin · SEG 2105</span><span class="level-line"><span lang="en">A team Android app for courses and tasks.</span><span lang="fr">Une appli Android d'équipe pour cours et tâches.</span></span>
-                <span class="level-tags"><span class="ltag">☝ <span lang="en">Interactive</span><span lang="fr">Interactif</span></span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-              <li><a class="level" href="#logic" data-level="logic">
-                <span class="level-art level-art--logic" aria-hidden="true"><span class="level-num">05</span><span class="level-glyph">1010</span></span>
-                <span class="level-body"><span class="level-name"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></span><span class="level-type">FPGA · CEG 2136</span><span class="level-line"><span lang="en">An ALU and a mod-60 counter on an FPGA.</span><span lang="fr">Une UAL et un compteur modulo 60 sur FPGA.</span></span>
-                <span class="level-tags"><span class="ltag">☝ <span lang="en">Simulator</span><span lang="fr">Simulateur</span></span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-              <li><a class="level" href="#ums" data-level="ums">
-                <span class="level-art level-art--ums" aria-hidden="true"><span class="level-num">06</span><span class="level-glyph">87 → A</span></span>
-                <span class="level-body"><span class="level-name"><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></span><span class="level-type">Java · SEG 2105</span><span class="level-line"><span lang="en">Courses, TAs and grades in Java.</span><span lang="fr">Cours, assistants et notes en Java.</span></span>
-                <span class="level-tags"><span class="ltag">☝ <span lang="en">Try the checks</span><span lang="fr">Testez les règles</span></span></span></span>
-                <span class="level-state" aria-hidden="true"></span></a></li>
-            </ol>
-          </div>
+        <div class="pgrid-wrap" data-levels>
+          <ul class="pgrid">
+            <li class="pcard" data-group="personal">
+              <div class="pcard-media level-art level-art--scoutiq" aria-hidden="true"><span class="level-num">01</span><span class="level-glyph">4-3-3</span><img class="pcard-img" src="https://i.ytimg.com/vi/YIibp0YaeXw/hqdefault.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">▶ Video + board</span><span lang="fr">▶ Vidéo + tableau</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type"><span lang="en">Java · terminal app</span><span lang="fr">Java · application terminal</span></p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#scoutiq" data-level="scoutiq">ScoutIQ</a></h3>
+                <p class="pcard-desc"><span lang="en">Ranks players for 12 positions and builds three lineup formations in Java.</span><span lang="fr">Classe les joueurs pour 12 postes et compose trois formations, en Java.</span></p>
+                <ul class="pcard-tags"><li>Java</li><li>OOP</li><li>Collections</li><li>JUnit</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/ScoutIQ" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
+              </div>
+            </li>
+            <li class="pcard" data-group="personal">
+              <div class="pcard-media level-art level-art--trippilot" aria-hidden="true"><span class="level-num">02</span><span class="level-glyph"><span lang="en">Day 1→N</span><span lang="fr">Jour 1→N</span></span><img class="pcard-img" src="https://i.ytimg.com/vi/IcvbpsOCr38/hqdefault.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">▶ Video + live app</span><span lang="fr">▶ Vidéo + appli</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type"><span lang="en">Python · AI agents</span><span lang="fr">Python · agents IA</span></p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#trippilot" data-level="trippilot">TripPilot AI</a></h3>
+                <p class="pcard-desc"><span lang="en">An open-source AI trip planner I extended: a web-research agent feeds GPT-4o.</span><span lang="fr">Un planificateur de voyage IA open source que j'ai enrichi&nbsp;: un agent web alimente GPT-4o.</span></p>
+                <ul class="pcard-tags"><li>Python</li><li>OpenAI API</li><li>Streamlit</li><li>SerpAPI</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/TripPilot-AI" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
+              </div>
+            </li>
+            <li class="pcard" data-group="personal">
+              <div class="pcard-media level-art level-art--listings" aria-hidden="true"><span class="level-num">03</span><span class="level-glyph">GET /</span><img class="pcard-img" src="listings-demo.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">☝ Try requests</span><span lang="fr">☝ Requêtes</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type"><span lang="en">Java · REST API</span><span lang="fr">Java · API REST</span></p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#listings" data-level="listings">Listings API</a></h3>
+                <p class="pcard-desc"><span lang="en">A Spring Boot REST API on PostgreSQL with 5 endpoints and 8 controller tests.</span><span lang="fr">Une API REST Spring Boot sur PostgreSQL, avec 5 points d'accès et 8 tests.</span></p>
+                <ul class="pcard-tags"><li>Spring Boot</li><li>PostgreSQL</li><li>JPA</li><li>MockMvc</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/spring-boot-listings-api" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
+              </div>
+            </li>
+            <li class="pcard" data-group="course">
+              <div class="pcard-media level-art level-art--studyhub" aria-hidden="true"><span class="level-num">04</span><span class="level-glyph">✓ ✎ 🗑</span><span class="pcard-badge"><span lang="en">☝ Interactive</span><span lang="fr">☝ Interactif</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type"><span lang="en">Kotlin · team of 4 · SEG 2105</span><span lang="fr">Kotlin · équipe de 4 · SEG 2105</span></p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#studyhub" data-level="studyhub">StudyHub</a></h3>
+                <p class="pcard-desc"><span lang="en">Team Android app. I built admin user management and course edit and delete.</span><span lang="fr">Appli Android d'équipe. J'ai fait la gestion des comptes et l'édition des cours.</span></p>
+                <ul class="pcard-tags"><li>Kotlin</li><li>Android</li><li>SQLite</li><li>UML</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/seg2105-project" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
+              </div>
+            </li>
+            <li class="pcard" data-group="course">
+              <div class="pcard-media level-art level-art--logic" aria-hidden="true"><span class="level-num">05</span><span class="level-glyph">1010</span><span class="pcard-badge"><span lang="en">☝ Simulator</span><span lang="fr">☝ Simulateur</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type">FPGA · CEG 2136</p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#logic" data-level="logic"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></a></h3>
+                <p class="pcard-desc"><span lang="en">A 4-bit ALU and a mod-60 counter, designed by hand and run on an FPGA.</span><span lang="fr">Une UAL 4 bits et un compteur modulo 60, conçus à la main, sur FPGA.</span></p>
+                <ul class="pcard-tags"><li>Quartus</li><li>DE2-115</li><li>K-maps</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><span class="pcard-note"><span lang="en">Course lab</span><span lang="fr">Labo de cours</span></span></div>
+              </div>
+            </li>
+            <li class="pcard" data-group="course">
+              <div class="pcard-media level-art level-art--ums" aria-hidden="true"><span class="level-num">06</span><span class="level-glyph">87 → A</span><span class="pcard-badge"><span lang="en">☝ Try the checks</span><span lang="fr">☝ Testez les règles</span></span></div>
+              <div class="pcard-body">
+                <p class="pcard-type">Java · SEG 2105</p>
+                <h3 class="pcard-name"><a class="pcard-link" href="#ums" data-level="ums"><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></a></h3>
+                <p class="pcard-desc"><span lang="en">Courses, TAs and grades in Java, with every input checked before saving.</span><span lang="fr">Cours, assistants et notes en Java, chaque saisie vérifiée avant l'enregistrement.</span></p>
+                <ul class="pcard-tags"><li>Java</li><li>OOP</li><li>Javadoc</li></ul>
+                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><span class="pcard-note"><span lang="en">Course lab</span><span lang="fr">Labo de cours</span></span></div>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div class="case-stage" data-case-stage>
+        <div class="case-stage" data-case-stage role="dialog" aria-modal="true" data-en-label="Project details" data-fr-label="Détails du projet" aria-label="Project details">
 
         <!-- ScoutIQ -->
         <article class="case" id="scoutiq">
@@ -285,6 +307,22 @@
 
           <div class="case-grid">
             <div class="case-text">
+              <div class="video video--case" id="demo-scoutiq" data-video-id="YIibp0YaeXw" data-en-title="ScoutIQ demo video" data-fr-title="Vidéo de démo de ScoutIQ">
+                <button type="button" class="video-play" data-en-label="Play the ScoutIQ demo video" data-fr-label="Lire la vidéo de démo de ScoutIQ" aria-label="Play the ScoutIQ demo video">
+                  <span class="video-art video-art--scoutiq" aria-hidden="true">
+                    <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+                      <path d="M160 0v180"/>
+                      <circle cx="160" cy="90" r="40"/>
+                      <path d="M0 50h34v80H0M320 50h-34v80h34"/>
+                    </svg>
+                    <span class="art-text art-text--big">4-3-3</span>
+                  </span>
+                  <img class="video-thumb" src="https://i.ytimg.com/vi/YIibp0YaeXw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                  <span class="video-disc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg></span>
+                  <span class="video-name" aria-hidden="true">ScoutIQ</span>
+                </button>
+              </div>
+
               <ul class="stats">
                 <li><strong class="stat-num">7</strong><span class="stat-label"><span lang="en">classes</span><span lang="fr">classes</span></span></li>
                 <li><strong class="stat-num">12</strong><span class="stat-label"><span lang="en">positions</span><span lang="fr">postes</span></span></li>
@@ -322,7 +360,6 @@
               </ul>
 
               <p class="links-row links-row--case">
-                <a href="#demo-scoutiq" data-demo-link><span lang="en">Watch the demo</span><span lang="fr">Voir la démo</span></a>
                 <a href="https://github.com/iliass-elguaari/ScoutIQ" target="_blank" rel="noopener"><span lang="en">Code on GitHub</span><span lang="fr">Code sur GitHub</span> ↗</a>
               </p>
             </div>
@@ -403,6 +440,22 @@
 
           <div class="case-grid">
             <div class="case-text">
+              <div class="video video--case" id="demo-trippilot" data-video-id="IcvbpsOCr38" data-en-title="TripPilot AI demo video" data-fr-title="Vidéo de démo de TripPilot AI">
+                <button type="button" class="video-play" data-en-label="Play the TripPilot AI demo video" data-fr-label="Lire la vidéo de démo de TripPilot AI" aria-label="Play the TripPilot AI demo video">
+                  <span class="video-art video-art--trippilot" aria-hidden="true">
+                    <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+                      <path class="route" d="M70 126C112 150 128 70 168 92S226 74 262 50"/>
+                      <g class="pin" transform="translate(70 126)"><path d="M0 0C-4-5-10-10-10-17a10 10 0 0 1 20 0C10-10 4-5 0 0z"/><circle cx="0" cy="-17" r="3.5"/></g>
+                      <g class="pin" transform="translate(262 50)"><path d="M0 0C-4-5-10-10-10-17a10 10 0 0 1 20 0C10-10 4-5 0 0z"/><circle cx="0" cy="-17" r="3.5"/></g>
+                    </svg>
+                    <span class="art-text art-text--route"><span lang="en">Day 1 → Day N</span><span lang="fr">Jour 1 → Jour N</span></span>
+                  </span>
+                  <img class="video-thumb" src="https://i.ytimg.com/vi/IcvbpsOCr38/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                  <span class="video-disc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg></span>
+                  <span class="video-name" aria-hidden="true">TripPilot AI</span>
+                </button>
+              </div>
+
               <h4><span lang="en">What it is</span><span lang="fr">Ce que c'est</span></h4>
               <p lang="en">You give it a destination, a budget level and a travel style. One agent researches the destination on the web (SerpAPI), and a GPT-4o planner agent writes a day-by-day itinerary you can export to your calendar (.ics). The two-agent design came from the original project.</p>
               <p lang="fr">Vous indiquez une destination, un niveau de budget et un style de voyage. Un agent fait des recherches sur la destination sur le web (SerpAPI), puis un agent planificateur GPT-4o rédige un itinéraire jour par jour, exportable dans un calendrier (.ics). L'architecture à deux agents vient du projet d'origine.</p>
@@ -411,7 +464,6 @@
               <p class="case-pointer" lang="fr">Tout ce que j'ai ajouté ou corrigé est surligné en jaune dans le schéma ci-dessous.</p>
 
               <p class="links-row links-row--case">
-                <a href="#demo-trippilot" data-demo-link><span lang="en">Watch the demo</span><span lang="fr">Voir la démo</span></a>
                 <a href="https://trippilot-ai-meepsrhytfe9nnb2q2rabr.streamlit.app/" target="_blank" rel="noopener"><span lang="en">Live demo ↗</span><span lang="fr">Démo en ligne ↗</span></a>
                 <a href="https://github.com/iliass-elguaari/TripPilot-AI" target="_blank" rel="noopener"><span lang="en">Code on GitHub ↗</span><span lang="fr">Code sur GitHub ↗</span></a>
               </p>
@@ -781,85 +833,11 @@
       </div>
     </section>
 
-    <!-- ===== Demos: videos of the two main projects ===== -->
-    <section id="demos" class="section" data-chapter="2">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="kicker"><span class="ch">02</span><span lang="en">Highlights</span><span lang="fr">Temps forts</span></p>
-          <h2><span lang="en">Watch it work</span><span lang="fr">Les projets en action</span></h2>
-          <p class="section-sub"><span lang="en">Two projects, two demos. Each video loads from YouTube only when you press play.</span><span lang="fr">Deux projets, deux démos. Chaque vidéo se charge depuis YouTube seulement quand vous lancez la lecture.</span></p>
-        </div>
-
-        <div class="demos-grid">
-          <article class="demo">
-            <div class="video" id="demo-scoutiq" data-video-id="YIibp0YaeXw" data-en-title="ScoutIQ demo video" data-fr-title="Vidéo de démo de ScoutIQ">
-              <button type="button" class="video-play" data-en-label="Play the ScoutIQ demo video" data-fr-label="Lire la vidéo de démo de ScoutIQ" aria-label="Play the ScoutIQ demo video">
-                <span class="video-art video-art--scoutiq" aria-hidden="true">
-                  <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-                    <path d="M160 0v180"/>
-                    <circle cx="160" cy="90" r="40"/>
-                    <path d="M0 50h34v80H0M320 50h-34v80h34"/>
-                  </svg>
-                  <span class="art-text art-text--big">4-3-3</span>
-                </span>
-                <img class="video-thumb" src="https://i.ytimg.com/vi/YIibp0YaeXw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-                <span class="video-disc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg></span>
-                <span class="video-name" aria-hidden="true">ScoutIQ</span>
-              </button>
-            </div>
-            <h3>ScoutIQ</h3>
-            <p lang="en">A terminal soccer squad analysis engine in plain Java: it ranks players for 12 positions, builds 4-3-3, 4-4-2 and 4-2-3-1 lineups, and analyses the team line by line.</p>
-            <p lang="fr">Un moteur d'analyse d'effectif de soccer en Java, dans le terminal&nbsp;: il classe les joueurs pour 12 postes, compose des formations 4-3-3, 4-4-2 et 4-2-3-1 et analyse l'équipe ligne par ligne.</p>
-            <ul class="chips chips--small">
-              <li class="chip">Java</li><li class="chip"><span lang="en">OOP</span><span lang="fr">POO</span></li><li class="chip">Collections</li><li class="chip">CSV</li><li class="chip">Tests</li>
-            </ul>
-            <p class="links-row">
-              <a href="https://youtu.be/YIibp0YaeXw" target="_blank" rel="noopener"><span lang="en">Watch on YouTube</span><span lang="fr">Voir sur YouTube</span> ↗</a>
-              <a href="https://github.com/iliass-elguaari/ScoutIQ" target="_blank" rel="noopener"><span lang="en">Code on GitHub</span><span lang="fr">Code sur GitHub</span> ↗</a>
-              <a href="#scoutiq"><span lang="en">Case file ↑</span><span lang="fr">Le dossier ↑</span></a>
-            </p>
-          </article>
-
-          <article class="demo">
-            <div class="video" id="demo-trippilot" data-video-id="IcvbpsOCr38" data-en-title="TripPilot AI demo video" data-fr-title="Vidéo de démo de TripPilot AI">
-              <button type="button" class="video-play" data-en-label="Play the TripPilot AI demo video" data-fr-label="Lire la vidéo de démo de TripPilot AI" aria-label="Play the TripPilot AI demo video">
-                <span class="video-art video-art--trippilot" aria-hidden="true">
-                  <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-                    <path class="route" d="M70 126C112 150 128 70 168 92S226 74 262 50"/>
-                    <g class="pin" transform="translate(70 126)"><path d="M0 0C-4-5-10-10-10-17a10 10 0 0 1 20 0C10-10 4-5 0 0z"/><circle cx="0" cy="-17" r="3.5"/></g>
-                    <g class="pin" transform="translate(262 50)"><path d="M0 0C-4-5-10-10-10-17a10 10 0 0 1 20 0C10-10 4-5 0 0z"/><circle cx="0" cy="-17" r="3.5"/></g>
-                  </svg>
-                  <span class="art-text art-text--route"><span lang="en">Day 1 → Day N</span><span lang="fr">Jour 1 → Jour N</span></span>
-                </span>
-                <img class="video-thumb" src="https://i.ytimg.com/vi/IcvbpsOCr38/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-                <span class="video-disc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg></span>
-                <span class="video-name" aria-hidden="true">TripPilot AI</span>
-              </button>
-            </div>
-            <h3>TripPilot AI</h3>
-            <p lang="en">An open-source AI travel planner I extended: one agent researches the destination on the web, and a GPT-4o agent writes a day-by-day itinerary you can export to your calendar.</p>
-            <p lang="fr">Un planificateur de voyage IA open source que j'ai enrichi&nbsp;: un agent fait des recherches sur la destination sur le web, puis un agent GPT-4o rédige un itinéraire jour par jour, exportable dans un calendrier.</p>
-            <ul class="chips chips--small">
-              <li class="chip">Python</li><li class="chip">Streamlit</li><li class="chip">OpenAI API (GPT-4o)</li><li class="chip">SerpAPI</li><li class="chip">Agno</li>
-            </ul>
-            <p class="links-row">
-              <a href="https://youtu.be/IcvbpsOCr38" target="_blank" rel="noopener"><span lang="en">Watch on YouTube</span><span lang="fr">Voir sur YouTube</span> ↗</a>
-              <a href="https://trippilot-ai-meepsrhytfe9nnb2q2rabr.streamlit.app/" target="_blank" rel="noopener"><span lang="en">Live demo</span><span lang="fr">Démo en ligne</span> ↗</a>
-              <a href="https://github.com/iliass-elguaari/TripPilot-AI" target="_blank" rel="noopener"><span lang="en">Code on GitHub</span><span lang="fr">Code sur GitHub</span> ↗</a>
-              <a href="#trippilot"><span lang="en">Case file ↑</span><span lang="fr">Le dossier ↑</span></a>
-            </p>
-            <p class="note" lang="en">Planning a new trip needs your own OpenAI and SerpAPI keys. The sample itinerary in the app works without them.</p>
-            <p class="note" lang="fr">Pour planifier un nouveau voyage, il faut vos propres clés OpenAI et SerpAPI. L'itinéraire d'exemple de l'appli fonctionne sans clé.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Next move: Statistics Canada ===== -->
-    <section id="next" class="section section--next" data-chapter="3">
+    <section id="next" class="section section--next" data-chapter="2">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker"><span class="ch">03</span><span lang="en">Next move</span><span lang="fr">Prochaine étape</span></p>
+          <p class="kicker"><span class="ch">02</span><span lang="en">Next move</span><span lang="fr">Prochaine étape</span></p>
           <h2><span lang="en">Joining Statistics Canada</span><span lang="fr">Je rejoins Statistique Canada</span></h2>
           <p class="section-sub"><span lang="en">From January 2027: software engineering for Canada's national statistical office. Then I'm available for a Summer 2027 internship.</span><span lang="fr">Dès janvier 2027&nbsp;: le génie logiciel au service de l'organisme statistique national du Canada. Ensuite, je suis disponible pour un stage coop à l'été 2027.</span></p>
         </div>
@@ -913,10 +891,10 @@
     </section>
 
     <!-- ===== Experience and education ===== -->
-    <section id="experience" class="section" data-chapter="4">
+    <section id="experience" class="section" data-chapter="3">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker"><span class="ch">04</span><span lang="en">Track record</span><span lang="fr">Parcours</span></p>
+          <p class="kicker"><span class="ch">03</span><span lang="en">Track record</span><span lang="fr">Parcours</span></p>
           <h2><span lang="en">Experience and education</span><span lang="fr">Expérience et formation</span></h2>
         </div>
 
@@ -1012,10 +990,10 @@
     </section>
 
     <!-- ===== Skills: every skill points to where it was used ===== -->
-    <section id="skills" class="section" data-chapter="5">
+    <section id="skills" class="section" data-chapter="4">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker"><span class="ch">05</span><span lang="en">Toolkit</span><span lang="fr">Boîte à outils</span></p>
+          <p class="kicker"><span class="ch">04</span><span lang="en">Toolkit</span><span lang="fr">Boîte à outils</span></p>
           <h2><span lang="en">Skills</span><span lang="fr">Compétences</span></h2>
           <p class="section-sub"><span lang="en">Each skill points to where I used it.</span><span lang="fr">Chaque compétence renvoie à l'endroit où je l'ai utilisée.</span></p>
         </div>
@@ -1082,10 +1060,10 @@
     </section>
 
     <!-- ===== Proof: six claims, each with something you can check ===== -->
-    <section id="proof" class="section" data-chapter="6">
+    <section id="proof" class="section" data-chapter="5">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker"><span class="ch">06</span><span lang="en">What I bring</span><span lang="fr">Ce que j'apporte</span></p>
+          <p class="kicker"><span class="ch">05</span><span lang="en">What I bring</span><span lang="fr">Ce que j'apporte</span></p>
           <h2><span lang="en">For your team, with proof</span><span lang="fr">Pour votre équipe, preuves à l'appui</span></h2>
           <p class="section-sub"><span lang="en">Six things I can do, and where you can check each one.</span><span lang="fr">Six choses que je sais faire, et où en trouver la preuve.</span></p>
         </div>
@@ -1120,7 +1098,7 @@
     </section>
 
     <!-- ===== The other pitch: soccer band ===== -->
-    <section id="pitch" class="band" data-chapter="7">
+    <section id="pitch" class="band" data-chapter="6">
       <svg class="band-lines" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <rect x="24" y="24" width="1152" height="372"/>
         <path d="M600 24v372"/>
@@ -1131,7 +1109,7 @@
       <div class="wrap band-inner">
         <div class="band-top">
           <div>
-            <p class="kicker"><span class="ch">07</span><span lang="en">The other pitch</span><span lang="fr">L'autre terrain</span></p>
+            <p class="kicker"><span class="ch">06</span><span lang="en">The other pitch</span><span lang="fr">L'autre terrain</span></p>
             <h2 class="band-title"><span lang="en">In Ottawa it's soccer. In Grenoble it's foot. In my code, it's a <code class="band-code">Player</code> class.</span><span lang="fr">À Ottawa, on dit soccer. À Grenoble, on dit foot. Dans mon code, c'est une classe <code class="band-code">Player</code>.</span></h2>
           </div>
           <div>
@@ -1165,11 +1143,11 @@
     </section>
 
     <!-- ===== Contact ===== -->
-    <section id="contact" class="section" data-chapter="8">
+    <section id="contact" class="section" data-chapter="7">
       <div class="wrap">
         <div class="contact-panel">
-          <p class="kicker kicker--center"><span class="ch">08</span><span lang="en">Final whistle</span><span lang="fr">Coup de sifflet final</span></p>
-          <p class="dossier-done" hidden><span lang="en">You've unlocked all 8 chapters. Thanks for reading this far.</span><span lang="fr">Vous avez débloqué les 8 chapitres. Merci d'avoir lu jusqu'ici.</span></p>
+          <p class="kicker kicker--center"><span class="ch">07</span><span lang="en">Final whistle</span><span lang="fr">Coup de sifflet final</span></p>
+          <p class="dossier-done" hidden><span lang="en">You've unlocked all 7 chapters. Thanks for reading this far.</span><span lang="fr">Vous avez débloqué les 7 chapitres. Merci d'avoir lu jusqu'ici.</span></p>
           <h2><span lang="en">Hiring for Summer 2027?</span><span lang="fr">Vous recrutez pour l'été 2027&#8239;?</span></h2>
           <p class="contact-text" lang="en">Email is the best way to reach me. Interview in English or French, your call.</p>
           <p class="contact-text" lang="fr">Le courriel est le meilleur moyen de me joindre. Entrevue en français ou en anglais, à vous de choisir.</p>
@@ -1217,7 +1195,7 @@
   <!-- Chapter rail (wide screens) and unlock toast. Decorative: the hero's chapter list is the accessible version. -->
   <div class="rail" aria-hidden="true">
     <ol class="rail-list"></ol>
-    <p class="rail-count"><span class="rail-n">0</span>/8</p>
+    <p class="rail-count"><span class="rail-n">0</span>/7</p>
     <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">11</span></p>
   </div>
   <div class="unlock" aria-hidden="true">
