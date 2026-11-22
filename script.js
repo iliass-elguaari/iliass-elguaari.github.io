@@ -22,8 +22,8 @@ const PAGE_TEXT = {
 // Every fact comes from the page itself.
 const CHAPTERS = [
   { id: "next",       en: "Next move",  fr: "Prochaine étape",
-    factEn: "I'm starting at Statistics Canada as an Open Source Statistical Programmer.",
-    factFr: "Je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
+    factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
+    factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
   { id: "demos",      en: "Demos",      fr: "Démos",
     factEn: "Both demos are real projects, with the code on GitHub.",
     factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
@@ -171,6 +171,10 @@ function setLanguage(lang) {
   document.querySelector('meta[name="description"]').setAttribute("content", PAGE_TEXT[lang].description);
   document.querySelector('meta[property="og:title"]').setAttribute("content", PAGE_TEXT[lang].title);
   document.querySelector('meta[property="og:description"]').setAttribute("content", PAGE_TEXT[lang].description);
+
+  // The API console writes a few words in code comments: redraw it in the new language.
+  const pressedRoute = document.querySelector(".api [data-route][aria-pressed='true']");
+  if (pressedRoute && pressedRoute.dataset.route !== "0") renderApi(Number(pressedRoute.dataset.route));
 
   try {
     localStorage.setItem("lang", lang);
@@ -434,6 +438,55 @@ function copyEmail() {
     .catch(() => {
       location.href = "mailto:" + EMAIL;
     });
+}
+
+// ---------- 8b. Listings API console ----------
+
+// Sample answers that follow the API's behaviour. The listings are the fixtures from ListingControllerTest.
+const LISTING_1 = '{ "id": 1, "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 }';
+const LISTING_2 = '{ "id": 2, "address": "200 Rideau St", "monthlyRent": 1400, "bedrooms": 2 }';
+const API_ROUTES = [
+  { status: "200 OK", ok: true, body: "[\n  " + LISTING_1 + ",\n  " + LISTING_2 + "\n]", test: "getReturnsAllListingsWithoutFilter()" },
+  { status: "200 OK", ok: true, body: "[\n  " + LISTING_1 + "\n]", test: "getFiltersByMaxRent()" },
+  { status: "200 OK", ok: true, body: LISTING_1, test: "getByIdReturnsListing()" },
+  { status: "404 Not Found", ok: false, body: null, test: "getByIdReturns404WhenMissing()" },
+  { status: "200 OK", ok: true, request: '{ "address": "75 Laurier Ave E", "monthlyRent": 950, "bedrooms": 1 }', body: LISTING_1, test: "postSavesListing()" },
+  { status: "400 Bad Request", ok: false, request: '{ "address": "Nowhere", "monthlyRent": -5, "bedrooms": 1 }', body: null, test: "postRejectsNegativeRent()" },
+  { status: "204 No Content", ok: true, body: null, test: "deleteRemovesListing()" }
+];
+
+function initApi() {
+  const api = document.querySelector(".api");
+  if (!api) return;
+  const buttons = api.querySelectorAll("[data-route]");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      renderApi(Number(button.dataset.route));
+    });
+  });
+}
+
+function renderApi(index) {
+  const route = API_ROUTES[index];
+  const out = document.querySelector(".api-out");
+  const status = out.querySelector(".api-status");
+  const code = document.createElement("span");
+  code.className = "status-code " + (route.ok ? "status-code--ok" : "status-code--err");
+  code.textContent = route.status;
+  status.replaceChildren(code);
+
+  const body = out.querySelector(".api-body code");
+  let text = "";
+  if (route.request) text += "// " + (currentLang() === "fr" ? "corps de la requête" : "request body") + "\n" + route.request + "\n\n";
+  if (route.body) text += (route.request ? "// " + (currentLang() === "fr" ? "réponse" : "response") + "\n" : "") + route.body;
+  else text += currentLang() === "fr" ? "// pas de corps de réponse" : "// no response body";
+  body.textContent = text;
+
+  out.querySelector(".api-test code").textContent = route.test;
+  out.classList.remove("is-fresh");
+  void out.offsetWidth;
+  out.classList.add("is-fresh");
 }
 
 // ---------- 9. Top bar and phone action bar ----------
@@ -716,6 +769,7 @@ function init() {
   initDemoLinks();
   initBoard();
   initPipelineToggle();
+  initApi();
   initTopbar();
   initActionBar();
   markSpotCards();

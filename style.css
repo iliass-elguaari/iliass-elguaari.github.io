@@ -2135,6 +2135,95 @@ a.chip:hover { border-color: var(--brand); background: color-mix(in srgb, var(--
 .board-pitch { border-radius: 16px; box-shadow: var(--shadow-lg); }
 .readout { border-radius: 12px; }
 
+/* ---------- Listings API: request console ---------- */
+.stats--3 { grid-template-columns: repeat(3, 1fr); }
+.pill--live { gap: 8px; border-color: color-mix(in srgb, var(--live) 50%, transparent); color: var(--live); }
+.pill--live .live-dot { width: 8px; height: 8px; }
+.api {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  background: #07110D;
+  color: #DCE8E0;
+  box-shadow: var(--shadow-lg);
+}
+.api-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  background: rgba(255, 255, 255, .03);
+}
+.api-bar .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.api-host { margin-left: 10px; font-family: var(--font-mono); font-size: .8rem; color: rgba(220, 232, 224, .6); }
+.api-routes { display: grid; gap: 2px; padding: 10px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.api-routes button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.api-routes button:hover { background: rgba(255, 255, 255, .05); }
+.api-routes button[aria-pressed="true"] { background: rgba(255, 200, 61, .08); border-color: rgba(255, 200, 61, .45); }
+.api-routes button:focus-visible { outline: 3px solid #FFC83D; outline-offset: 1px; }
+.verb {
+  flex: none;
+  min-width: 58px;
+  padding: 2px 0;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-align: center;
+}
+.verb--get { background: rgba(125, 227, 174, .15); color: #7DE3AE; }
+.verb--post { background: rgba(255, 200, 61, .15); color: #FFC83D; }
+.verb--del { background: rgba(255, 128, 112, .15); color: #FF8070; }
+.route-note { color: rgba(220, 232, 224, .55); }
+.api-out { padding: 14px 16px 16px; }
+.api-status { margin: 0 0 10px; }
+.status-code {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 700;
+}
+.status-code--ok { background: rgba(125, 227, 174, .15); color: #7DE3AE; }
+.status-code--err { background: rgba(255, 128, 112, .15); color: #FF8070; }
+.api-body {
+  min-height: 7.5em;
+  margin: 0;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, .35);
+  font-size: .78rem;
+  line-height: 1.6;
+  white-space: pre;
+}
+.api-body:focus-visible { outline: 3px solid #FFC83D; }
+.api-test { margin: 10px 0 0; font-size: .85rem; color: rgba(220, 232, 224, .7); }
+.api-test code { color: #DCE8E0; }
+.api figcaption { padding: 0 16px 16px; font-size: .85rem; color: rgba(220, 232, 224, .6); }
+@media (prefers-reduced-motion: no-preference) {
+  .api-out.is-fresh .api-status, .api-out.is-fresh .api-body { animation: rise .45s var(--ease-out) both; }
+  .api-out.is-fresh .api-body { animation-delay: .06s; }
+}
+
 /* ---------- The other pitch ---------- */
 .band { background: linear-gradient(170deg, #0D3F2A, #082519 75%); }
 :root[data-theme="light"] .band { background: linear-gradient(170deg, #0E5A39, #0B3F29 75%); }
