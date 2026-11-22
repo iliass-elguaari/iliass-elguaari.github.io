@@ -2966,3 +2966,37 @@ button.bit[aria-pressed="true"], .bit--out.is-on { background: #FF8A4C; border-c
   .level-type { font-size: .72rem; }
   .stage-nav button { padding: 8px 12px; font-size: .85rem; }
 }
+
+/* Listings: live front-end preview */
+.links-row { align-items: center; }
+.demo-shot {
+  position: relative;
+  display: block;
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  background: #07110D;
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.demo-shot img { display: block; width: 100%; height: auto; max-height: 340px; object-fit: cover; object-position: top; }
+.demo-shot-cta {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--signal-ink);
+  font-weight: 700;
+  font-size: .9rem;
+}
+.demo-shot:hover, .demo-shot:focus-visible { transform: translateY(-3px); }
+.demo-shot-note { margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) { .demo-shot, .demo-shot:hover { transition: none; transform: none; } }
+/* Keep wide code/JSON from stretching case columns past the screen on phones */
+.case-grid > * { min-width: 0; }
+.api-body { overflow-x: auto; }
+.demo-shot .api-host { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
