@@ -22,8 +22,8 @@ const PAGE_TEXT = {
 // Every fact comes from the page itself.
 const CHAPTERS = [
   { id: "projects",   en: "Projects",   fr: "Projets",
-    factEn: "Six projects in two groups: four of my own and two from my courses. Each one is a level.",
-    factFr: "Six projets en deux groupes : quatre personnels et deux de mes cours. Chacun est un niveau." },
+    factEn: "Five projects in two groups: three of my own and two from my courses. Each one is a level.",
+    factFr: "Cinq projets en deux groupes : trois personnels et deux de mes cours. Chacun est un niveau." },
   { id: "demos",      en: "Demos",      fr: "Démos",
     factEn: "Both demos are real projects, with the code on GitHub.",
     factFr: "Les deux démos sont de vrais projets, avec le code sur GitHub." },
@@ -658,7 +658,7 @@ function initReveals() {
   if (reducedMotion.matches || !("IntersectionObserver" in window)) return;
   const selector = [
     ".section-head", ".signing-card", ".fit", ".demo", ".proof-item", ".case-head", ".case-grid",
-    ".pipeline", ".levain-grid", ".band-top", ".band-card", ".tl-item", ".edu-card",
+    ".pipeline", ".band-top", ".band-card", ".tl-item", ".edu-card",
     ".tool-row", ".contact-panel"
   ].join(",");
   const targets = document.querySelectorAll(selector);
@@ -762,12 +762,11 @@ function markSpotCards() {
 
 // ---------- 13. Level select: one project case file at a time ----------
 
-const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "levain", "studyhub", "logic"];
+const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "studyhub", "logic"];
 const LEVEL_NAMES = {
   scoutiq: { en: "ScoutIQ", fr: "ScoutIQ" },
   listings: { en: "Listings API", fr: "Listings API" },
   trippilot: { en: "TripPilot AI", fr: "TripPilot AI" },
-  levain: { en: "Maison Levain", fr: "Maison Levain" },
   studyhub: { en: "StudyHub", fr: "StudyHub" },
   logic: { en: "4-Bit Logic System", fr: "Système logique 4 bits" }
 };
@@ -1244,7 +1243,7 @@ const ACHIEVEMENTS = [
   { id: "organizer",  icon: "✓",  en: "Organized",     fr: "Organisé",          hintEn: "Add a task in StudyHub.",                 hintFr: "Ajoutez une tâche dans StudyHub." },
   { id: "validator",  icon: "⚠",  en: "Edge case",     fr: "Cas limite",        hintEn: "Trip StudyHub's validation.",             hintFr: "Déclenchez la validation de StudyHub." },
   { id: "engineer",   icon: "⚡", en: "Bit flipper",   fr: "Basculeur de bits", hintEn: "Flip a bit on the 4-bit ALU.",            hintFr: "Basculez un bit de l'UAL 4 bits." },
-  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 levels.",                      hintFr: "Ouvrez les 6 niveaux." },
+  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 5 levels.",                      hintFr: "Ouvrez les 5 niveaux." },
   { id: "dj",         icon: "🎧", en: "Sound check",   fr: "Test de son",       hintEn: "Turn on the music.",                      hintFr: "Activez la musique." },
   { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 8 chapters.",                  hintFr: "Débloquez les 8 chapitres." }
 ];
