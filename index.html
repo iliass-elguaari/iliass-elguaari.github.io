@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-22j">
+  <link rel="stylesheet" href="style.css?v=2026-11-22k">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -39,8 +39,8 @@
       root.lang = lang;
     })();
   </script>
-  <script src="sound.js?v=2026-11-22j" defer></script>
-  <script src="script.js?v=2026-11-22j" defer></script>
+  <script src="sound.js?v=2026-11-22k" defer></script>
+  <script src="script.js?v=2026-11-22k" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -225,13 +225,13 @@
         <div class="section-head">
           <p class="kicker"><span class="ch">01</span><span lang="en">Case files</span><span lang="fr">Les dossiers</span></p>
           <h2><span lang="en">Projects</span><span lang="fr">Projets</span></h2>
-          <p class="section-sub"><span lang="en">Five projects, sorted into two groups. Pick one to open its case file: demos you can play with and the code you can read.</span><span lang="fr">Cinq projets, classés en deux groupes. Choisissez-en un pour ouvrir son dossier&nbsp;: des démos à essayer et le code à lire.</span></p>
+          <p class="section-sub"><span lang="en">Six projects, sorted into two groups. Pick one to open its case file: demos you can play with and the code you can read.</span><span lang="fr">Six projets, classés en deux groupes. Choisissez-en un pour ouvrir son dossier&nbsp;: des démos à essayer et le code à lire.</span></p>
         </div>
 
         <div class="levels" data-levels>
           <div class="levels-top">
             <p class="levels-title"><span class="levels-blink" aria-hidden="true">▶</span><span lang="en">Select a level</span><span lang="fr">Choisissez un niveau</span></p>
-            <p class="levels-progress" aria-hidden="true"><span class="lv-played">0</span>/5 <span lang="en">played</span><span lang="fr">joués</span></p>
+            <p class="levels-progress" aria-hidden="true"><span class="lv-played">0</span>/6 <span lang="en">played</span><span lang="fr">joués</span></p>
           </div>
           <div class="level-group">
             <h3 class="level-group-title"><span lang="en">Personal projects</span><span lang="fr">Projets personnels</span><span class="lg-n">3</span></h3>
@@ -254,7 +254,7 @@
             </ol>
           </div>
           <div class="level-group">
-            <h3 class="level-group-title"><span lang="en">Course projects</span><span lang="fr">Projets de cours</span><span class="lg-n">2</span></h3>
+            <h3 class="level-group-title"><span lang="en">Course projects</span><span lang="fr">Projets de cours</span><span class="lg-n">3</span></h3>
             <ol class="level-grid">
               <li><a class="level" href="#studyhub" data-level="studyhub">
                 <span class="level-art level-art--studyhub" aria-hidden="true"><span class="level-num">04</span><span class="level-glyph">✓ ✎ 🗑</span></span>
@@ -265,6 +265,11 @@
                 <span class="level-art level-art--logic" aria-hidden="true"><span class="level-num">05</span><span class="level-glyph">1010</span></span>
                 <span class="level-body"><span class="level-name"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></span><span class="level-type">FPGA · CEG 2136</span><span class="level-line"><span lang="en">An ALU and a mod-60 counter on an FPGA.</span><span lang="fr">Une UAL et un compteur modulo 60 sur FPGA.</span></span>
                 <span class="level-tags"><span class="ltag">☝ <span lang="en">Simulator</span><span lang="fr">Simulateur</span></span></span></span>
+                <span class="level-state" aria-hidden="true"></span></a></li>
+              <li><a class="level" href="#ums" data-level="ums">
+                <span class="level-art level-art--ums" aria-hidden="true"><span class="level-num">06</span><span class="level-glyph">87 → A</span></span>
+                <span class="level-body"><span class="level-name"><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></span><span class="level-type">Java · SEG 2105</span><span class="level-line"><span lang="en">Courses, TAs and grades in Java.</span><span lang="fr">Cours, assistants et notes en Java.</span></span>
+                <span class="level-tags"><span class="ltag">☝ <span lang="en">Try the checks</span><span lang="fr">Testez les règles</span></span></span></span>
                 <span class="level-state" aria-hidden="true"></span></a></li>
             </ol>
           </div>
@@ -728,6 +733,47 @@
             </div>
           </div>
         </article>
+
+        <!-- University Management System -->
+        <article class="case" id="ums">
+          <div class="case-head">
+            <h3><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></h3>
+            <span class="pill">Java · SEG 2105</span>
+            <span class="pill pill--course"><span lang="en">Course project · uOttawa</span><span lang="fr">Projet de cours · uOttawa</span></span>
+          </div>
+          <p class="case-lead"><span lang="en">A command-line Java system for a university's courses, students and teaching assistants. For SEG 2105 at the University of Ottawa, I extended its 10 classes with TAs and grades.</span><span lang="fr">Un système Java en ligne de commande pour les cours, les étudiants et les assistants d'enseignement d'une université. Pour SEG 2105 à l'Université d'Ottawa, j'ai ajouté les assistants et les notes à ses 10 classes.</span></p>
+          <div class="case-grid">
+            <div class="case-text">
+              <h4><span lang="en">What I built</span><span lang="fr">Ce que j'ai développé</span></h4>
+              <ul class="bullets">
+                <li><span lang="en">Teaching assistants and grades: every grade is checked to be 0–100, turned into a letter grade, and counted in the average.</span><span lang="fr">Les assistants et les notes&nbsp;: chaque note est vérifiée entre 0 et 100, convertie en lettre et comptée dans la moyenne.</span></li>
+                <li><span lang="en">Updates in a safe order, so a refused TA assignment never leaves the course and TA records out of sync.</span><span lang="fr">Des mises à jour dans un ordre sûr, pour qu'une affectation d'assistant refusée ne désynchronise jamais le cours et l'assistant.</span></li>
+                <li><span lang="en">Edge cases tested (an unknown ID, a grade of "abc" or 101, a duplicate TA) so each one fails with a clear error.</span><span lang="fr">Des cas limites testés (un identifiant inconnu, une note «&nbsp;abc&nbsp;» ou 101, un assistant en double) pour que chacun échoue avec une erreur claire.</span></li>
+                <li><span lang="en">Documented with Javadoc.</span><span lang="fr">Documenté avec Javadoc.</span></li>
+              </ul>
+              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
+              <ul class="chips">
+                <li class="chip">Java</li><li class="chip">OOP</li><li class="chip"><span lang="en">Command-line app</span><span lang="fr">Application en ligne de commande</span></li><li class="chip">Javadoc</li>
+              </ul>
+            </div>
+            <div class="case-visual">
+              <figure class="ums" aria-labelledby="ums-cap">
+                <div class="api-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="api-host">SEG 2105 · java UniversitySystem</span></div>
+                <form class="ums-form" data-ums-form novalidate>
+                  <label for="ums-grade"><span lang="en">Grade for student 300123 in SEG 2105</span><span lang="fr">Note de l'étudiant 300123 en SEG 2105</span></label>
+                  <div class="ums-row">
+                    <input id="ums-grade" type="text" autocomplete="off" maxlength="6" data-en-ph="0–100" data-fr-ph="0–100" placeholder="0–100">
+                    <button type="submit" class="ums-btn"><span lang="en">Record</span><span lang="fr">Enregistrer</span></button>
+                  </div>
+                  <p class="ums-try"><span lang="en">Try:</span><span lang="fr">Essayez&nbsp;:</span> <button type="button" data-ums-try="87">87</button> <button type="button" data-ums-try="abc">abc</button> <button type="button" data-ums-try="101">101</button> <button type="button" data-ums-ta><span lang="en">Assign Sara as TA again</span><span lang="fr">Réaffecter Sara comme assistante</span></button></p>
+                </form>
+                <div class="ums-log" aria-live="polite" tabindex="0" data-en-label="Console output" data-fr-label="Sortie de la console" aria-label="Console output"></div>
+                <p class="ums-avg"></p>
+                <figcaption id="ums-cap"><span lang="en">A browser model of the checks I added. The letter grades follow uOttawa's scale, and Sara is already a TA for the course.</span><span lang="fr">Un modèle des vérifications que j'ai ajoutées, dans le navigateur. Les lettres suivent le barème de l'Université d'Ottawa, et Sara est déjà assistante du cours.</span></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
         </div>
 
       </div>
@@ -1127,7 +1173,7 @@
         <div class="trophies" aria-labelledby="trophies-title">
           <div class="trophies-head">
             <h3 id="trophies-title"><span lang="en">Trophy cabinet</span><span lang="fr">Vitrine des trophées</span></h3>
-            <p class="trophies-count"><span class="trophy-n">0</span>/<span class="trophy-total">10</span> <span lang="en">earned. Play with the demos to collect them.</span><span lang="fr">obtenus. Essayez les démos pour les collectionner.</span></p>
+            <p class="trophies-count"><span class="trophy-n">0</span>/<span class="trophy-total">11</span> <span lang="en">earned. Play with the demos to collect them.</span><span lang="fr">obtenus. Essayez les démos pour les collectionner.</span></p>
           </div>
           <ul class="trophy-list"></ul>
         </div>
@@ -1158,7 +1204,7 @@
   <div class="rail" aria-hidden="true">
     <ol class="rail-list"></ol>
     <p class="rail-count"><span class="rail-n">0</span>/8</p>
-    <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">10</span></p>
+    <p class="rail-trophies">🏆 <span class="trophy-n">0</span>/<span class="trophy-total">11</span></p>
   </div>
   <div class="unlock" aria-hidden="true">
     <span class="unlock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg></span>
