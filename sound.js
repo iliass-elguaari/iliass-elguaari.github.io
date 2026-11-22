@@ -365,11 +365,10 @@
     setTimeout(() => { nudge.hidden = true; }, 300);
   }
 
-  // Shown once per visit, when the music actually starts.
+  // Shown once per page load, when the music actually starts.
   let nudgeShown = false;
   function showNudge() {
     if (!nudge || nudgeShown) return;
-    try { if (sessionStorage.getItem("sound-nudged")) return; sessionStorage.setItem("sound-nudged", "1"); } catch (e) {}
     nudgeShown = true;
     nudge.hidden = false;
     requestAnimationFrame(() => nudge.classList.add("is-visible"));
@@ -420,8 +419,9 @@
     // Browsers only allow audio after a gesture. Get everything ready now (some
     // browsers allow it straight away), then start for real on the first click,
     // tap or key press anywhere. Scrolling does not count as a gesture.
-    if (prefs.music || prefs.sfx) {
-      ensure();
+    // The listener stays until the audio is actually running, so sound that is
+    // switched on later (from the start screen after a scroll, say) still starts.
+    if (ensure()) {
       ctx.addEventListener("statechange", () => {
         reflect();
         if (ctx.state === "running" && playing) showNudge();
@@ -429,7 +429,7 @@
       if (prefs.music) startMusic();
       const events = ["pointerdown", "pointerup", "touchend", "keydown", "click"];
       const resume = () => {
-        if (!prefs.music && !prefs.sfx) return done();
+        if (!prefs.music && !prefs.sfx) return;
         ctx.resume().then(() => {
           if (ctx.state !== "running") return;
           if (prefs.music && !playing) startMusic();
@@ -464,11 +464,9 @@
 
   // ---------- A game-style start screen ----------
   // Its "press any key" is the gesture browsers need before they allow sound,
-  // so the music starts the moment the visitor enters. Shown once per visit.
+  // so the music starts the moment the visitor enters. Shown on every page load,
+  // so every visit starts like a game; each time the visitor picks sound or no sound.
   function initGate() {
-    if (!prefs.music && !prefs.sfx) return;
-    try { if (sessionStorage.getItem("gate-seen")) return; } catch (e) {}
-    if (location.hash && location.hash.length > 1) return; // deep links go straight in
     const touch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     const gate = document.createElement("div");
     gate.className = "gate";
@@ -479,7 +477,7 @@
       '<div class="gate-inner">' +
         '<p class="gate-kicker"><span lang="en">Portfolio · Level 1</span><span lang="fr">Portfolio · Niveau 1</span></p>' +
         '<p class="gate-name">Iliass <span>El Guaari</span></p>' +
-        '<p class="gate-role"><span lang="en">Software Engineering · uOttawa · Joining Statistics Canada</span><span lang="fr">Génie logiciel · uOttawa · Bientôt à Statistique Canada</span></p>' +
+        '<p class="gate-role"><span lang="en">Software Engineering · University of Ottawa</span><span lang="fr">Génie logiciel · Université d\'Ottawa</span></p>' +
         '<button type="button" class="gate-start">' +
           (touch
             ? '<span lang="en">Tap to start</span><span lang="fr">Touchez pour commencer</span>'
@@ -497,9 +495,12 @@
     const close = (withSound) => {
       if (closed) return;
       closed = true;
-      try { sessionStorage.setItem("gate-seen", "1"); } catch (e) {}
       if (!withSound) { set("music", false); set("sfx", false); }
-      else setTimeout(() => play("select"), 60);
+      else {
+        if (!prefs.sfx) set("sfx", true);
+        if (!prefs.music) set("music", true);
+        setTimeout(() => play("select"), 60);
+      }
       gate.classList.add("is-out");
       document.documentElement.classList.remove("gate-open");
       removeEventListener("keydown", onKey, true);
