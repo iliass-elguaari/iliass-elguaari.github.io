@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-22d">
+  <link rel="stylesheet" href="style.css?v=2026-11-22e">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -39,8 +39,8 @@
       root.lang = lang;
     })();
   </script>
-  <script src="sound.js?v=2026-11-22d" defer></script>
-  <script src="script.js?v=2026-11-22d" defer></script>
+  <script src="sound.js?v=2026-11-22e" defer></script>
+  <script src="script.js?v=2026-11-22e" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -66,7 +66,7 @@
             <svg class="icon-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="sw-on" d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.5a8 8 0 0 1 0 11"/><path class="sw-off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
             <span class="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
           </button>
-          <button type="button" class="sound-nudge" data-sound-all hidden><span aria-hidden="true">🎧</span> <span lang="en">Play with sound?</span><span lang="fr">Avec le son ?</span></button>
+          <button type="button" class="sound-nudge" data-sound-mute hidden><span aria-hidden="true">🎧</span> <span lang="en">Sound on ·</span><span lang="fr">Son activé ·</span> <strong><span lang="en">Mute</span><span lang="fr">Couper</span></strong></button>
           <div class="sound-panel" id="sound-panel" hidden>
             <p class="sound-head"><span lang="en">Sound</span><span lang="fr">Son</span></p>
             <button type="button" class="sound-row" role="switch" aria-checked="false" data-sound-toggle="music">
@@ -174,7 +174,7 @@
                 </div>
                 <div class="row">
                   <dt><span lang="en">Codes in</span><span lang="fr">Langages</span></dt>
-                  <dd>Java · Python · JavaScript · HTML · CSS</dd>
+                  <dd>Java · Python · C · C++ · JavaScript · HTML · CSS</dd>
                 </div>
                 <div class="row">
                   <dt><span lang="en">Off the keyboard</span><span lang="fr">Loin du clavier</span></dt>
@@ -219,8 +219,8 @@
     <!-- ===== Stack ticker (decorative; the skills section has the real list) ===== -->
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>Java</span><span>Python</span><span>SQL</span><span>PostgreSQL</span><span>Spring</span><span>JavaScript</span><span>Streamlit</span><span>OpenAI API</span><span>Git</span><span>HTML</span><span>CSS</span><span>EN · FR</span>
-        <span>Java</span><span>Python</span><span>SQL</span><span>PostgreSQL</span><span>Spring</span><span>JavaScript</span><span>Streamlit</span><span>OpenAI API</span><span>Git</span><span>HTML</span><span>CSS</span><span>EN · FR</span>
+        <span>Java</span><span>Python</span><span>C</span><span>C++</span><span>SQL</span><span>PostgreSQL</span><span>Spring</span><span>JavaScript</span><span>Streamlit</span><span>OpenAI API</span><span>Git</span><span>HTML</span><span>CSS</span><span>EN · FR</span>
+        <span>Java</span><span>Python</span><span>C</span><span>C++</span><span>SQL</span><span>PostgreSQL</span><span>Spring</span><span>JavaScript</span><span>Streamlit</span><span>OpenAI API</span><span>Git</span><span>HTML</span><span>CSS</span><span>EN · FR</span>
       </div>
     </div>
 
@@ -1113,6 +1113,8 @@
               <a class="chip" href="#levain">JavaScript <span class="chip-to"><span lang="en">→ Maison Levain</span><span lang="fr">→ Maison Levain</span></span></a>
               <a class="chip" href="#levain">HTML <span class="chip-to"><span lang="en">→ Maison Levain</span><span lang="fr">→ Maison Levain</span></span></a>
               <a class="chip" href="#levain">CSS <span class="chip-to"><span lang="en">→ Maison Levain</span><span lang="fr">→ Maison Levain</span></span></a>
+              <span class="chip">C</span>
+              <span class="chip">C++</span>
               <span class="chip">SQL</span>
             </dd>
           </div>

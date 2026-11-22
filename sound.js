@@ -1,13 +1,15 @@
 /* =========================================================
    Sound: effects and a chill lo-fi loop, all synthesized live
    with the Web Audio API. No audio files are downloaded.
-   Everything stays silent until the visitor turns it on.
+   Music and effects are on by default. Browsers only allow sound
+   after the visitor's first click, tap or key press, so it starts then,
+   and a "Mute" bubble makes it easy to turn off.
    ========================================================= */
 (function () {
   "use strict";
 
   const STORE = "sound-prefs";
-  const prefs = { music: false, sfx: false, volume: 0.6 };
+  const prefs = { music: true, sfx: true, volume: 0.6 };
   try { Object.assign(prefs, JSON.parse(localStorage.getItem(STORE) || "{}")); } catch (e) {}
   const save = () => { try { localStorage.setItem(STORE, JSON.stringify(prefs)); } catch (e) {} };
 
@@ -334,7 +336,7 @@
 
   function reflect() {
     if (!root) return;
-    root.classList.toggle("is-playing", playing);
+    root.classList.toggle("is-playing", playing && ctx && ctx.state === "running");
     root.classList.toggle("is-on", prefs.music || prefs.sfx);
     root.querySelectorAll("[data-sound-toggle]").forEach((sw) => {
       sw.setAttribute("aria-checked", String(!!prefs[sw.dataset.soundToggle]));
@@ -361,7 +363,17 @@
     if (!nudge || nudge.hidden) return;
     nudge.classList.remove("is-visible");
     setTimeout(() => { nudge.hidden = true; }, 300);
-    try { localStorage.setItem("sound-nudged", "1"); } catch (e) {}
+  }
+
+  // Shown once per visit, when the music actually starts.
+  let nudgeShown = false;
+  function showNudge() {
+    if (!nudge || nudgeShown) return;
+    try { if (sessionStorage.getItem("sound-nudged")) return; sessionStorage.setItem("sound-nudged", "1"); } catch (e) {}
+    nudgeShown = true;
+    nudge.hidden = false;
+    requestAnimationFrame(() => nudge.classList.add("is-visible"));
+    setTimeout(hideNudge, 8000);
   }
 
   function initControls() {
@@ -392,11 +404,11 @@
       if (master) master.gain.setTargetAtTime(prefs.volume, ctx.currentTime, 0.05);
       save();
     });
-    root.querySelector("[data-sound-all]").addEventListener("click", () => {
+    root.querySelector("[data-sound-mute]").addEventListener("click", () => {
       hideNudge();
-      set("sfx", true);
-      set("music", true);
-      play("on");
+      play("off");
+      set("music", false);
+      set("sfx", false);
     });
     document.addEventListener("click", (e) => {
       if (!panel.hidden && !root.contains(e.target)) openPanel(false);
@@ -405,30 +417,28 @@
       if (e.key === "Escape" && !panel.hidden) { openPanel(false); btn.focus(); }
     });
 
-    // A one-time hint for first-time visitors.
-    let nudged = false;
-    try { nudged = !!localStorage.getItem("sound-nudged"); } catch (e) {}
-    if (nudge && !nudged && !prefs.music && !prefs.sfx) {
-      setTimeout(() => {
-        nudge.hidden = false;
-        requestAnimationFrame(() => nudge.classList.add("is-visible"));
-        setTimeout(hideNudge, 9000);
-      }, 3500);
-    }
-
-    // Browsers only allow audio after a gesture: if the visitor turned sound on
-    // during an earlier visit, pick it back up on their first click or key press.
+    // Browsers only allow audio after a gesture. Get everything ready now (some
+    // browsers allow it straight away), then start for real on the first click,
+    // tap or key press anywhere. Scrolling does not count as a gesture.
     if (prefs.music || prefs.sfx) {
-      const resume = (e) => {
-        if (root.contains(e.target)) return; // the controls handle themselves
-        ensure();
-        ctx.resume();
-        if (prefs.music) startMusic();
-        removeEventListener("pointerdown", resume, true);
-        removeEventListener("keydown", resume, true);
+      ensure();
+      ctx.addEventListener("statechange", () => {
+        reflect();
+        if (ctx.state === "running" && playing) showNudge();
+      });
+      if (prefs.music) startMusic();
+      const events = ["pointerdown", "pointerup", "touchend", "keydown", "click"];
+      const resume = () => {
+        if (!prefs.music && !prefs.sfx) return done();
+        ctx.resume().then(() => {
+          if (ctx.state !== "running") return;
+          if (prefs.music && !playing) startMusic();
+          if (playing) showNudge();
+          done();
+        });
       };
-      addEventListener("pointerdown", resume, true);
-      addEventListener("keydown", resume, true);
+      const done = () => events.forEach((t) => removeEventListener(t, resume, true));
+      events.forEach((t) => addEventListener(t, resume, true));
     }
 
     // Light click feedback on the page's own controls.
