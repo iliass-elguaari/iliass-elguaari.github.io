@@ -1245,6 +1245,7 @@ const ACHIEVEMENTS = [
   { id: "validator",  icon: "⚠",  en: "Edge case",     fr: "Cas limite",        hintEn: "Trip StudyHub's validation.",             hintFr: "Déclenchez la validation de StudyHub." },
   { id: "engineer",   icon: "⚡", en: "Bit flipper",   fr: "Basculeur de bits", hintEn: "Flip a bit on the 4-bit ALU.",            hintFr: "Basculez un bit de l'UAL 4 bits." },
   { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 levels.",                      hintFr: "Ouvrez les 6 niveaux." },
+  { id: "dj",         icon: "🎧", en: "Sound check",   fr: "Test de son",       hintEn: "Turn on the music.",                      hintFr: "Activez la musique." },
   { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 8 chapters.",                  hintFr: "Débloquez les 8 chapitres." }
 ];
 const earned = new Set();
@@ -1282,6 +1283,7 @@ function initTrophies() {
   // Hook the existing demos.
   document.querySelectorAll("[data-formation]").forEach((b) => b.addEventListener("click", () => award("tactician")));
   document.querySelectorAll(".api [data-route]").forEach((b) => b.addEventListener("click", () => award("tester")));
+  addEventListener("sound:change", (e) => { if (e.detail.music) award("dj"); });
 }
 
 function award(id) {
@@ -1298,6 +1300,7 @@ function award(id) {
   document.querySelectorAll(".trophy-n").forEach((el) => { el.textContent = earned.size; });
   queueToast({
     kind: "trophy",
+    id: id,
     labelEn: "Achievement " + earned.size + "/" + ACHIEVEMENTS.length,
     labelFr: "Succès " + earned.size + "/" + ACHIEVEMENTS.length,
     textEn: a.icon + "  " + a.en + " · " + a.hintEn.replace(/\.$/, ""),
@@ -1322,11 +1325,36 @@ function nextToast() {
   el.classList.remove("is-visible");
   void el.offsetWidth;
   el.classList.add("is-visible");
+  if (window.Sound) Sound.play(t.kind === "trophy" ? (t.id === "fulltime" ? "fanfare" : "achievement") : "unlock");
+  if (t.kind === "trophy") burst(el.querySelector(".unlock-icon"), t.id === "fulltime" ? 40 : 22);
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     el.classList.remove("is-visible");
     setTimeout(nextToast, 350);
   }, toastQueue.length ? 2600 : 4000);
+}
+
+// Confetti from a point on screen. Purely decorative, skipped with reduced motion.
+function burst(origin, count) {
+  if (!origin || reducedMotion.matches) return;
+  const box = origin.getBoundingClientRect();
+  const colors = ["var(--signal)", "var(--brand)", "var(--brand-2)", "#ffffff", "var(--accent-end)"];
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "confetti";
+    const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.3;
+    const dist = 60 + Math.random() * 110;
+    p.style.left = box.left + box.width / 2 + "px";
+    p.style.top = box.top + box.height / 2 + "px";
+    p.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+    p.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+    p.style.setProperty("--r", (Math.random() * 720 - 360) + "deg");
+    p.style.background = colors[i % colors.length];
+    p.style.animationDelay = Math.random() * 80 + "ms";
+    if (i % 3 === 0) p.style.borderRadius = "50%";
+    document.body.append(p);
+    setTimeout(() => p.remove(), 1400);
+  }
 }
 
 // ---------- 18. Start ----------
