@@ -10,11 +10,11 @@ const EMAIL = "ielgu032@uottawa.ca";
 const PAGE_TEXT = {
   en: {
     title: "Iliass El Guaari · Software Engineer",
-    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, starting at Statistics Canada as a Software Engineer (Open Source Statistical Programmer). Java and Python projects with demo videos. English and French."
+    description: "Iliass El Guaari, Software Engineering (Co-op) student at the University of Ottawa, Software Developer at Next Room Inc., starting at Statistics Canada as a Software Engineer (Open Source Statistical Programmer). Java and Python projects with demo videos. English and French."
   },
   fr: {
     title: "Iliass El Guaari · Ingénieur logiciel",
-    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, bientôt ingénieur logiciel chez Statistique Canada (programmeur statistique, code source ouvert). Projets Java et Python avec vidéos de démo. Français et anglais."
+    description: "Iliass El Guaari, étudiant en génie logiciel (régime coop) à l'Université d'Ottawa, développeur logiciel chez Next Room Inc., bientôt ingénieur logiciel chez Statistique Canada (programmeur statistique, code source ouvert). Projets Java et Python avec vidéos de démo. Français et anglais."
   }
 };
 
@@ -24,15 +24,15 @@ const CHAPTERS = [
   { id: "projects",   en: "Projects",   fr: "Projets",
     factEn: "Six projects: three of my own and three from my uOttawa courses. Each one opens a demo.",
     factFr: "Six projets : trois personnels et trois de mes cours à l'Université d'Ottawa. Chacun ouvre une démo." },
-  { id: "next",       en: "Next move",  fr: "Prochaine étape",
-    factEn: "In January 2027 I start at Statistics Canada as an Open Source Statistical Programmer.",
-    factFr: "En janvier 2027, je commence chez Statistique Canada comme programmeur statistique à code source ouvert." },
+  { id: "next",       en: "Now & next", fr: "Maintenant et ensuite",
+    factEn: "Now: Software Developer at Next Room. In January 2027 I start at Statistics Canada.",
+    factFr: "En ce moment : développeur logiciel chez Next Room. En janvier 2027, je commence chez Statistique Canada." },
   { id: "experience", en: "Experience", fr: "Parcours",
     factEn: "I served electors in English and French in the 2025 federal election.",
     factFr: "J'ai servi les électeurs en français et en anglais à l'élection fédérale de 2025." },
   { id: "skills",     en: "Skills",     fr: "Compétences",
-    factEn: "Currently learning: R, React and Docker.",
-    factFr: "En apprentissage : R, React et Docker." },
+    factEn: "Currently learning: R and Docker. React and Next.js? Using them at Next Room.",
+    factFr: "En apprentissage : R et Docker. React et Next.js ? Je les utilise chez Next Room." },
   { id: "proof",      en: "Proof",      fr: "Preuves",
     factEn: "Every claim on this page links to its proof.",
     factFr: "Chaque affirmation de cette page renvoie à sa preuve." },
