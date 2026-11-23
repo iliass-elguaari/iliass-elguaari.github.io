@@ -3455,65 +3455,9 @@ html.gate-open { overflow: hidden; }
 .sound.is-playing .sound-track-dot { background: var(--brand); box-shadow: 0 0 8px var(--brand); }
 @media print { .gate { display: none !important; } }
 
-/* ---------- University Management System ---------- */
-.level-art--ums { background: linear-gradient(150deg, #2A1E4A, #5A3D8F); }
-.ums {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  border-radius: 16px;
-  background: #0B0A14;
-  color: #E2DDF0;
-  box-shadow: var(--shadow-lg);
-}
-.ums-form { padding: 16px 16px 6px; }
-.ums-form label { display: block; margin-bottom: 8px; font-size: .88rem; color: rgba(226, 221, 240, .75); }
-.ums-row { display: flex; gap: 8px; }
-.ums-row input {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid rgba(255, 255, 255, .14);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, .04);
-  color: #fff;
-  font: 600 1rem var(--font-mono);
-}
-.ums-row input:focus-visible { outline: 3px solid #FFC83D; outline-offset: 1px; }
-.ums-btn {
-  padding: 10px 16px;
-  border: 0;
-  border-radius: 10px;
-  background: #FFC83D;
-  color: #1A1405;
-  font-weight: 700;
-  cursor: pointer;
-}
-.ums-try { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 12px 0 0; font-size: .85rem; color: rgba(226, 221, 240, .7); }
-.ums-try button {
-  padding: 4px 10px;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 999px;
-  background: none;
-  color: #E2DDF0;
-  font: 600 .82rem var(--font-mono);
-  cursor: pointer;
-}
-.ums-try button:hover { border-color: #B79BFF; color: #fff; }
-.ums-log {
-  height: 172px;
-  margin: 12px 16px 0;
-  padding: 10px 12px;
-  overflow-y: auto;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, .35);
-  font: .82rem/1.55 var(--font-mono);
-}
-.ums-log:focus-visible { outline: 3px solid #FFC83D; }
-.ums-line { margin: 0; overflow-wrap: anywhere; }
-.ums-line--cmd { color: rgba(226, 221, 240, .6); }
-.ums-line--ok { color: #7DE3AE; }
-.ums-line--err { color: #FF8C7A; }
-.ums-line--info { color: #B79BFF; }
-.ums-avg { margin: 10px 16px 0; font: 600 .9rem var(--font-mono); color: #FFC83D; }
-.ums figcaption { padding: 10px 16px 16px; font-size: .85rem; color: rgba(226, 221, 240, .65); }
+
+/* ---------- Project groups: personal vs academic ---------- */
+.pgroup + .pgroup { margin-top: clamp(28px, 4vw, 44px); }
+.pgroup[hidden] { display: none; }
+.pgroup-title { font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--signal); }
+.pgroup-sub { margin: 4px 0 14px; font-size: .92rem; color: var(--muted); }

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Barlow+Condensed:wght@500;600&display=swap">
-  <link rel="stylesheet" href="style.css?v=2026-11-23b">
+  <link rel="stylesheet" href="style.css?v=2026-11-23c">
   <script>
     // Runs before the first paint: pick the theme and the language so neither flashes.
     (function () {
@@ -40,7 +40,7 @@
     })();
   </script>
   <script src="sound.js?v=2026-11-22m" defer></script>
-  <script src="script.js?v=2026-11-23b" defer></script>
+  <script src="script.js?v=2026-11-23c" defer></script>
 </head>
 <body>
   <a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span></a>
@@ -230,19 +230,22 @@
           <h2><span lang="en">Projects</span><span lang="fr">Projets</span></h2>
           <p class="section-sub"><span lang="en">Click a project to open its demo, details and code.</span><span lang="fr">Cliquez sur un projet pour ouvrir sa démo, ses détails et son code.</span></p>
           <div class="pfilter" role="group" data-en-label="Filter projects" data-fr-label="Filtrer les projets" aria-label="Filter projects">
-            <button type="button" class="pfilter-btn" data-filter="all" aria-pressed="true"><span lang="en">All</span><span lang="fr">Tous</span> <span class="pf-n">6</span></button>
+            <button type="button" class="pfilter-btn" data-filter="all" aria-pressed="true"><span lang="en">All</span><span lang="fr">Tous</span> <span class="pf-n">5</span></button>
             <button type="button" class="pfilter-btn" data-filter="personal" aria-pressed="false"><span lang="en">Personal</span><span lang="fr">Personnels</span> <span class="pf-n">3</span></button>
-            <button type="button" class="pfilter-btn" data-filter="course" aria-pressed="false"><span lang="en">uOttawa courses</span><span lang="fr">Cours uOttawa</span> <span class="pf-n">3</span></button>
+            <button type="button" class="pfilter-btn" data-filter="course" aria-pressed="false"><span lang="en">Academic</span><span lang="fr">Universitaires</span> <span class="pf-n">2</span></button>
           </div>
         </div>
 
         <div class="pgrid-wrap" data-levels>
-          <ul class="pgrid">
+          <div class="pgroup" data-group="personal">
+            <h3 class="pgroup-title"><span lang="en">Personal projects</span><span lang="fr">Projets personnels</span></h3>
+            <p class="pgroup-sub"><span lang="en">Built on my own time, because I wanted to.</span><span lang="fr">Réalisés sur mon temps libre, par envie.</span></p>
+            <ul class="pgrid">
             <li class="pcard" data-group="personal">
               <div class="pcard-media level-art level-art--scoutiq" aria-hidden="true"><span class="level-num">01</span><span class="level-glyph">4-3-3</span><img class="pcard-img" src="https://i.ytimg.com/vi/YIibp0YaeXw/hqdefault.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">▶ Video + board</span><span lang="fr">▶ Vidéo + tableau</span></span></div>
               <div class="pcard-body">
                 <p class="pcard-type"><span lang="en">Java · terminal app</span><span lang="fr">Java · application terminal</span></p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#scoutiq" data-level="scoutiq">ScoutIQ</a></h3>
+                <h4 class="pcard-name"><a class="pcard-link" href="#scoutiq" data-level="scoutiq">ScoutIQ</a></h4>
                 <p class="pcard-desc"><span lang="en">Ranks players for 12 positions and builds three lineup formations in Java.</span><span lang="fr">Classe les joueurs pour 12 postes et compose trois formations, en Java.</span></p>
                 <ul class="pcard-tags"><li>Java</li><li>OOP</li><li>Collections</li><li>JUnit</li></ul>
                 <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/ScoutIQ" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
@@ -252,7 +255,7 @@
               <div class="pcard-media level-art level-art--trippilot" aria-hidden="true"><span class="level-num">02</span><span class="level-glyph"><span lang="en">Day 1→N</span><span lang="fr">Jour 1→N</span></span><img class="pcard-img" src="https://i.ytimg.com/vi/IcvbpsOCr38/hqdefault.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">▶ Video + live app</span><span lang="fr">▶ Vidéo + appli</span></span></div>
               <div class="pcard-body">
                 <p class="pcard-type"><span lang="en">Python · AI agents</span><span lang="fr">Python · agents IA</span></p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#trippilot" data-level="trippilot">TripPilot AI</a></h3>
+                <h4 class="pcard-name"><a class="pcard-link" href="#trippilot" data-level="trippilot">TripPilot AI</a></h4>
                 <p class="pcard-desc"><span lang="en">An open-source AI trip planner I extended: a web-research agent feeds GPT-4o.</span><span lang="fr">Un planificateur de voyage IA open source que j'ai enrichi&nbsp;: un agent web alimente GPT-4o.</span></p>
                 <ul class="pcard-tags"><li>Python</li><li>OpenAI API</li><li>Streamlit</li><li>SerpAPI</li></ul>
                 <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/TripPilot-AI" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
@@ -262,17 +265,23 @@
               <div class="pcard-media level-art level-art--listings" aria-hidden="true"><span class="level-num">03</span><span class="level-glyph">GET /</span><img class="pcard-img" src="listings-demo.jpg" alt="" loading="lazy" width="480" height="270"><span class="pcard-badge"><span lang="en">☝ Try requests</span><span lang="fr">☝ Requêtes</span></span></div>
               <div class="pcard-body">
                 <p class="pcard-type"><span lang="en">Java · REST API</span><span lang="fr">Java · API REST</span></p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#listings" data-level="listings">Listings API</a></h3>
+                <h4 class="pcard-name"><a class="pcard-link" href="#listings" data-level="listings">Listings API</a></h4>
                 <p class="pcard-desc"><span lang="en">A Spring Boot REST API on PostgreSQL with 5 endpoints and 8 controller tests.</span><span lang="fr">Une API REST Spring Boot sur PostgreSQL, avec 5 points d'accès et 8 tests.</span></p>
                 <ul class="pcard-tags"><li>Spring Boot</li><li>PostgreSQL</li><li>JPA</li><li>MockMvc</li></ul>
                 <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/spring-boot-listings-api" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
               </div>
             </li>
+            </ul>
+          </div>
+          <div class="pgroup" data-group="course">
+            <h3 class="pgroup-title"><span lang="en">Academic projects</span><span lang="fr">Projets universitaires</span></h3>
+            <p class="pgroup-sub"><span lang="en">From my Software Engineering courses at the University of Ottawa.</span><span lang="fr">Issus de mes cours de génie logiciel à l'Université d'Ottawa.</span></p>
+            <ul class="pgrid">
             <li class="pcard" data-group="course">
               <div class="pcard-media level-art level-art--studyhub" aria-hidden="true"><span class="level-num">04</span><span class="level-glyph">✓ ✎ 🗑</span><span class="pcard-badge"><span lang="en">☝ Interactive</span><span lang="fr">☝ Interactif</span></span></div>
               <div class="pcard-body">
                 <p class="pcard-type"><span lang="en">Kotlin · team of 4 · SEG 2105</span><span lang="fr">Kotlin · équipe de 4 · SEG 2105</span></p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#studyhub" data-level="studyhub">StudyHub</a></h3>
+                <h4 class="pcard-name"><a class="pcard-link" href="#studyhub" data-level="studyhub">StudyHub</a></h4>
                 <p class="pcard-desc"><span lang="en">Team Android app. I built admin user management and course edit and delete.</span><span lang="fr">Appli Android d'équipe. J'ai fait la gestion des comptes et l'édition des cours.</span></p>
                 <ul class="pcard-tags"><li>Kotlin</li><li>Android</li><li>SQLite</li><li>UML</li></ul>
                 <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><a class="pcard-code" href="https://github.com/iliass-elguaari/seg2105-project" target="_blank" rel="noopener"><span lang="en">Code ↗</span><span lang="fr">Code ↗</span></a></div>
@@ -282,23 +291,14 @@
               <div class="pcard-media level-art level-art--logic" aria-hidden="true"><span class="level-num">05</span><span class="level-glyph">1010</span><span class="pcard-badge"><span lang="en">☝ Simulator</span><span lang="fr">☝ Simulateur</span></span></div>
               <div class="pcard-body">
                 <p class="pcard-type">FPGA · CEG 2136</p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#logic" data-level="logic"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></a></h3>
+                <h4 class="pcard-name"><a class="pcard-link" href="#logic" data-level="logic"><span lang="en">4-Bit Logic System</span><span lang="fr">Système logique 4 bits</span></a></h4>
                 <p class="pcard-desc"><span lang="en">A 4-bit ALU and a mod-60 counter, designed by hand and run on an FPGA.</span><span lang="fr">Une UAL 4 bits et un compteur modulo 60, conçus à la main, sur FPGA.</span></p>
                 <ul class="pcard-tags"><li>Quartus</li><li>DE2-115</li><li>K-maps</li></ul>
                 <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><span class="pcard-note"><span lang="en">Course lab</span><span lang="fr">Labo de cours</span></span></div>
               </div>
             </li>
-            <li class="pcard" data-group="course">
-              <div class="pcard-media level-art level-art--ums" aria-hidden="true"><span class="level-num">06</span><span class="level-glyph">87 → A</span><span class="pcard-badge"><span lang="en">☝ Try the checks</span><span lang="fr">☝ Testez les règles</span></span></div>
-              <div class="pcard-body">
-                <p class="pcard-type">Java · SEG 2105</p>
-                <h3 class="pcard-name"><a class="pcard-link" href="#ums" data-level="ums"><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></a></h3>
-                <p class="pcard-desc"><span lang="en">Courses, TAs and grades in Java, with every input checked before saving.</span><span lang="fr">Cours, assistants et notes en Java, chaque saisie vérifiée avant l'enregistrement.</span></p>
-                <ul class="pcard-tags"><li>Java</li><li>OOP</li><li>Javadoc</li></ul>
-                <div class="pcard-actions"><span class="pcard-open" aria-hidden="true"><span lang="en">Open demo →</span><span lang="fr">Ouvrir la démo →</span></span><span class="pcard-note"><span lang="en">Course lab</span><span lang="fr">Labo de cours</span></span></div>
-              </div>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
         <div class="case-stage" data-case-stage role="dialog" aria-modal="true" data-en-label="Project details" data-fr-label="Détails du projet" aria-label="Project details">
 
@@ -792,46 +792,6 @@
           </div>
         </article>
 
-        <!-- University Management System -->
-        <article class="case" id="ums">
-          <div class="case-head">
-            <h3><span lang="en">University Management System</span><span lang="fr">Système de gestion universitaire</span></h3>
-            <span class="pill">Java · SEG 2105</span>
-            <span class="pill pill--course"><span lang="en">Course project · uOttawa</span><span lang="fr">Projet de cours · uOttawa</span></span>
-          </div>
-          <p class="case-lead"><span lang="en">A command-line Java system for a university's courses, students and teaching assistants. For SEG 2105 at the University of Ottawa, I extended its 10 classes with TAs and grades.</span><span lang="fr">Un système Java en ligne de commande pour les cours, les étudiants et les assistants d'enseignement d'une université. Pour SEG 2105 à l'Université d'Ottawa, j'ai ajouté les assistants et les notes à ses 10 classes.</span></p>
-          <div class="case-grid">
-            <div class="case-text">
-              <h4><span lang="en">What I built</span><span lang="fr">Ce que j'ai développé</span></h4>
-              <ul class="bullets">
-                <li><span lang="en">Teaching assistants and grades: every grade is checked to be 0–100, turned into a letter grade, and counted in the average.</span><span lang="fr">Les assistants et les notes&nbsp;: chaque note est vérifiée entre 0 et 100, convertie en lettre et comptée dans la moyenne.</span></li>
-                <li><span lang="en">Updates in a safe order, so a refused TA assignment never leaves the course and TA records out of sync.</span><span lang="fr">Des mises à jour dans un ordre sûr, pour qu'une affectation d'assistant refusée ne désynchronise jamais le cours et l'assistant.</span></li>
-                <li><span lang="en">Edge cases tested (an unknown ID, a grade of "abc" or 101, a duplicate TA) so each one fails with a clear error.</span><span lang="fr">Des cas limites testés (un identifiant inconnu, une note «&nbsp;abc&nbsp;» ou 101, un assistant en double) pour que chacun échoue avec une erreur claire.</span></li>
-                <li><span lang="en">Documented with Javadoc.</span><span lang="fr">Documenté avec Javadoc.</span></li>
-              </ul>
-              <h4><span lang="en">Built with</span><span lang="fr">Outils</span></h4>
-              <ul class="chips">
-                <li class="chip">Java</li><li class="chip">OOP</li><li class="chip"><span lang="en">Command-line app</span><span lang="fr">Application en ligne de commande</span></li><li class="chip">Javadoc</li>
-              </ul>
-            </div>
-            <div class="case-visual">
-              <figure class="ums" aria-labelledby="ums-cap">
-                <div class="api-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="api-host">SEG 2105 · java UniversitySystem</span></div>
-                <form class="ums-form" data-ums-form novalidate>
-                  <label for="ums-grade"><span lang="en">Grade for student 300123 in SEG 2105</span><span lang="fr">Note de l'étudiant 300123 en SEG 2105</span></label>
-                  <div class="ums-row">
-                    <input id="ums-grade" type="text" autocomplete="off" maxlength="6" data-en-ph="0–100" data-fr-ph="0–100" placeholder="0–100">
-                    <button type="submit" class="ums-btn"><span lang="en">Record</span><span lang="fr">Enregistrer</span></button>
-                  </div>
-                  <p class="ums-try"><span lang="en">Try:</span><span lang="fr">Essayez&nbsp;:</span> <button type="button" data-ums-try="87">87</button> <button type="button" data-ums-try="abc">abc</button> <button type="button" data-ums-try="101">101</button> <button type="button" data-ums-ta><span lang="en">Assign Sara as TA again</span><span lang="fr">Réaffecter Sara comme assistante</span></button></p>
-                </form>
-                <div class="ums-log" aria-live="polite" tabindex="0" data-en-label="Console output" data-fr-label="Sortie de la console" aria-label="Console output"></div>
-                <p class="ums-avg"></p>
-                <figcaption id="ums-cap"><span lang="en">A browser model of the checks I added. The letter grades follow uOttawa's scale, and Sara is already a TA for the course.</span><span lang="fr">Un modèle des vérifications que j'ai ajoutées, dans le navigateur. Les lettres suivent le barème de l'Université d'Ottawa, et Sara est déjà assistante du cours.</span></figcaption>
-              </figure>
-            </div>
-          </div>
-        </article>
         </div>
 
       </div>

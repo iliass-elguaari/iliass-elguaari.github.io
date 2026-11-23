@@ -22,8 +22,8 @@ const PAGE_TEXT = {
 // Every fact comes from the page itself.
 const CHAPTERS = [
   { id: "projects",   en: "Projects",   fr: "Projets",
-    factEn: "Six projects: three of my own and three from my uOttawa courses. Each one opens a demo.",
-    factFr: "Six projets : trois personnels et trois de mes cours à l'Université d'Ottawa. Chacun ouvre une démo." },
+    factEn: "Five projects: three of my own and two from my uOttawa courses. Each one opens a demo.",
+    factFr: "Cinq projets : trois personnels et deux de mes cours à l'Université d'Ottawa. Chacun ouvre une démo." },
   { id: "next",       en: "Now & next", fr: "Maintenant et ensuite",
     factEn: "Now: Software Developer at Next Room. In January 2027 I start at Statistics Canada.",
     factFr: "En ce moment : développeur logiciel chez Next Room. En janvier 2027, je commence chez Statistique Canada." },
@@ -761,14 +761,13 @@ function markSpotCards() {
 
 // ---------- 13. Project grid and viewer: every project on one screen, details open on top ----------
 
-const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "studyhub", "logic", "ums"];
+const LEVEL_ORDER = ["scoutiq", "trippilot", "listings", "studyhub", "logic"];
 const LEVEL_NAMES = {
   scoutiq: { en: "ScoutIQ", fr: "ScoutIQ" },
   listings: { en: "Listings API", fr: "Listings API" },
   trippilot: { en: "TripPilot AI", fr: "TripPilot AI" },
   studyhub: { en: "StudyHub", fr: "StudyHub" },
-  logic: { en: "4-Bit Logic System", fr: "Système logique 4 bits" },
-  ums: { en: "University Management System", fr: "Système de gestion universitaire" }
+  logic: { en: "4-Bit Logic System", fr: "Système logique 4 bits" }
 };
 const played = new Set();
 let currentLevel = null;
@@ -829,6 +828,9 @@ function initLevels() {
       document.querySelectorAll(".pfilter-btn").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
       document.querySelectorAll(".pcard").forEach((card) => {
         card.hidden = f !== "all" && card.dataset.group !== f;
+      });
+      document.querySelectorAll(".pgroup").forEach((g) => {
+        g.hidden = f !== "all" && g.dataset.group !== f;
       });
     });
   });
@@ -1320,8 +1322,7 @@ const ACHIEVEMENTS = [
   { id: "organizer",  icon: "✓",  en: "Organized",     fr: "Organisé",          hintEn: "Add a task in StudyHub.",                 hintFr: "Ajoutez une tâche dans StudyHub." },
   { id: "validator",  icon: "⚠",  en: "Edge case",     fr: "Cas limite",        hintEn: "Trip StudyHub's validation.",             hintFr: "Déclenchez la validation de StudyHub." },
   { id: "engineer",   icon: "⚡", en: "Bit flipper",   fr: "Basculeur de bits", hintEn: "Flip a bit on the 4-bit ALU.",            hintFr: "Basculez un bit de l'UAL 4 bits." },
-  { id: "registrar",  icon: "🎓", en: "Registrar",     fr: "Registraire",       hintEn: "Record a grade or try an edge case in the University Management System.", hintFr: "Enregistrez une note ou testez un cas limite dans le système universitaire." },
-  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 6 projects.",                    hintFr: "Ouvrez les 6 projets." },
+  { id: "explorer",   icon: "🗺", en: "Explorer",      fr: "Explorateur",       hintEn: "Open all 5 projects.",                    hintFr: "Ouvrez les 5 projets." },
   { id: "dj",         icon: "🎧", en: "Sound check",   fr: "Test de son",       hintEn: "Turn on the music.",                      hintFr: "Activez la musique." },
   { id: "fulltime",   icon: "🏆", en: "Full time",     fr: "Fin du match",      hintEn: "Unlock all 7 chapters.",                  hintFr: "Débloquez les 7 chapitres." }
 ];
@@ -1434,68 +1435,6 @@ function burst(origin, count) {
   }
 }
 
-// ---------- University Management System: grade checks ----------
-
-// uOttawa letter-grade scale.
-const UMS_SCALE = [[90, "A+"], [85, "A"], [80, "A-"], [75, "B+"], [70, "B"], [65, "C+"], [60, "C"], [55, "D+"], [50, "D"], [40, "E"], [0, "F"]];
-const umsGrades = [72, 91];
-
-function umsLine(kind, en, fr) {
-  const log = document.querySelector(".ums-log");
-  const p = document.createElement("p");
-  p.className = "ums-line ums-line--" + kind;
-  p.append(both(en, fr));
-  log.append(p);
-  while (log.children.length > 6) log.firstChild.remove();
-  log.scrollTop = log.scrollHeight;
-}
-
-function umsAverage() {
-  const avg = umsGrades.reduce((a, b) => a + b, 0) / umsGrades.length;
-  const letter = UMS_SCALE.find(([min]) => avg >= min)[1];
-  document.querySelector(".ums-avg").replaceChildren(both(
-    "Course average: " + avg.toFixed(1) + " (" + letter + ") · " + umsGrades.length + " grades",
-    "Moyenne du cours : " + avg.toFixed(1).replace(".", ",") + " (" + letter + ") · " + umsGrades.length + " notes"
-  ));
-}
-
-function umsRecord(raw) {
-  const value = raw.trim();
-  umsLine("cmd", "> grade add 300123 SEG2105 " + (value || '""'), "> grade add 300123 SEG2105 " + (value || '""'));
-  if (!/^-?\d+$/.test(value)) {
-    umsLine("err", "Error: \"" + value + "\" is not a whole number. Nothing was saved.", "Erreur : « " + value + " » n'est pas un nombre entier. Rien n'a été enregistré.");
-    if (window.Sound) Sound.play("error");
-    return;
-  }
-  const n = Number(value);
-  if (n < 0 || n > 100) {
-    umsLine("err", "Error: a grade must be between 0 and 100, got " + n + ". Nothing was saved.", "Erreur : une note doit être entre 0 et 100, reçu " + n + ". Rien n'a été enregistré.");
-    if (window.Sound) Sound.play("error");
-    return;
-  }
-  const letter = UMS_SCALE.find(([min]) => n >= min)[1];
-  umsGrades.push(n);
-  umsLine("ok", "Saved: " + n + " → " + letter, "Enregistré : " + n + " → " + letter);
-  umsAverage();
-  award("registrar");
-}
-
-function initUms() {
-  const form = document.querySelector("[data-ums-form]");
-  if (!form) return;
-  const input = form.querySelector("#ums-grade");
-  form.addEventListener("submit", (e) => { e.preventDefault(); umsRecord(input.value); input.select(); });
-  form.querySelectorAll("[data-ums-try]").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.umsTry; umsRecord(b.dataset.umsTry); }));
-  form.querySelector("[data-ums-ta]").addEventListener("click", () => {
-    umsLine("cmd", "> ta assign Sara SEG2105", "> ta assign Sara SEG2105");
-    umsLine("err", "Error: Sara is already a TA for SEG2105. Course and TA records unchanged.", "Erreur : Sara est déjà assistante en SEG2105. Le cours et l'assistante sont inchangés.");
-    if (window.Sound) Sound.play("error");
-    award("registrar");
-  });
-  umsLine("info", "Loaded SEG2105: 2 grades, TA: Sara.", "SEG2105 chargé : 2 notes, assistante : Sara.");
-  umsAverage();
-}
-
 // ---------- 18. Start ----------
 
 function init() {
@@ -1514,7 +1453,6 @@ function init() {
   initCodeReaders();
   initStudyHub();
   initAlu();
-  initUms();
   markSpotCards();
   initProgress();
   initChapters();
